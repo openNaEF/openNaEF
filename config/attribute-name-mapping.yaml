@@ -1,0 +1,374 @@
+###################################################
+#context-name:     # apiのuriと対応するコンテキスト名
+##  mvo: MVOクラス
+#  dto: DTOクラス
+#  attrs:          # api で使うattributeの一覧
+#    attr-name:    # attr名
+#      summary: attrの簡単な説明
+#      description: attrの説明
+#      dto-name: dto属性名
+##      mvo-name: mvo属性名
+###################################################
+# attr-nameはsnake_caseを推奨する
+# TODO mvo 未対応
+
+node:
+  mvo: naef.mvo.Node
+  dto: naef.dto.NodeDto
+  attrs:
+    name:
+      summary: ノード名
+      dto-name: ノード名
+    vendor:
+      summary: ベンダー名
+      dto-name: ベンダー名
+    node_type:
+      summary: 機種名
+      dto-name: 機種
+    os_type:
+      summary: OS種別
+      dto-name: OS種別
+    os_version:
+      summary: OSバージョン
+      dto-name: OSバージョン
+    power:
+      summary: 電源
+      dto-name: 電源
+    cpus:
+      summary: CPU
+      dto-name: CPUs
+    cpu_products:
+      summary: CPUプロダクト
+      dto-name: CPUProduct
+    memory:
+      summary: Memory
+      dto-name: Memory
+    storage:
+      summary: Storage
+      dto-name: Storage
+    nic_product:
+      summary: NICプロダクト
+      dto-name: NICProduct
+    sfp_product:
+      summary: SFP+プロダクト
+      dto-name: SFP+Product
+    port_summary:
+      summary: Port Summary
+      dto-name: PortSummary
+    management_ip_address:
+      summary: 管理IPアドレス
+      description: SNMP/TELNET/SSH 等でアクセス可能なアドレスを指定します.
+      dto-name: Management IP Address
+    snmp_mode:
+      summary: SNMPアクセス方法
+      description: SNMP でアクセスする方法を指定します. なしに指定すると差分検出を行わないことがあります.
+      dto-name: SNMP取得方式
+    snmp_comunity:
+      summary: SNMPコミュニティ(RO)
+      description: SNMP でアクセスする際のコミュニティ名 (Read Only) を指定します. 空欄の場合, 差分検出を行わないことがあります.
+      dto-name: snmp_community (read-only)
+    login_user:
+      summary: Telnet/SSHアカウント
+      description: telnet/ssh でログインする際のアカウント名. 半角の英数記号のみ.
+      dto-name: コンソールログインユーザ名
+    login_passward:
+      summary: Telnet/SSHパスワード
+      description: telnet/ssh でログインする際のパスワードを入力します. 半角の英数記号のみ.
+      dto-name: コンソールログインパスワード
+    admin_user:
+      summary: 特権ユーザ名
+      description: ログインしてから特権モードに遷移するタイプの OS (ex. IOS) の場合に, 特権モード遷移用アカウント名. 半角英数字のみ.
+      dto-name: 特権ユーザ名
+    admin_passward:
+      summary: 特権パスワード
+      description: ログインしてから特権モードに遷移するタイプの OS (ex. IOS) の場合に, 特権モード遷移用パスワードを入力します. 半角英数字のみ.
+      dto-name: 特権パスワード
+    cli_mode:
+      summary: コンソール種別
+      description: 装置のコマンドラインインターフェースに接続する際のプロトコルを指定します.
+      dto-name: コンソール種別
+    location:
+      summary: Location
+      dto-name: 収容フロア
+    ports:
+      summary: ポート一覧
+      dto-name: naef.dto.node.ports
+    virtualized_hosting_enable:
+      summary: 仮想化ノード作成可能
+      description: |
+        仮想ノードのホストを保持できるようにするには true をセットする. なおデフォルト値は true (VM 保持可能).
+        true をセットすると, このノード上に仮想ノードを作成できるようになる
+      dto-name: naef.node.virtualized-hosting-enabled
+    virtualization_host_nodes:
+      summary: 仮想ホストノード
+      dto-name: naef.dto.node.virtualization-host-nodes
+    virtualization_guest_nodes:
+      summary: 仮想ゲストノード
+      dto-name: naef.dto.node.virtualization-guest-nodes
+    purpose:
+      summary: 用途
+      description: この装置の用途を指定します.
+      dto-name: 用途
+    appliance_type:
+      summary: アプライアンス種別
+      description: アプライアンス種別を指定します. (ex Compute, Network, OFP, Measuring)
+      dto-name: appliance_type
+    resource_permission:
+      summary: リソース権限
+      description: このリソースの権限種別を指定します. (ex Admin, Shared, Other)
+      dto-name: resource_permission
+    note:
+      summary: 備考
+      dto-name: 備考
+    customer_infos:
+      summary: customer
+      dto-name: CUSTOMER_INFOS_2D
+    chassis:
+      summary: chassis
+      dto-name: シャーシ
+
+eth-port:
+  mvo: naef.mvo.AbstractPort
+  dto: naef.dto.PortDto
+  attrs:
+#    name:
+#      summary: ポート名
+#      dto-name: tef.app-skelton.name
+    if_name:
+      summary: インターフェイス名
+      dto-name: naef.port.ifname
+    owner:
+      summary: ポートを所有するChassis, Moduleのmvo-id
+      dto-name: owner
+    port_type:
+      summary: このポートのインターフェース種別
+      description: |
+        Ethernet, atm-port, ATM APS, Serial, POS,
+        POS APS, ISDN, WDM, loopback, pipe, tunnel,
+        EthernetLAG, EthernetEPS, VLAN, VRF, VPLS,
+        ATM PVP, ATM PVC, FR PVC, ISDN Ch., Channel, Virutal NIC
+      dto-name: ポート種別
+    primary_ip_if:
+      summary: ip-if
+      dto-name: primary-ipif
+    port_mode:
+      summary: ポートモード
+      description: IP, VLAN
+      dto-name: naef.port-mode
+    switch_port_mode:
+      summary: スイッチポートモード
+      description: ACCESS, TRUNK, DOT1Q_TUNNEL
+      dto-name: naef.switch-port-mode
+    bandwidth:
+      summary: 帯域(bps)
+      dto-name: 帯域
+    oper_status:
+      summary: 動作状態
+      description: up, down
+      dto-name: 動作状態
+    purpose:
+      summary: 用途
+      dto-name: 用途
+    resource_permission:
+      summary: リソース権限
+      description: このリソースの権限種別を指定します. (ex Admin, Shared, Other)
+      dto-name: resource_permission
+    note:
+      summary: 備考
+      dto-name: 備考
+    links:
+      summary: eth links
+      dto-name: naef.dto.hard-port.l2links
+    networks:
+      summary: networks
+      dto-name: naef.dto.port.networks
+    lower_layers:
+      summary: lower layer
+      dto-name: naef.dto.port.lower-layers
+    upper_layers:
+      summary: upper layer
+      dto-name: naef.dto.port.upper-layers
+    customer_infos:
+      summary: customer
+      dto-name: CUSTOMER_INFOS_2D
+
+eth-link:
+  mvo: naef.mvo.P2pLink
+  dto: naef.dto.LinkDto
+  attrs:
+    name:
+      summary: リンク名
+      dto-name: リンク名
+    member_ports:
+      summary: リンク両端のポートのリスト
+      dto-name: member ports
+    lower_layers:
+      summary: lower layer
+      dto-name: lower layer links
+    upper_layers:
+      summary: upper layer
+      dto-name: upper layers
+    customer_infos:
+      summary: customer
+      dto-name: CUSTOMER_INFOS_2D
+
+vlan.id-pool.dot1q:
+  mvo: naef.mvo.vlan.VlanIdPool$Dot1q
+  dto: naef.dto.vlan.VlanIdPoolDto
+  attrs:
+    name:
+      summary: vlan id pool名
+      dto-name: tef.app-skelton.name
+    vlans:
+      summary: vlanのリスト
+      dto-name: naef.dto.users
+    id_range:
+      summary: id range
+      dto-name: naef.dto.id-ranges
+
+vlan:
+  mvo: naef.mvo.vlan.Vlan
+  dto: naef.dto.vlan.VlanDto
+  attrs:
+    vlan_id_pool:
+      summary: vlan-id-pool
+      dto-name: vlan id pool
+    vlan_id:
+      summary: vlan id
+      dto-name: VLAN ID
+    vlan_ifs:
+      summary: vlan-ifのリスト
+      dto-name: メンバー VLAN IF
+    customer_infos:
+      summary: customer
+      dto-name: CUSTOMER_INFOS_2D
+
+vlan-if:
+  mvo: naef.mvo.vlan.VlanIf
+  dto: naef.dto.vlan.VlanIfDto
+  attrs:
+    if_name:
+      summary: インターフェイス名
+      dto-name: naef.port.ifname
+    owner:
+      summary: このvlan-ifを所有する装置 or ポート
+      dto-name: owner
+    vlan:
+      summary: vlan
+      dto-name: naef.dto.vlan-if.vlan
+    vlan_id:
+      summary: vlan id
+      dto-name: naef.vlan.vlan-if.vlan-id
+    tagged_ports:
+      summary: tagged portのリスト
+      dto-name: naef.dto.vlan-if.tagged-ports
+    untagged_ports:
+      summary: untagged portのリスト
+      dto-name: naef.dto.vlan-if.untagged-ports
+    networks:
+      summary: networks
+      dto-name: naef.dto.port.networks
+    lower_layers:
+      summary: lower layer
+      dto-name: naef.dto.port.lower-layers
+    upper_layers:
+      summary: upper layer
+      dto-name: naef.dto.port.upper-layers
+    customer_infos:
+      summary: customer
+      dto-name: CUSTOMER_INFOS_2D
+
+vlan-link:
+  mvo: naef.mvo.vlan.VlanLink
+  dto: naef.dto.vlan.VlanLinkDto
+  attrs:
+    vlan:
+      summary: このvlan-linkを所有するvlan
+      dto-name: owner
+    member_ports:
+      summary: vlan-link両端のvlan-ifのリスト
+      dto-name: member ports
+    lower_layers:
+      summary: lower layer
+      dto-name: lower layer links
+    upper_layers:
+      summary: upper layer
+      dto-name: upper layers
+    customer_infos:
+      summary: customer
+      dto-name: CUSTOMER_INFOS_2D
+
+customer-info:
+  mvos: naef.mvo.CustomerInfo
+  dtos: pasaran.naef.dto.CustomerInfo2dDto
+  attrs:
+    name:
+      summary: name
+      dto-name: ID
+    references:
+      summary: customerが所有する機材などのリスト
+      dto-name: REFERENCES_2D
+
+location:
+  mvos: naef.mvo.Location
+  dtos: naef.dto.LocationDto
+  attrs:
+    name:
+      summary: name
+      dto-name: tef.app-skelton.name
+    caption:
+      summary: 表示名
+      dto-name: 表示名
+    sort_order:
+      summary: ソート用文字列
+      dto-name: ソート順
+    location_type:
+      summary: ロケーション種別
+      dto-name: 種別
+    note:
+      summary: 備考
+      dto-name: 備考
+    parent:
+      summary: 親ロケーション
+      dto-name: parent
+    children:
+      summary: 子ロケーション
+      dto-name: children
+
+# OF-Patch
+of-patch-link.patch-id-pool:
+  mvos: naef.mvo.of.OfPatchLink$PatchIdPool
+  dtos: naef.dto.of.OfPatchLinkDto$PatchIdPoolDto
+  attrs:
+    name:
+      summary: name
+      dto-name: tef.app-skelton.name
+    of_patch_links:
+      summary: list of of-patch-link
+      dto-name: naef.dto.users
+    id_range:
+      summary: id range
+      dto-name: naef.dto.id-ranges
+
+of-patch-link:
+  mvos: naef.mvo.of.OfPatchLink
+  dtos: naef.dto.of.OfPatchLinkDto
+  attrs:
+    patch_id_pool:
+      summary: of-patch id pool
+      dto-name: naef.dto.of-patch-link.patch-id-pool
+    patch_id:
+      summary: of-patch-link id
+      dto-name: naef.dto.of-patch-link.patch-id
+    patch_port1:
+      summary: of-patch-link port
+      dto-name: patch-port.1
+    patch_port2:
+      summary: of-patch-link port
+      dto-name: patch-port.2
+    lower_layers:
+      summary: lower layer
+      dto-name: naef.dto.port.lower-layers
+    customer_infos:
+      summary: customer
+      dto-name: CUSTOMER_INFOS_2D

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/">
+<head>
+    <title>Node Edit</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="blueprint/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/print.css" type="text/css" media="print"/>
+    <!--[if IE]>
+    <link rel="stylesheet" href="blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <link rel="stylesheet" href="blueprint/plugins/tabs/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/plugins/buttons/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="css/ui.base.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/tablesorter/style.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/common.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/commonprint.css" type="text/css" media="print"/>
+
+    <script type='text/javascript' src='js/jquery-1.3.1.min.js'></script>
+    <script type="text/javascript" src="js/ui.core.js"></script>
+    <script type="text/javascript" src="js/jquery.suggest.js"></script>
+    <script type='text/javascript' src='js/jquery.tablesorter.min.js'></script>
+    <script type='text/javascript' src='js/ui.datepicker.js'></script>
+    <script type='text/javascript' src='js/ui.datepicker-ja.js'></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.tablesorter.defaults.widgets = ['zebra'];
+            $('table.tablesorter').tablesorter();
+            $("#schedule_on_date").datepicker();
+            $("#on_date").datepicker();
+            $("#schedule_off_date").datepicker();
+            $("#off_date").datepicker();
+        });
+    </script>
+</head>
+
+<body>
+<div id="hd" role="banner">
+    <h1>Node Edit</h1>
+</div>
+<div id="bd" role="main">
+    <button wicket:id="back">Back</button>
+    <button wicket:id="delete">Delete</button>
+    <hr/>
+    Fields marked with * are mandatory
+    <div wicket:id="feedback">Error detail here</div>
+    <dl>
+        <dt class="toggle ui-state-default ui-corner-all"><span
+                class="ui-icon ui-icon-circle-plus" style="float: left"></span>Node Information
+        </dt>
+        <dd>
+            <form wicket:id="form" name="form">
+                <table>
+                    <tr>
+                        <th rowspan="2">Node Name *</th>
+                        <td><input wicket:id="nodeId" name="id2" type="text" class="text" id="id2"/></td>
+                        <th rowspan="2"><label>Management IPAddress</label></th>
+                        <td><input wicket:id="managementIpAddress" name="address" type="text" class="text" id="id3"/></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Specify an address that can be accessed by SNMP / TELNET / SSH etc.<br/></td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">Vendor Name *</th>
+                        <td><select wicket:id="vendorList" name="type4">
+                        </select></td>
+                        <th rowspan="2"><label>Node Type *</label></th>
+                        <td><select wicket:id="nodeTypeList" name="type4">
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td>Once you specify the vendor name you will be able to select the node type. Once registered vendor name can not be changed.</td>
+                        <td>If you specify the vendor name, you can select the node type. Once registered node type can not be changed.</td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">OS Type</th>
+                        <td><input wicket:id="osType" name="id4" type="text" class="text" id="id13"/></td>
+                        <th rowspan="2">OS Version</th>
+                        <td><input wicket:id="osVersion" name="id4" type="text" class="text" id="id12"/></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">Location *</th>
+                        <td colspan="3">
+                            Location <select wicket:id="area" name="area">
+                            <option>Asia/Pacific</option>
+                        </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">Select the location of the device.</td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">SNMP Mode</th>
+                        <td>
+                            <div wicket:id="snmpMode">
+                                <label><input type="radio" name="snmpMode" value="v1"/>SNMP v1</label>
+                            </div>
+                        </td>
+                        <th rowspan="2">SNMP Community (RO)</th>
+                        <td><input wicket:id="snmpCommunity" name="snmpro" type="password"
+                                   class="text" id="id4" value="public"/></td>
+                    </tr>
+                    <tr>
+                        <td>Specify how to access by SNMP. If you specify none, differential detection may not be performed.</td>
+                        <td>Specify the community (Read Only) for SNMP access. If it is blank, difference detection may not be performed.</td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">Console Account</th>
+                        <td><input wicket:id="loginUser" name="loginaccount" type="text" class="text" id="loginaccount"/></td>
+                        <th rowspan="2">Console Password</th>
+                        <td><input wicket:id="loginPassword" name="loginpass" type="password" class="text" id="loginpass"/></td>
+                    </tr>
+                    <tr>
+                        <td>Enter the account name for telnet / ssh login.</td>
+                        <td>Enter the account password for telnet / ssh login.</td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">Console Administrator Account</th>
+                        <td><input wicket:id="adminUser" name="adminaccount" type="text" class="text" id="adminaccount"/></td>
+                        <th rowspan="2">Console Administrator Password</th>
+                        <td><input wicket:id="adminPassword" name="adminpass" type="password" class="text" id="adminpass"/></td>
+                    </tr>
+                    <tr>
+                        <td>For the type of OS (ex. IOS) that switches to privileged mode after logging in, enter the account name for privileged mode transition.</td>
+                        <td>For the type of OS (ex. IOS) that switches to privileged mode after logging in, enter the account password for privileged mode transition.</td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">Console Type</th>
+                        <td><select wicket:id="consoleType" name="consoleType">
+                            <option>TELNET</option>
+                            <option>SSH</option>
+                        </select>
+                        </td>
+                        <th rowspan="2">Purpose</th>
+                        <td><input wicket:id="purpose" type="text" name="purpose"/></td>
+                    </tr>
+                    <tr>
+                        <td>Specify the protocol for connecting to the command line interface of the device.</td>
+                        <td>Specify the usage type of this device.</td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">Appliance Type</th>
+                        <td><input wicket:id="applianceType" type="text" name="applianceType"/></td>
+                        <th rowspan="2">Resource Permission</th>
+                        <td><input wicket:id="resourcePermission" type="text" name="resourcePermission"/></td>
+                    </tr>
+                    <tr>
+                        <td>Specify the appliance type of this device. (ex Compute, Network, OFP, Measuring).</td>
+                        <td>Specify the authorization type of this device. (ex Admin, Shared, Other)</td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">Virtualization Capability</th>
+                        <td><input wicket:id="vmHostingEnable" type="checkbox" name="vmHostingEnable"/></td>
+                        <th rowspan="2"></th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>By checking the check box, you can create a virtual node on this device.</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">CPUs</th>
+                        <td><input wicket:id="cpus" type="text" name="cpus"/></td>
+                        <th rowspan="2">CPU Product</th>
+                        <td><input wicket:id="cpuProduct" type="text" name="cpuProduct"/></td>
+                    </tr>
+                    <tr>
+                        <td>Specify the number of CPUs in this device. (ex 8C/E5-2470 x2).</td>
+                        <td>Specify the CPU information of this device. (ex Intel(R) Xeon(R) CPU E5-2470 0 @ 2.30GHz)</td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">Memory</th>
+                        <td><input wicket:id="memory" type="text" name="memory"/></td>
+                        <th rowspan="2">Storage</th>
+                        <td><input wicket:id="storage" type="text" name="storage"/></td>
+                    </tr>
+                    <tr>
+                        <td>Specify the information of Memory in this device. (ex 32GB).</td>
+                        <td>Specify the information of Storage in this device. (ex 1TB HDD/100G SSD)</td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">Power</th>
+                        <td><input wicket:id="power" type="text" name="power"/></td>
+                        <th rowspan="2">Port Summary</th>
+                        <td><input wicket:id="portSummary" type="text" name="portSummary"/></td>
+                    </tr>
+                    <tr>
+                        <td>Specify the information of Power in this device. (ex AC100V 3A).</td>
+                        <td>Specify the information of Ports summary in this device. </td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">NIC Product</th>
+                        <td><input wicket:id="nicProduct" type="text" name="nicProduct"/></td>
+                        <th rowspan="2">SFP+ Product</th>
+                        <td><input wicket:id="sfpPlusProduct" type="text" name="sfpPlusProduct"/></td>
+                    </tr>
+                    <tr>
+                        <td>Specify the information of nic in this device.</td>
+                        <td>Specify the information of SFP+ in this device.</td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">Note</th>
+                        <td colspan="3"><textarea wicket:id="note" size="80"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"></td>
+                    </tr>
+                </table>
+                <button wicket:id="proceed" type="submit" tabindex="0" id="apply-button" class="positive span-3">OK</button>
+            </form>
+        </dd>
+    </dl>
+</div>
+<div class="footer" role="contentinfo">
+    <small><a href="https://www.opennaef.io/">OpenNaEF</a></small>
+</div>
+</body>
+</html>

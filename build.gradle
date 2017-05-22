@@ -1,0 +1,126 @@
+apply from: 'gradle/banner.gradle'
+File javaHome = new File(System.getProperty('java.home'))
+logger.lifecycle "Using Java from $javaHome (version ${System.getProperty('java.version')})"
+banner()
+
+ext {
+    commonsBeanutilsVersion = '1.8.0'
+    commonsCodecVersion = '1.3'
+    commonsCollectionsVersion = '3.2.1'
+    commonsConfigurationVersion = '1.6'
+    commonsDiscoveryVersion = '0.2'
+    commonsHttpclientVersion = '3.1'
+    commonsIoVersion ='1.3.2'
+    commonsLangVersion = '2.4'
+    commonsNetVersion = '1.4.1'
+
+    logbackVersion = '1.2.3'
+    axisVersion = '1.4'
+
+    wicketVersion = '1.4.23'
+    jodaTimeVersion = '1.6.2'
+    xstreamVersion = '1.3.1'
+    jstlVersion = '1.2'
+
+    jsonicVersion = '1.3.10'
+    snakeyamlVersion = '1.18'
+    failsafeVersion = '1.0.4'
+
+    jettyVersion = '9.4.5.v20170502'
+    jerseyVersion = '2.25'
+    derbyVersion = '10.13.1.1'
+    hibernateVersion = '5.2.10.Final'
+
+    groovyVersion = '2.4.11'
+
+    servletApiVersion = '3.1.0'
+    websocketApiVersion = '1.1'
+
+    junitVersion = '4.12'
+
+    grettyVersion = '1.4.2'
+}
+
+allprojects {
+    apply plugin: 'java'
+
+    group 'open-naef'
+    version = opennaefVersion
+
+    def javaVersion = 1.8
+    def defaultEncoding = 'UTF-8'
+
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+    [compileJava, compileTestJava]*.options*.encoding = defaultEncoding
+    javadoc {
+        options.charSet = defaultEncoding
+        options.encoding = defaultEncoding
+    }
+
+    buildscript {
+        repositories {
+            mavenCentral()
+            jcenter()
+        }
+    }
+
+    repositories {
+        mavenCentral()
+        flatDir {
+            dirs "${rootProject.projectDir}/lib"
+        }
+    }
+
+    dependencies {
+        testCompile "junit:junit:$junitVersion"
+    }
+}
+
+subprojects {
+    sourceSets {
+        main.java.srcDir 'src/main/java'
+        main.resources {
+            srcDir 'src/main/resources'
+            srcDir 'src/main/java'
+        }
+    }
+
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        if (JavaVersion.current().isJava8Compatible()) {
+            allprojects {
+                tasks.withType(Javadoc) {
+                    options.addStringOption('Xdoclint:none', '-quiet')
+                }
+            }
+        }
+        classifier = 'javadoc'
+        from javadoc.destinationDir
+    }
+
+    task copyDependencies(type: Copy) {
+        from configurations.compile
+        into 'build/dependencies'
+    }
+}
+
+configure(subprojects.findAll { it.name.startsWith('38k') }) {
+    task createVersionText(dependsOn: compileJava) {
+        doLast {
+            def versionTextName = project.name.replace('38k', 'version');
+            println "create ${versionTextName}"
+            file("$sourceSets.main.output.resourcesDir").mkdirs()
+            def file = new File("$sourceSets.main.output.resourcesDir/${versionTextName}")
+            if (!file.exists()) {
+                file.createNewFile()
+            }
+            file.text = "$project.name:$project.version[${new Date()}]"
+        }
+    }
+    jar.dependsOn createVersionText
+}

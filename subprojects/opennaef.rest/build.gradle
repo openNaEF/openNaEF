@@ -1,0 +1,43 @@
+apply plugin: 'java-library-distribution'
+
+dependencies {
+    compile project(':opennaef.api')
+    compile project(':pasaran')
+
+    compile "org.eclipse.jetty:jetty-server:$jettyVersion"
+    compile "org.eclipse.jetty:jetty-servlet:$jettyVersion"
+
+    compile "org.glassfish.jersey.core:jersey-server:$jerseyVersion"
+    compile "org.glassfish.jersey.containers:jersey-container-servlet-core:$jerseyVersion"
+
+    compile "org.apache.derby:derby:$derbyVersion"
+
+    compile "org.yaml:snakeyaml:$snakeyamlVersion"
+    compile "net.arnx:jsonic:$jsonicVersion"
+
+    testCompile "org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-grizzly2:$jerseyVersion"
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+distributions {
+    main {
+        contents {
+            from('src/main/resources') { exclude('logback.xml') }
+            from('config') { into('config') }
+            from('build/naef') { into('naef') }
+        }
+    }
+}
+
+distZip.doFirst {
+    copy {
+        from configurations.compile.find { f -> f.name.matches('38k.naef-.*.jar') }
+        into 'build/naef'
+        rename('38k.naef-.*.jar', '38k.naef.jar')
+    }
+
+}

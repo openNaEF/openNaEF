@@ -1,0 +1,32 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+  <!--
+    tagged/untagged vlan の追加/削除時も VLAN-OP_CHANGE が出力される.
+    (ADD/REMOVE_TAGGED/UNTAGGED_VLAN は VLAN-OP_CHANGE の子 OP となっている)
+    この場合に空の "VLAN設定変更" layer_block が出力されるのを防ぐため,
+    先ず変更しうる VLAN パラメータの何れかに変更があるかどうかを検査して,
+    変更がある場合のみ VLAN設定変更 の "layer_block" を出力するようにしている.
+  -->
+  <j:if test="${op.vlanName.isChanged()}">
+    <layer_block name="VLAN設定変更" snmptrap="disable">
+      <j:if test="${empty(op.vlanId.value)}">
+        XXX: ERROR: op.vlanId is empty.
+      </j:if>
+      configure terminal
+      vlan ${op.vlanId}
+      <j:if test="${op.vlanName.isChanged()}">
+        <j:if test="${!empty(op.vlanName.value)}">
+          name "${op.vlanName}"
+        </j:if>
+        <j:if test="${empty(op.vlanName.value)}">
+          <!--
+            name を消すことはできない ('name ""' コマンドではエラーで通らない) ので
+            'no name' コマンドでデフォルトの VLAN 名 (例: "VLAN 1234") に戻す 
+           -->
+          no name
+        </j:if>
+      </j:if>
+      exit
+      end
+    </layer_block>
+  </j:if>
+</j:jelly>

@@ -1,0 +1,16 @@
+dependencies {
+    compile "ch.qos.logback:logback-classic:$logbackVersion"
+
+    compile "commons-codec:commons-codec:$commonsCodecVersion"
+    compile "commons-lang:commons-lang:$commonsLangVersion"
+    compile "commons-net:commons-net:$commonsNetVersion"
+
+    compile 'org.jvnet.hudson:trilead-ssh2:build212-hudson-1'
+
+    compile name: '38k/38k.snmp-client'
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}

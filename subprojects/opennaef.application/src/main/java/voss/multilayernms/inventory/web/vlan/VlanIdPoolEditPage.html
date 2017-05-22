@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/">
+<head>
+    <title>VLAN ID Pool Edit</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="blueprint/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/print.css" type="text/css" media="print"/>
+    <!--[if IE]>
+    <link rel="stylesheet" href="blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <link rel="stylesheet" href="blueprint/plugins/tabs/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/plugins/buttons/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="css/ui.base.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/common.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/commonprint.css" type="text/css" media="print"/>
+
+    <script type='text/javascript' src='js/jquery-1.3.1.min.js'></script>
+    <script type="text/javascript" src="js/ui.core.js"></script>
+    <script type="text/javascript" src="js/jquery.suggest.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <div id="hd" role="banner">
+        <h1>VLAN ID Pool Edit</h1>
+    </div>
+    <div id="bd" role="main">
+        <form wicket:id="backForm" name="backForm">
+            <button wicket:id="back" type="submit" tabindex="0" id="back-button" class="negative span-5">
+                <img src="blueprint/plugins/buttons/icons/cross.png" alt="Discard and back"/>Discard and back
+            </button>
+        </form>
+        <hr/>
+        <div wicket:id="feedback">Error detail here</div>
+        Fields marked with * are mandatory
+        <form wicket:id="poolEditForm">
+            <table>
+                <tr height="17">
+                    <th height="17">VLAN Pool Name&nbsp;*</th>
+                    <td><input wicket:id="name" name="poolname" type="text" id="poolname"/></td>
+                    <td>The pool name must be unique.</td>
+                </tr>
+                <tr>
+                    <th>Range&nbsp;*</th>
+                    <td><input wicket:id="range" name="range" type="text" id="range" value="1-4094"/></td>
+                    <td>"n-m" format. ex) 1-4094. range can not be changed later.</td>
+                </tr>
+                <tr height="17">
+                    <th height="17">Purpose</th>
+                    <td><input wicket:id="purpose" name="purpose" type="text" id="purpose"/></td>
+                    <td></td>
+                </tr>
+                <tr height="17">
+                    <th height="17">Note</th>
+                    <td><textarea wicket:id="note" name="note" rows="3" id="note"></textarea></td>
+                    <td></td>
+                </tr>
+            </table>
+            <button wicket:id="process" type="submit" tabindex="0" id="apply-button" class="positive span-5">
+                <img src="blueprint/plugins/buttons/icons/tick.png" alt="Apply"/>OK
+            </button>
+            <button wicket:id="delete" type="submit" tabindex="0" id="delete-button" class="negative span-5">
+                <img src="blueprint/plugins/buttons/icons/cross.png" alt="Delete"/>Delete
+            </button>
+        </form>
+    </div>
+    <div class="footer" role="contentinfo">
+        <small><a href="https://www.opennaef.io/">OpenNaEF</a></small>
+    </div>
+</div>
+</body>
+</html>

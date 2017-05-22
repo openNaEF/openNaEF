@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/">
+<head>
+    <title>Customer Resource Editor</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .link_cell {
+            width: 200px;
+        }
+        .line {
+            border: 1px solid #000000;
+            background-color: #000000;
+        }
+        .middle {
+            vertical-align: bottom
+        }
+        .border {
+            border: 1px solid #000000;
+            background-color: #FFFFFF;
+        }
+        table p {
+            margin: 0;
+        }
+    </style>
+    <link rel="stylesheet" href="blueprint/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/print.css" type="text/css" media="print"/>
+    <!--[if IE]>
+    <link rel="stylesheet" href="blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <link rel="stylesheet" href="blueprint/plugins/tabs/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/plugins/buttons/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="css/ui.base.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/tablesorter/style.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/common.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/commonprint.css" type="text/css" media="print"/>
+    <script type='text/javascript' src='js/jquery-1.3.1.min.js'></script>
+    <script type="text/javascript" src="js/ui.core.js"></script>
+    <script type="text/javascript" src="js/jquery.suggest.js"></script>
+    <script type='text/javascript' src='js/jquery.tablesorter.min.js'></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.tablesorter.defaults.widgets = ['zebra'];
+            $('table.tablesorter').tablesorter();
+        });
+    </script>
+</head>
+<body>
+
+<div id="hd" role="banner">
+    <h1>Tenant Resource Information of <span wicket:id="customerInfo"></span></h1>
+</div>
+<div id="menu">
+    <a wicket:id="top" href="#">[Menu]</a> |
+    <a wicket:id="refresh" href="#">[Refresh]</a> |
+    <a wicket:id="back" href="#">[Back]</a>
+</div>
+<hr/>
+<div wicket:id="feedback">Error detail here</div>
+<form wicket:id="form" name="form">
+    <table>
+        <tr>
+            <th align="center">Customer Name</th>
+            <td wicket:id="name"></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th align="center">Company ID</th>
+            <td wicket:id="companyID"></td>
+            <td>Name for display.</td>
+        </tr>
+    </table>
+</form>
+
+<form wicket:id="nodeSelectionForm" name="nodeSelectionForm">
+    <dl>
+        <dt class="toggle ui-state-default ui-corner-all"><span
+                class="ui-icon ui-icon-circle-plus" style="float: left"></span>Node Resource Information
+        </dt>
+        <dd>
+            <table class="tablesorter">
+                <thead>
+                <tr>
+                    <th>Node</th>
+                    <th>Appliance Type</th>
+                    <th>Resource Permission</th>
+                    <th>Purpose</th>
+                    <th>Vendor Name</th>
+                    <th>Node Type</th>
+                    <th>OS Type</th>
+                    <th>OS Version</th>
+                    <th>Management IpAddress</th>
+                    <th>Resource Occupancy</th>
+                    <th>Operation</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr wicket:id="nodes">
+                    <td><a wicket:id="nodeNameLink" href="#"><span wicket:id="nodeName">Node</span></a></td>
+                    <td wicket:id="applianceType"></td>
+                    <td wicket:id="resourcePermission"></td>
+                    <td wicket:id="purpose"></td>
+                    <td wicket:id="vendorName"></td>
+                    <td wicket:id="nodeType"></td>
+                    <td wicket:id="osType"></td>
+                    <td wicket:id="osVersion"></td>
+                    <td wicket:id="managementIpAddress"></td>
+                    <td wicket:id="occupancy"></td>
+                    <td>
+                        <input type="text" wicket:id="removeTime" />
+                        <a wicket:id="removeNodeResource" href="#">Set this Resource end scheduled date</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <h3>Select Node</h3>
+            <input type="text" wicket:id="nodeDateTextField" />
+            <span wicket:id="nodeSelectionPanel"></span>
+            <button wicket:id="addNodeResource">add Node Resource</button>
+        </dd>
+    </dl>
+</form>
+
+<dl>
+    <dt class="toggle ui-state-default ui-corner-all"><span
+            class="ui-icon ui-icon-circle-plus" style="float: left"></span>Port Resource Information
+    </dt>
+    <form wicket:id="portResourceForm" name="portResourceForm">
+        <dd>
+            <table class="tablesorter">
+                <thead>
+                <tr>
+                    <th><span style="white-space: nowrap">Node</span></th>
+                    <th><span style="white-space: nowrap">ifName</span></th>
+                    <th><span style="white-space: nowrap">Resource Permission</span></th>
+                    <th><span style="white-space: nowrap">Interface Type</span></th>
+                    <th><span style="white-space: nowrap">Bandwidth</span></th>
+                    <th><span style="white-space: nowrap">Neighbor Port</span></th>
+                    <th><span style="white-space: nowrap">Temporary Neighbor Port</span></th>
+                    <th colspan="2"><span style="white-space: nowrap">Last Edit time</span></th>
+                    <th>Resource Occupancy</th>
+                    <th>Operation</th>
+                </tr>
+                </thead>
+                <tr wicket:id="interfaces">
+                    <td><span wicket:id="nodeName"></span></td>
+                    <td><span wicket:id="ifName"></span></td>
+                    <td wicket:id="resourcePermission"></td>
+                    <td wicket:id="interfaceType"></td>
+                    <td wicket:id="bandwidth" align="right"></td>
+                    <td wicket:id="connected"></td>
+                    <td wicket:id="interimConnected"></td>
+                    <td wicket:id="lastEditor"></td>
+                    <td><span wicket:id="lastEditTime" align="right"></span>
+                        <span wicket:id="version"></span></td>
+                    <td wicket:id="occupancy"></td>
+                    <td>
+                        <input type="text" wicket:id="removeTime" />
+                        <a wicket:id="removePortResource" href="#">Set this Resource end scheduled date</a>
+                    </td>
+                </tr>
+            </table>
+        </dd>
+    </form>
+    <dd>
+        <h3>Select Node</h3>
+        <form wicket:id="portSelectionForm" name="portSelectionForm">
+            <span wicket:id="nodeSelectionPanel2"></span>
+            <button wicket:id="selectNode">Show Ports</button>
+        </form>
+        <hr/>
+        <form wicket:id="portSelectionForm2" name="portSelectionForm2">
+            <h3>Select Port</h3>
+            <input type="text" wicket:id="portDateTextField" />
+            <table wicket:id="portSelectionPanel2">
+            </table>
+            <button wicket:id="addPortResource">add Port Resource</button>
+        </form>
+    </dd>
+</dl>
+
+<dl>
+    <dt class="toggle ui-state-default ui-corner-all"><span
+            class="ui-icon ui-icon-circle-plus" style="float: left"></span>Vlan Resource Information
+    </dt>
+    <form wicket:id="vlanResourceForm" name="vlanResourceForm">
+        <dd>
+            <table class="tablesorter">
+                <thead>
+                <tr>
+                    <th><span style="white-space: nowrap">Vlan ID</span></th>
+                    <th><span style="white-space: nowrap">Operational Status</span></th>
+                    <th><span style="white-space: nowrap">Note</span></th>
+                    <th colspan="3"><span style="white-space: nowrap">Last Edit time</span></th>
+                    <th>Resource Occupancy</th>
+                    <th>Operation</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr wicket:id="vlans">
+                    <td class="nowrap" wicket:id="vlanId"></td>
+                    <td wicket:id="operStatus"></td>
+                    <td wicket:id="note"></td>
+                    <td wicket:id="lastEditor"></td>
+                    <td wicket:id="lastEditTime"></td>
+                    <td><a wicket:id="history" href="#"></a></td>
+                    <td wicket:id="occupancy"></td>
+                    <td>
+                        <input type="text" wicket:id="removeTime" />
+                        <a wicket:id="removeVlanResource" href="#">Set this Resource end scheduled date</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <h3>Select VLAN ID</h3>
+            <input type="text" wicket:id="vlanDateTextField" />
+            <span wicket:id="vlanSelectionPanel"></span>
+            <div>If it does not appear in this pull-down, please pay out on the VLAN page at first.</div>
+            <button wicket:id="addVlanResource">add Vlan Resource</button>
+        </dd>
+    </form>
+</dl>
+
+<dl>
+    <dt class="toggle ui-state-default ui-corner-all"><span
+            class="ui-icon ui-icon-circle-plus" style="float: left"></span>IP Subnet Resource Information
+    </dt>
+    <form wicket:id="subnetResourceForm" name="subnetResourceForm">
+        <dd>
+            <table class="tablesorter">
+                <thead>
+                <tr>
+                    <th><span style="white-space: nowrap">IP Subnet</span></th>
+                    <th><span style="white-space: nowrap">Vlan ID</span></th>
+                    <th colspan="3"><span style="white-space: nowrap">Last Edit time</span></th>
+                    <th>Resource Occupancy</th>
+                    <th>Operation</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr wicket:id="subnets">
+                    <td class="nowrap" wicket:id="subnet"></td>
+                    <td class="nowrap" wicket:id="vlanId"></td>
+                    <td wicket:id="lastEditor"></td>
+                    <td wicket:id="lastEditTime"></td>
+                    <td><a wicket:id="history" href="#"></a></td>
+                    <td wicket:id="occupancy"></td>
+                    <td>
+                        <input type="text" wicket:id="removeTime" />
+                        <a wicket:id="removeSubnetResource" href="#">Set this Resource end scheduled date</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <h3>Select IP Subnet</h3>
+            <input type="text" wicket:id="subnetDateTextField" />
+            <span wicket:id="subnetSelectionPanel"></span>
+            <div>If it does not appear in the pull-down, please pay out on the Subnet page.</div>
+            <button wicket:id="addSubnetResource">add Subnet Resource</button>
+        </dd>
+    </form>
+</dl>
+</body>
+</html>

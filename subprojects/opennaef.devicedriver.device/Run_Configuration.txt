@@ -1,0 +1,50 @@
+■コマンドラインクライアント実行方法
+
+Eclipse から実行する場合には以下のようにパラメータをセットする。
+
+Project:
+voss.discovery.driver
+
+Main Class:
+voss.discovery.runner.simple.MainDriver
+
+Program Arguments
+SIMPLE - 172.20.0.1:public:iiga:iiga:iiga:iiga:
+
+VM Arguments:
+-Dvossnms.root.dir=. -Dlogback.configurationFile=file:./logback.xml
+
+***
+
+Program Arguments には収集方法と収集対象情報をセットする。
+引数のうち、先頭の 2 引数 ("SIMPLE" と "-") は変更しない。
+
+3 番目の引数は以下のように解釈される。
+
+3 番目の引数が ZIP ファイルとして解釈できる場合。(末尾が zip になっている)
+-> ZIP ファイルを読み込み、シミュレーションモードで起動する.
+
+3 番目の引数が ZIP ファイルではない場合
+-> 通常モードで起動し、3 番目の引数はディスカバリ対象情報を指定したものとして扱う。
+[target ip-address]:[snmp community]:[telnet account]:[telnet password]:[enable account]:[enable password]:
+
+複数ノードへのディスカバリを実施する場合には、第4引数以降にディスカバリ対象情報を並べて指定する。
+ex.)
+SIMPLE - 10.10.10.1:public::pass::pass: 10.10.10.2:private::iiga::iiga: 10.10.10.3:foo::bar::baz:
+
+
+■コマンドラインクライアント実行方法(イイガ社内環境VMware向け)
+
+Eclipse から実行する場合には以下のようにパラメータをセットする。
+
+Project:
+voss.discovery.driver
+
+Main Class:
+voss.discovery.runner.simple.MainDriver
+
+Program Arguments
+SIMPLE - 172.20.0.195:public:root:Passw0rd:root:Passw0rd:
+
+VM Arguments:
+-Dvoss.root.dir=. -Dlogback.configurationFile=file:./logback.xml  -Dvossnms.root.dir=F:\opennaef\workspace\voss.discovery.driver

@@ -1,0 +1,52 @@
+<j:jelly xmlns:j="jelly:core" xmlns:define="jelly:define" trim="false">
+    ### DEBUG start ###
+    File: IOS-DEFAULT-LAG-OP_ADD_TAGGED_VLAN.jelly
+    op.vlanId: ${op.vlanId}
+    op.lagId: ${op.lagId}
+    ### DEBUG end ###
+    <layer_block name="LAG に Tagged VLAN 追加" snmptrap="disable">
+      <j:if test="${empty(op.vlanId.value)}">
+        ERROR: op.vlanId is empty.
+      </j:if>
+      <j:if test="${empty(op.lagId.value)}">
+        ERROR: op.lagId is empty.
+      </j:if>
+      <set_var var_name="vlanId" value="${op.vlanId}" scope="layer_block"/>
+      <set_var var_name="lagId" value="${op.lagId}" scope="layer_block"/>
+      <!--
+      <call_check name="事前チェック/EtherChannel状態確認">
+        <argument name="lagId">[lagId]</argument>
+      </call_check>
+      -->
+      <j:set var="showEtherchannelText" value="${op.lagId + ' Po' + op.lagId + '\(SU\) (-|PAgP|LACP)'}"/>
+      <j:forEach items="${op.lagMemberPorts}" var="memberPort">
+        <!--call_check name="新設/Taggedポート設定/事前/Taggedポート有効性確認(物理ポート)">
+          <argument name="lagId">${op.lagId}</argument>
+          <argument name="ifname">${memberPort.ifname}</argument>
+        </call_check--> <!-- 冗長なので省略 -->
+        <j:set var="showEtherchannelText" value="${showEtherchannelText + ' ' + memberPort.ifname + '\(P\)'}"/>
+      </j:forEach>
+      <!--
+      <call_check name="事前チェック/EtherChannel構成確認">
+        <argument name="lagId">[lagId]</argument>
+        <argument name="showEtherchannelText">${showEtherchannelText}</argument>
+      </call_check>
+      -->
+      <!--<call_check name="事前チェック/EtherChannel Tagged VLAN不在確認">
+        <argument name="vlanId">[vlanId]</argument>
+        <argument name="lagId">[lagId]</argument>
+      </call_check>
+      -->
+      configure terminal
+      interface Port-channel${op.lagId}
+      switchport trunk allowed vlan add ${op.vlanId}
+      exit
+      exit
+      <!--
+      <call_check name="事後チェック/EtherChannel Tagged VLAN存在確認">
+        <argument name="ifname">Po[lagId]</argument>
+        <argument name="vlanId">[vlanId]</argument>
+      </call_check>
+      -->
+    </layer_block>
+</j:jelly>

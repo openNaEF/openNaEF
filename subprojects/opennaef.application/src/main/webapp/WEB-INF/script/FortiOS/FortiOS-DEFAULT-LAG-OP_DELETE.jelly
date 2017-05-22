@@ -1,0 +1,12 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+  <layer_block name="LAG陷台ｼ∝求" snmptrap="disable">
+    <j:if test="${empty(op.ifname.pre)}">
+      ERROR: op.ifname.pre is empty.
+    </j:if>
+    config global
+    config system interface
+    delete "${op.ifname.pre}"
+    end
+    end
+  </layer_block>
+</j:jelly>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/">
+<head>
+    <title>Alias Port Edit</title>
+    <link rel="stylesheet" href="blueprint/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/print.css" type="text/css" media="print"/>
+    <!--[if IE]>
+    <link rel="stylesheet" href="blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <link rel="stylesheet" href="blueprint/plugins/tabs/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/plugins/buttons/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="css/ui.base.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/common.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/commonprint.css" type="text/css" media="print"/>
+    <link rel="stylesheet" href="css/tablesorter/style.css" type="text/css" media="screen"/>
+
+    <script type='text/javascript' src='js/jquery-1.3.1.min.js'></script>
+    <script type="text/javascript" src="js/jquery.hotkeys-0.7.8-packed.js"></script>
+    <script type="text/javascript" src="js/ui.core.js"></script>
+    <script type='text/javascript' src='js/ui.datepicker.js'></script>
+    <script type='text/javascript' src='js/ui.datepicker-ja.js'></script>
+</head>
+<body>
+<div id="hd" role="banner">
+    <h1>Alias Port Edit(Virtual Node:<span wicket:id="nodeName"></span>)</h1>
+</div>
+<form wicket:id="backForm" name="backForm">
+    <button wicket:id="back" type="submit" tabindex="0" id="back-button" class="negative span-5">
+        <img src="blueprint/plugins/buttons/icons/cross.png" alt="Discard and Back"/>Discard and Back
+    </button>
+    <button wicket:id="delete" type="submit" tabindex="0" id="delete-button" class="negative span-3">
+        <img src="blueprint/plugins/buttons/icons/cross.png" alt="Delete Alias Port"/>Delete
+    </button>
+</form>
+<hr/>
+Fields marked with * are mandatory
+<div wicket:id="feedback">Error detail here</div>
+<br/>
+<form wicket:id="form" name="form">
+    <table>
+        <tr>
+            <th>Attribute</th>
+            <th>Type</th>
+            <th>Value</th>
+            <th>Overview</th>
+        </tr>
+        <tr>
+            <th>ifName *</th>
+            <th>String</th>
+            <td class="nowrap"><input wicket:id="ifName" type="text"/><br/>
+                (Auto-Generated Name: <span wicket:id="defaultIfName">1/2</span>)
+            </td>
+            <td>ifName of Port</td>
+        </tr>
+        <tr>
+            <th>Parent Port *</th>
+            <th>Select</th>
+            <td><select wicket:id="aliasSource">
+                <option value="host1:eth-1">host1:eth-1</option>
+            </select></td>
+            <td>Port type of this port (can not be changed)</td>
+        </tr>
+        <tr>
+            <th><span style="white-space: nowrap">Operational Status</span></th>
+            <th></th>
+            <td><select wicket:id="operStatus">
+            </select>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <th><span style="white-space: nowrap">Facility Status</span></th>
+            <th>String</th>
+            <td><select wicket:id="facilityStatus"></select></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th><span style="white-space: nowrap">Purpose</span></th>
+            <th>String</th>
+            <td><input wicket:id="purpose" size="40" type="text"/></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th><span style="white-space: nowrap">note</span></th>
+            <th>String</th>
+            <td><textarea wicket:id="note" rows="80" cols="4" type="text"></textarea></td>
+            <td></td>
+        </tr>
+    </table>
+    <button wicket:id="proceed" type="submit" tabindex="0" id="apply-button" class="positive span-5">
+        <img src="blueprint/plugins/buttons/icons/tick.png" alt="Apply"/>OK
+    </button>
+</form>
+</body>
+</html>

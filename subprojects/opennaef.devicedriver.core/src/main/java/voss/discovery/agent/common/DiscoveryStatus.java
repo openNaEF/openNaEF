@@ -1,0 +1,12 @@
+package voss.discovery.agent.common;
+
+public enum DiscoveryStatus {
+    DEVICE_INFORMATION,
+    PHYSICAL_CONFIGURATION,
+    LOGICAL_CONFIGURATION,
+    NEIGHBOR,
+    DYNAMIC_STATUS,
+    CONFIGURATION,
+    TEXT_CONFIGURATION,
+    STATISTICS,
+}

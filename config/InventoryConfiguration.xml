@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <url-base>/opennaef.application</url-base>
+    <metadata-dir>./src/main/webapp/metadata</metadata-dir>
+    <inventory-service-port>4649</inventory-service-port>
+    <trigger-manager-id>trigger-manager</trigger-manager-id>
+    <trigger-services>
+        <!-- <trigger>voss.nms.inventory.script.trigger.ScriptTrigger</trigger> --> <!-- jelly script-trigger -->
+    </trigger-services>
+
+    <debug-mode>debug</debug-mode>
+    <debug-dir>./debug</debug-dir>
+    <discovery-service-max-thread>1</discovery-service-max-thread>
+    <ports-panel-lines>25</ports-panel-lines>
+    <sync-feature>enabled</sync-feature>
+    <db-server-address>127.0.0.1</db-server-address>
+    <db-server-port>38100</db-server-port>
+    <db-service-name>mplsnms</db-service-name>
+    <db-service-mode>separate</db-service-mode>
+    <!--
+    <db-service-mode>integrated</db-service-mode>
+     -->
+    <db-history-url>http://127.0.0.1:38104/mvo.Dump?id=</db-history-url>
+    <configurator-server-address>127.0.0.1</configurator-server-address>
+    <configurator-server-port>1099</configurator-server-port>
+    <configurator-service-name>Configurator</configurator-service-name>
+
+    <default-snmp-community-string>public</default-snmp-community-string>
+    <default-snmp-method>SNMPv2</default-snmp-method>
+    <!--
+    <nodeinfo-factory></nodeinfo-factory>
+     -->
+    <nodeinfo-factory>voss.nms.inventory.diff.network.DefaultNodeInfoFactory</nodeinfo-factory>
+</configuration>

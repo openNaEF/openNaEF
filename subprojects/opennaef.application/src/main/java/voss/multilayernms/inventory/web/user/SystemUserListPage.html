@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/">
+<head>
+    <title>System User List</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="blueprint/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/print.css" type="text/css" media="print"/>
+    <!--[if IE]>
+    <link rel="stylesheet" href="blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <link rel="stylesheet" href="blueprint/plugins/tabs/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/plugins/buttons/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="css/ui.base.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/tablesorter/style.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/common.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/commonprint.css" type="text/css" media="print"/>
+    <script type='text/javascript' src='js/jquery-1.3.1.min.js'></script>
+    <script type="text/javascript" src="js/ui.core.js"></script>
+    <script type="text/javascript" src="js/jquery.suggest.js"></script>
+    <script type='text/javascript' src='js/jquery.tablesorter.min.js'></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.tablesorter.defaults.widgets = ['zebra'];
+            $('table.tablesorter').tablesorter();
+        });
+    </script>
+</head>
+<body>
+<div id="hd" role="banner">
+    <h1>System User List</h1>
+</div>
+<div id="menu">
+    <a wicket:id="top" href="#">[Menu]</a> |
+    <a wicket:id="refresh" href="#">[Refresh]</a>
+</div>
+<form wicket:id="form" name="form">
+    <button wicket:id="addUser">Add System User</button>
+</form>
+<table class="tablesorter">
+    <thead>
+    <tr>
+        <th>User Name</th>
+        <th>Operation</th>
+        <th>Caption</th>
+        <th>Account Status</th>
+        <th>Password Hash</th>
+        <th>Password expiration date</th>
+        <th>Last Login Time</th>
+        <th>Note</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr wicket:id="users">
+        <td wicket:id="userName"></td>
+        <td><a wicket:id="editUser" href="#">Edit</a> | <a href="#">Delete</a></td>
+        <td wicket:id="caption"></td>
+        <td wicket:id="accountStatus"></td>
+        <td wicket:id="passwordHash"></td>
+        <td wicket:id="passwordExpire"></td>
+        <td wicket:id="lastLoginTime"></td>
+        <td wicket:id="note"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

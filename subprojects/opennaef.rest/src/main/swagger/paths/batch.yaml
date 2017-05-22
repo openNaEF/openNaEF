@@ -1,0 +1,65 @@
+batch:
+  post:
+    summary: 複数のapiを1トランザクションで実行する
+    description: 複数のapiを1トランザクションで実行する
+    parameters:
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: batch
+        in: body
+        description: batch処理のリスト
+        required: true
+        schema:
+          $ref: '#/defs/Batch'
+    tags:
+      - batch
+    responses:
+      200:
+        description: Batch処理成功
+        schema:
+          $ref: '#/defs/BatchRes'
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+
+defs:
+  Batch:
+    type: array
+    items:
+      type: object
+      properties:
+        url:
+          description: 対象となるapiのurl
+          type: string
+          example: /api/v1/nodes
+        http_method:
+          description: 対象となるHTTPメソッド(POST, PUT, DELETE)
+          type: string
+          example: POST
+        payload:
+          description: request body
+          type: object
+  BatchRes:
+    type: object
+    properties:
+      locations:
+        description: 新規作成・更新されたMVOへのURI
+        type: object
+        properties:
+          created:
+            description: 新規作成されたMVOへのURI
+            type: array
+            items:
+              type: string
+          updated:
+            description: 更新されたMVOへのURI
+            type: array
+            items:
+              type: string

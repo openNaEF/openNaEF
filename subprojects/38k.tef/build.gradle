@@ -1,0 +1,32 @@
+dependencies {
+    compile name: '38k/38k.httpd'
+    compile name: '38k/38k.misc'
+    compile name: '38k/38k.telnetd'
+}
+
+/**
+ * RMI static stub 生成
+ */
+task rmic(dependsOn: compileJava) {
+    doLast {
+        String[] clazzes = [
+                'tef.JournalDistributor',
+                'tef.JournalReceiver',
+                'tef.TransactionManager$Distributed$Impl'
+        ]
+        for (clazz in clazzes) {
+            String command = """rmic -classpath ${sourceSets.main.output.classesDir} -d ${
+                sourceSets.main.output.classesDir
+            } ${clazz}"""
+            println command
+            String message = command.execute().text
+            print message
+        }
+    }
+}
+jar.dependsOn rmic
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}

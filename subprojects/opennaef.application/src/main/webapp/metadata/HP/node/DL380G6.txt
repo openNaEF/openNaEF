@@ -1,0 +1,8 @@
+new-node "_NODENAME_"
+  attribute set ベンダー名 HP
+  attribute set 機種 "DL380G6"
+
+  new-hardware chassis ""
+  context ..
+
+context ..

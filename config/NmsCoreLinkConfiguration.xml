@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- These settings is only for Phalanx Client UI. -->
+
+    <!-- Attribute name to store the value for inventory ID -->
+    <id-field-name>Cable Name</id-field-name>
+
+    <!-- List display target item
+         value: [OBJECT_TYPE] Distinguished name in RenderingUtil -->
+    <fields>
+        <value>Cable Name</value>
+        <value>Endpoint node 1</value>
+        <value>Endpoint port 1</value>
+        <value>Endpoint LAG 1</value>
+        <value>Endpoint node 2</value>
+        <value>Endpoint port 2</value>
+        <value>Endpoint LAG 2</value>
+    </fields>
+
+    <!-- Property display target item
+         value: [OBJECT_TYPE] Distinguished name in RenderingUtil -->
+    <property-fields>
+        <value>Cable Name</value>
+        <value>Endpoint node 1</value>
+        <value>Endpoint port 1</value>
+        <value>Endpoint LAG 1</value>
+        <value>Endpoint node 2</value>
+        <value>Endpoint port 2</value>
+        <value>Endpoint LAG 2</value>
+    </property-fields>
+
+    <!-- Filter view search item
+         value: [OBJECT_TYPE] Distinguished name in RenderingUtil -->
+    <filtering-fields>
+        <value>Cable Name</value>
+        <value>Endpoint node 1</value>
+        <value>Endpoint port 1</value>
+        <value>Endpoint LAG 1</value>
+        <value>Endpoint node 2</value>
+        <value>Endpoint port 2</value>
+        <value>Endpoint LAG 2</value>
+    </filtering-fields>
+
+    <!-- Filter view Search type of search item
+         key: [OBJECT_TYPE] Distinguished name in RenderingUtil
+         value: Search type [contain/select/equal/numeric] -->
+    <condition-of-filtering>
+        <prop key="Cable Name">contain</prop>
+        <prop key="Endpoint node 1">contain</prop>
+        <prop key="Endpoint port 1">contain</prop>
+        <prop key="Endpoint LAG 1">contain</prop>
+        <prop key="Endpoint node 2">contain</prop>
+        <prop key="Endpoint port 2">contain</prop>
+        <prop key="Endpoint LAG 2">contain</prop>
+    </condition-of-filtering>
+
+    <!-- Display string on UI
+         key: [OBJECT_TYPE] Distinguished name in RenderingUtil
+         value: Display Name -->
+    <display-name>
+        <prop key="Cable Name">Cable Name</prop>
+        <prop key="Endpoint node 1">Endpoint node 1</prop>
+        <prop key="Endpoint port 1">Endpoint port 1</prop>
+        <prop key="Endpoint LAG 1">Endpoint LAG 1</prop>
+        <prop key="Endpoint node 2">Endpoint node 2</prop>
+        <prop key="Endpoint port 2">Endpoint port 2</prop>
+        <prop key="Endpoint LAG 2">Endpoint LAG 2</prop>
+    </display-name>
+</configuration>

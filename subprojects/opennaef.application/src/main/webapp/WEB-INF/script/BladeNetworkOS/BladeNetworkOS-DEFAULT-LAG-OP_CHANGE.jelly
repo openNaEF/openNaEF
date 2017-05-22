@@ -1,0 +1,85 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+ ### DEBUG start ###
+ File: BladeNetworkOS-DEFAULT-LAG-OP_CHANGE.jelly
+ op.lagId: ${op.lagId}
+ op.LagAddedMembers: ${op.LagAddedMembers}
+
+       <!-- 追加されたメンバーポート-->
+      <j:forEach items="${op.LagAddedMembers}" var="memberPort">
+        test ${memberPort.fullIfName}
+      </j:forEach>
+
+ op.LagRemovedMembers: ${op.LagRemovedMembers}
+
+       <!-- 削除されたメンバーポート-->
+      <j:forEach items="${op.LagRemovedMembers}" var="memberPort">
+        test ${memberPort.fullIfName}
+      </j:forEach>
+
+ op.adminStatus: ${op.adminStatus}
+ op.adminStatus.pre: ${op.adminStatus.pre}
+ op.isChanged('adminStatus'):${op.isChanged('adminStatus')}
+ ### DEBUG end ###
+ <layer_block name="LAG設定変更" snmptrap="disable">
+   <j:set var="lagId" value="${op.ifName.value.replaceFirst('^[a-zA-Z\s]*', '')}"/>
+   <j:if test="${!lagId.matches('[0-9]+')}">
+     ERROR: lagId is not numeric. maybe lag.ifName is an unexpected format.
+   </j:if>
+   configure terminal
+   <!--ポート shut / no shut 設定-->
+   <j:if test="${op.isChanged('adminStatus') and !empty(op.ifname)}">
+     <j:choose>
+      <!-- adminStatus が enabledに変更された場合 -->
+      <j:when test="${op.adminStatus == 'enabled'}">
+       no interface ${op.ifname} shutdown
+      </j:when>
+      <!-- adminStatus が disabledに変更された場合 -->
+      <j:when test="${op.adminStatus == 'disabled'}">
+       interface ${op.ifname} shutdown
+      </j:when>
+      <j:otherwise>
+       ERROR: unsupported adminStatus type ${op.adminStatus} .
+      </j:otherwise>
+     </j:choose>
+    </j:if>
+   <j:if test="${op.ipAddress.isChanged() or op.subnetMask.isChanged() or op.ipAddress2.isChanged() or op.subnetMask2.isChanged() or op.description.isChanged()} or op.lagAddedMemebers != null or op.lagRemovedMemebers != null">
+   interface ${op.ifname}
+   </j:if>
+   <!-- Blade L3 SW では LAG/物理ポートへの IP アドレス付与は出来ない -->
+   <j:if test="${op.ipAddress.isChanged() or op.subnetMask.isChanged() or op.ipAddress2.isChanged() or op.subnetMask2.isChanged()}">
+     ERROR: IP addresses can't be assigned to portchannels on this type of device.
+   </j:if>
+   <!--
+     Blade L3 SW では LAG への description 付与は出来ない
+     interface Portchannel X の下で name コマンドを使うと,
+     LAG のメンバ物理ポートの name が纏めて設定されるだけ.
+    -->
+   <j:if test="${op.description.isChanged()}">
+     ERROR: descriptions of portchannels are not configurable on this type of device.
+   </j:if>
+   <!-- LAG メンバポート追加 -->
+   <j:if test="${op.LagAddedMembers != null}">
+     <j:forEach items="${op.LagAddedMembers}" var="lagMember">
+       <j:set var="lagMemberIfId" value="${lagMember.fullIfName.value.replaceFirst('^[a-zA-Z\s]*', '')}"/>
+       <j:if test="${!lagMemberIfId.matches('[0-9]+')}">
+         ERROR: lagMemberIfId is not numeric. maybe fullIfName is an unexpected format. (fullIfName: ${lagMember.fullIfName})
+       </j:if>
+       portchannel ${lagId} port ${lagMemberIfId}
+     </j:forEach>
+   </j:if>
+   <!-- LAG メンバポート削除 -->
+   <j:if test="${op.LagRemovedMembers != null}">
+     <j:forEach items="${op.LagRemovedMembers}" var="lagMember">
+       <j:set var="lagMemberIfId" value="${lagMember.fullIfName.value.replaceFirst('^[a-zA-Z\s]*', '')}"/>
+       <j:if test="${!lagMemberIfId.matches('[0-9]+')}">
+         ERROR: lagMemberIfId is not numeric. maybe fullIfName is an unexpected format. (fullIfName: ${lagMember.fullIfName})
+       </j:if>
+       no portchannel ${lagId} port ${lagMemberIfId}
+     </j:forEach>
+   </j:if>
+   exit
+   <j:if test="${op.ipAddress.isChanged() or op.subnetMask.isChanged() or op.ipAddress2.isChanged() or op.subnetMask2.isChanged() or op.description.isChanged()} or op.lagAddedMemebers != null or op.lagRemovedMemebers != null">
+   end
+   </j:if>
+ </layer_block>
+</j:jelly>

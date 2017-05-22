@@ -1,0 +1,46 @@
+buildscript {
+    dependencies {
+        classpath "org.akhikhl.gretty:gretty:$grettyVersion"
+    }
+}
+
+apply plugin: 'war'
+apply plugin: 'org.akhikhl.gretty'
+
+dependencies {
+    compile project(':pasaran.naef')
+
+    compile "ch.qos.logback:logback-classic:$logbackVersion"
+    compile "org.yaml:snakeyaml:$snakeyamlVersion"
+    compile "net.arnx:jsonic:$jsonicVersion"
+    compile "net.jodah:failsafe:$failsafeVersion"
+    compile "org.glassfish.jersey.core:jersey-client:$jerseyVersion"
+    compile "org.glassfish.jersey.containers:jersey-container-servlet:$jerseyVersion"
+
+    // notification db
+    compile "org.hibernate:hibernate-core:$hibernateVersion"
+    compile "org.apache.derby:derby:$derbyVersion"
+
+    compileOnly "javax.servlet:javax.servlet-api:$servletApiVersion"
+    compileOnly "javax.websocket:javax.websocket-api:$websocketApiVersion"
+
+    testCompile "org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-grizzly2:$jerseyVersion"
+}
+
+gretty {
+    servletContainer = 'jetty9'
+    httpPort = 8080
+    contextPath = '/opennaef.notification'
+
+    jvmArgs = [
+            "-Dnotification.dir=.",
+            "-Dderby.stream.error.file=./build"
+    ]
+
+    afterEvaluate {
+        appRunDebug {
+            debugPort = 5005
+            debugSuspend = true
+        }
+    }
+}

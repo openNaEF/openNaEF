@@ -1,0 +1,41 @@
+buildscript {
+    dependencies {
+        classpath "org.akhikhl.gretty:gretty:$grettyVersion"
+    }
+}
+
+apply plugin: 'war'
+apply plugin: 'org.akhikhl.gretty'
+
+dependencies {
+    compile project(':opennaef.webhelper')
+    compile project(':opennaef.devicedriver.device')
+    compile name: 'voss/net.phalanx.compare.core'
+
+    compile "jstl:jstl:1.2"
+    compileOnly "javax.servlet:javax.servlet-api:$servletApiVersion"
+}
+
+artifacts {
+    archives jar
+    archives sourcesJar
+    archives javadocJar
+}
+
+gretty {
+    servletContainer = 'tomcat8'
+    httpPort = 8080
+    contextPath = '/opennaef.discovery'
+
+    afterEvaluate {
+        appRunDebug {
+            debugPort = 5005
+            debugSuspend = true
+        }
+    }
+}
+
+uploadArchives.doFirst {
+    // maven repository へ war を publish しない
+    configurations.archives.artifacts.removeAll { it.type == 'war' }
+}

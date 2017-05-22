@@ -1,0 +1,26 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+ ### DEBUG start ###
+ File: FortiOS-DEFAULT-VLAN_SUBIF-OP_DELETE
+ op.ifname: ${op.ifname}
+ op.ifname.pre: ${op.ifname.pre}
+ empty(op.ifname.pre): ${empty(op.ifname.pre)}
+ ### DEBUG end ###
+ <layer_block name="ポート上の VLAN サブインターフェイス削除" snmptrap="disable">
+   <j:if test="${empty(op.ifname.pre)}">
+     ERROR: op.ifname is empty.
+   </j:if>
+   config global
+   config system interface
+   delete "${op.ifname.pre}"
+   end
+   end
+ </layer_block>
+ <!-- FIXME: vdom を消す場合のフラグとなるパラメータが必要 -->
+ <!-- j:if test="${!empty(op.vdom.value)}">
+   <layer_block name="VDOM 削除" snmptrap="disable">
+     config vdom
+     delete "${op.vdom}"
+     end
+   </layer_block>
+ </j:if-->
+</j:jelly>

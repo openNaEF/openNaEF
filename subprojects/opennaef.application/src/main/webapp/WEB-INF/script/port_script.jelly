@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<j:jelly
+  trim="true" escapeText="false"
+  xmlns:j="jelly:core" xmlns:define="jelly:define" xmlns:voss="voss" xmlns:debug="debugTagLib">
+
+  <voss:dump variables="params"/>
+  <j:set var="dir" value="${params.dir}"/>
+  <j:set var="configOperations" value="${context.configOperationSet}"/>
+
+    <j:forEach items="${configOperations.devices}" var="device">
+      <node_block node_name="${device.deviceName}" config_order="無関係" port_type="none" dummy_check="disable" node_confirm="disable">
+        <voss:templateImporter filename="${device.osTypeName}-header.jelly" directory="${dir}" subdirectory="/${device.osTypeName}"/>
+        <voss:getConfigOperationsByDevice configOperations="${configOperations}" device="${device}" varName="deviceOpList" />
+
+        <!-- PORT OP_CREATE -->
+        <voss:filterOperation source="${deviceOpList}" operationReference="op" 
+        rule="${op.operationType == 'OP_CREATE'}" result="portCreateOperations"/>
+        <j:forEach items="${portCreateOperations}" var="op">
+          <voss:templateSelectAndImporter directory="${dir}" subdirectory="/${device.osTypeName}" configOperation="${op}"/>
+        </j:forEach>
+
+        <!-- PORT OP_CHANGE -->
+        <voss:filterOperation source="${deviceOpList}" operationReference="op" 
+        rule="${op.operationType == 'OP_CHANGE'}" result="portChangeOperations"/>
+        <j:forEach items="${portChangeOperations}" var="op">
+          <voss:templateSelectAndImporter directory="${dir}" subdirectory="/${device.osTypeName}" configOperation="${op}"/>
+        </j:forEach>
+
+        <!-- PORT OP_DELETE -->
+        <voss:filterOperation source="${deviceOpList}" operationReference="op" 
+        rule="${op.operationType == 'OP_DELETE'}" result="portDeleteOperations"/>
+        <j:forEach items="${portDeleteOperations}" var="op">
+          <voss:templateSelectAndImporter directory="${dir}" subdirectory="/${device.osTypeName}" configOperation="${op}"/>
+        </j:forEach>
+
+        <voss:templateImporter filename="${device.osTypeName}-trailer.jelly" directory="${dir}" subdirectory="/${device.osTypeName}"/>
+      </node_block>
+    </j:forEach>
+
+    <!--http method="GET" url="${param.url}" on_http_error="retriable" on_transport_error="retriable"/-->
+
+</j:jelly>

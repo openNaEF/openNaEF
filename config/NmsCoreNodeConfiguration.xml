@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- These settings is only for Phalanx Client UI. -->
+
+    <!-- Attribute name to store the value for inventory ID -->
+    <id-field-name>Node Name</id-field-name>
+
+    <!-- Attribute name to prepare choice of operation state -->
+    <operation-status-field-names>
+        <value>Operational Status</value>
+    </operation-status-field-names>
+
+    <!-- List display target item
+         value: [OBJECT_TYPE] Distinguished name in RenderingUtil -->
+    <fields>
+        <value>Node Name</value>
+        <value>Accommodation Location</value>
+        <value>Vendor Name</value>
+        <value>Node Type</value>
+        <value>OS Type</value>
+        <value>OS Version</value>
+        <value>Management IP Address</value>
+        <value>SNMP Mode</value>
+        <value>SNMP Community</value>
+        <value>Purpose</value>
+        <value>Note</value>
+    </fields>
+
+    <!-- Property display target item
+         value: [OBJECT_TYPE] Distinguished name in RenderingUtil -->
+    <property-fields>
+        <value>Node Name</value>
+        <value>Accommodation Location</value>
+        <value>Vendor Name</value>
+        <value>Node Type</value>
+        <value>OS Type</value>
+        <value>OS Version</value>
+        <value>Management IP Address</value>
+        <value>SNMP Mode</value>
+        <value>SNMP Community</value>
+        <value>Purpose</value>
+        <value>Note</value>
+    </property-fields>
+
+    <!-- Filter view search item
+         value: [OBJECT_TYPE] Distinguished name in RenderingUtil -->
+    <filtering-fields>
+        <value>Node Name</value>
+        <value>Accommodation Location</value>
+        <value>Vendor Name</value>
+        <value>Node Type</value>
+        <value>OS Type</value>
+        <value>OS Version</value>
+        <value>Management IP Address</value>
+        <value>SNMP Community</value>
+    </filtering-fields>
+
+    <!-- Filter view Search type of search item
+         key: [OBJECT_TYPE] Distinguished name in RenderingUtil
+         value: Search type [contain/select/equal/numeric] -->
+    <condition-of-filtering>
+        <prop key="Node Name">contain</prop>
+        <prop key="Accommodation Location">contain</prop>
+        <prop key="Vendor Name">contain</prop>
+        <prop key="Node Type">contain</prop>
+        <prop key="OS Type">contain</prop>
+        <prop key="OS Version">contain</prop>
+        <prop key="Operational Status">select</prop>
+        <prop key="Facility Status">select</prop>
+        <prop key="Management IP Address">contain</prop>
+        <prop key="SNMP Community">contain</prop>
+        <prop key="Note">contain</prop>
+    </condition-of-filtering>
+
+    <!-- Display string on UI
+         key: [OBJECT_TYPE] Distinguished name in RenderingUtil
+         value: Display Name -->
+    <display-name>
+        <prop key="Node Name">Node Name</prop>
+        <prop key="Accommodation Location">Accommodation Location</prop>
+        <prop key="Vendor Name">Vendor Name</prop>
+        <prop key="Node Type">Node Type</prop>
+        <prop key="OS Type">OS Type</prop>
+        <prop key="OS Version">OS Version</prop>
+        <prop key="Operational Status">Operational Status</prop>
+        <prop key="Facility Status">Facility Status</prop>
+        <prop key="Management IP Address">Management IP Address</prop>
+        <prop key="SNMP Mode">SNMP Mode</prop>
+        <prop key="SNMP Community">SNMP Community</prop>
+        <prop key="Purpose">Purpose</prop>
+        <prop key="Note">Note</prop>
+    </display-name>
+</configuration>
+

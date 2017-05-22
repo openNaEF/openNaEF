@@ -1,0 +1,9 @@
+dependencies {
+    compile project(':38k.tef')
+    compile name: '38k/38k.rmc'
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}

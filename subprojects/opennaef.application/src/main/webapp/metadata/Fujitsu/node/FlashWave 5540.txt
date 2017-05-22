@@ -1,0 +1,14 @@
+new-node "_NODENAME_"
+  attribute set ベンダー名 Fujitsu
+  attribute set 機種 "FlashWave 5540"
+
+  new-hardware chassis ""
+    new-hardware slot 1
+    context ..
+    new-hardware slot 2
+    context ..
+    new-hardware slot 3
+    context ..
+    new-hardware slot 4
+    context ..
+context ..

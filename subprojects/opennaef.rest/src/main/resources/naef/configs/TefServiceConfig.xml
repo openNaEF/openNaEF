@@ -1,0 +1,86 @@
+<?xml version="1.0" ?>
+
+<!DOCTYPE tef-service-config [
+        <!ELEMENT tef-service-config (master-server?, journal-distributor?, shell?, http?, logic?, stacktrace-catalog?, rmc-server?)>
+        <!ATTLIST tef-service-config
+                service-name CDATA #REQUIRED
+                running-mode CDATA #REQUIRED
+                rmi-registry-port CDATA #REQUIRED
+                rmc-server-port CDATA #REQUIRED>
+
+        <!ELEMENT journal-distributor (distributee*)>
+        <!ATTLIST journal-distributor>
+        <!ELEMENT distributee EMPTY>
+        <!ATTLIST distributee
+                address CDATA #REQUIRED>
+
+        <!ELEMENT master-server EMPTY>
+        <!ATTLIST master-server
+                distributor-url CDATA #REQUIRED>
+
+        <!ELEMENT shell EMPTY>
+        <!ATTLIST shell
+                port CDATA #REQUIRED
+                plugin_file_name CDATA #REQUIRED>
+
+        <!ELEMENT http EMPTY>
+        <!ATTLIST http
+                port CDATA #REQUIRED
+                default_authentication_realm CDATA #REQUIRED
+                plugin_file_name CDATA #REQUIRED>
+
+        <!ELEMENT logic EMPTY>
+        <!ATTLIST logic
+                logic_file_name CDATA #REQUIRED>
+
+        <!ELEMENT stacktrace-catalog (omission-line*)>
+        <!ELEMENT omission-line EMPTY>
+        <!ATTLIST omission-line
+                regexp CDATA #REQUIRED>
+
+        <!ELEMENT rmc-server (rmc-service*)>
+        <!ELEMENT rmc-service EMPTY>
+        <!ATTLIST rmc-service
+                call CDATA #REQUIRED
+                exec CDATA #REQUIRED>
+        ]>
+
+<tef-service-config
+        service-name="vossnms"
+        running-mode="master"
+        rmi-registry-port="38100"
+        rmc-server-port="38105">
+
+    <journal-distributor>
+        <distributee address="127.0.0.1"/>
+        <!--distributee address="172.21.1.10"/-->
+    </journal-distributor>
+
+    <shell
+            port="38103"
+            plugin_file_name="38k.naef.jar"/>
+
+    <http
+            port="38104"
+            default_authentication_realm="vossnms"
+            plugin_file_name="38k.naef.jar"/>
+
+    <logic
+            logic_file_name="38k.naef.jar"/>
+
+    <stacktrace-catalog>
+        <omission-line regexp="java\.lang\.reflect\..*"/>
+        <omission-line regexp="java\.security\..*"/>
+        <omission-line regexp="sun\.reflect\..*"/>
+        <omission-line regexp="sun\.rmi\..*"/>
+    </stacktrace-catalog>
+
+    <rmc-server>
+        <rmc-service call="voss.saa.rmc.GetIpSubnetAddress$Call" exec="voss.saa.rmc.GetIpSubnetAddress$Exec"/>
+        <rmc-service call="voss.saa.rmc.GetIpSubnets$Call" exec="voss.saa.rmc.GetIpSubnets$Exec"/>
+        <rmc-service call="voss.saa.rmc.AllocateIpSubnetAddress$Call" exec="voss.saa.rmc.AllocateIpSubnetAddress$Exec"/>
+        <rmc-service call="pasaran.naef.rmc.GetDtoChanegs$Call" exec="pasaran.naef.rmc.GetDtoChanegs$Exec"/>
+        <rmc-service call="pasaran.naef.rmc.GetObjectType$CallMvo" exec="pasaran.naef.rmc.GetObjectType$MvoType"/>
+        <rmc-service call="pasaran.naef.rmc.GetObjectType$CallDto" exec="pasaran.naef.rmc.GetObjectType$DtoType"/>
+    </rmc-server>
+</tef-service-config>

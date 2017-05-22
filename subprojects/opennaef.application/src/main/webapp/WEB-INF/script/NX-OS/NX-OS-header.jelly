@@ -1,0 +1,13 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+<!--
+    <layer_block name="特権モード移行" snmptrap="disable">
+      enable
+      <call_check name="装置名確認">
+        <argument name="deviceName">${device.deviceName}</argument>
+      </call_check>
+      <call_check name="OSバージョン確認">
+        <argument name="version">${device.osVersion}</argument>
+      </call_check>
+    </layer_block>
+-->
+</j:jelly>

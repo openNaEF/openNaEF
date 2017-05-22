@@ -1,0 +1,164 @@
+new-hardware module ""
+    attribute set モジュール種別 "FCF554FE3"
+
+    new-hardware jack 1
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+    new-hardware jack 2
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+    new-hardware jack 3
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+    new-hardware jack 4
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+    new-hardware jack 5
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+    new-hardware jack 6
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+    new-hardware jack 7
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+    new-hardware jack 8
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+    new-hardware jack 9
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+    new-hardware jack 10
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+    new-hardware jack 11
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+    new-hardware jack 12
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+    new-hardware jack 13
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+    new-hardware jack 14
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+    new-hardware jack 15
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+    new-hardware jack 16
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+    new-hardware jack 17
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+    new-hardware jack 18
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+    new-hardware jack 19
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+    new-hardware jack 20
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+    new-hardware jack 21
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+    new-hardware jack 22
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+    new-hardware jack 23
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+    new-hardware jack 24
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+    new-hardware jack 25
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+    new-hardware jack 26
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+    new-hardware jack 27
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+    new-hardware jack 28
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+    new-hardware jack 29
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+    new-hardware jack 30
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+    new-hardware jack 31
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+    new-hardware jack 32
+      new-port eth-port ""
+        attribute set Prefix "fastethernet "
+      context ..
+    context ..
+context ..

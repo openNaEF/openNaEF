@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- These settings is only for Phalanx Client UI. -->
+
+    <!-- Attribute name to store the value for inventory ID -->
+    <id-field-name>customer name</id-field-name>
+
+    <!-- List display target item
+         value: [OBJECT_TYPE] Distinguished name in RenderingUtil -->
+    <fields>
+        <value>お客様名</value>
+        <value>対象ノード</value>
+        <value>SSL上限数</value>
+        <value>宛先サーバ上限数</value>
+        <value>顧客ログインID</value>
+        <value>fw-policy-zone-matrix</value>
+        <value>vlans</value>
+        <value>ip subnets</value>
+    </fields>
+
+    <!-- Property display target item
+         value: [OBJECT_TYPE] Distinguished name in RenderingUtil -->
+    <property-fields>
+        <value>お客様名</value>
+        <value>対象ノード</value>
+        <value>SSL上限数</value>
+        <value>宛先サーバ上限数</value>
+        <value>顧客ログインID</value>
+        <value>fw-policy-zone-matrix</value>
+        <value>vlans</value>
+        <value>ip subnets</value>
+    </property-fields>
+
+    <!-- Filter view search item
+         value: [OBJECT_TYPE] Distinguished name in RenderingUtil -->
+    <filtering-fields>
+        <value>お客様名</value>
+        <value>vlans</value>
+        <value>ip subnets</value>
+    </filtering-fields>
+
+    <!-- Filter view Search type of search item
+         key: [OBJECT_TYPE] Distinguished name in RenderingUtil
+         value: Search type [contain/select/equal/numeric] -->
+    <condition-of-filtering>
+        <prop key="お客様名">contain</prop>
+        <prop key="vlans">contain</prop>
+        <prop key="ip subnets">contain</prop>
+    </condition-of-filtering>
+
+    <!-- Display string on UI
+         key: [OBJECT_TYPE] Distinguished name in RenderingUtil
+         value: Display Name -->
+    <display-name>
+        <prop key="お客様名">顧客名</prop>
+        <prop key="対象ノード">対象ノード</prop>
+        <prop key="SSL上限数">SSL上限数</prop>
+        <prop key="宛先サーバ上限数">宛先サーバ上限数</prop>
+        <prop key="顧客ログインID">顧客ログインID</prop>
+        <prop key="fw-policy-zone-matrix">アラート画面表示ルール設定</prop>
+        <prop key="vlans">VLAN</prop>
+        <prop key="ip subnets">Subnet</prop>
+    </display-name>
+</configuration>

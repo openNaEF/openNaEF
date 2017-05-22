@@ -1,0 +1,10 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+ <layer_block name="VLAN陷台ｼ∝求" snmptrap="disable">
+   <j:if test="${empty(op.vlanId.pre)}">
+     ERROR: op.vlanId.pre is empty.
+   </j:if>
+   configure terminal
+   no vlan ${op.vlanId.pre}
+   end
+ </layer_block>
+</j:jelly>

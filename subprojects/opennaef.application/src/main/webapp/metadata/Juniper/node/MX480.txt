@@ -1,0 +1,31 @@
+new-node "_NODENAME_"
+  attribute set ベンダー名 Juniper
+  attribute set 機種 MX480
+
+  new-hardware chassis "Juniper MX480 Midplane Internet Backbone Router"
+    new-hardware slot RE0
+    context ..
+    new-hardware slot RE1
+    context ..
+    new-hardware slot 0
+    context ..
+    new-hardware slot 1
+    context ..
+    new-hardware slot 2
+    context ..
+    new-hardware slot 3
+    context ..
+    new-hardware slot 4
+    context ..
+    new-hardware slot 5
+    context ..
+    new-hardware slot PEM0
+    context ..
+    new-hardware slot PEM1
+    context ..
+    new-hardware slot PEM2
+    context ..
+    new-hardware slot PEM3
+    context ..
+  context ..
+context ..

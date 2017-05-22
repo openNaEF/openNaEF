@@ -1,0 +1,26 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+    ### DEBUG start ###
+    File: NX-OS-DEFAULT-VLAN_IF-OP_CREATE.jelly
+    op.vlanId: ${op.vlanId}
+    op.ipAddress: ${op.ipAddress}
+    op.subnetMask: ${op.subnetMask}
+    ### DEBUG end ###
+    <layer_block name="SVI作成" snmptrap="disable">
+      <j:if test="${empty(op.vlanId.value)}">
+        XXX: ERROR: op.vlanId is empty.
+      </j:if>
+      configure terminal
+      interface vlan${op.vlanId}
+      <j:if test="${!empty(op.ipAddress.value) and !empty(op.subnetMask.value)}">
+        ip address ${op.ipAddress} ${op.subnetMask}
+      </j:if>
+      <j:if test="${!empty(op.ipAddress2.value) and !empty(op.subnetMask2.value)}">
+        ip address ${op.ipAddress2} ${op.subnetMask2} secondary
+      </j:if>
+      <j:if test="${!empty(op.description.value)}">
+        description ${op.description}
+      </j:if>
+      exit
+      exit
+    </layer_block>
+</j:jelly>

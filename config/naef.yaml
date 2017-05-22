@@ -1,0 +1,14 @@
+# naef-restful-api
+api-ip-addr: localhost
+api-port: 2510
+
+# for test
+#api-port: 9998
+
+# naef
+naef-address: localhost
+naef-port: 38100
+naef-service-name: mplsnms
+
+# notifier
+notifier-db: ./notifier-db

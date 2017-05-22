@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/">
+<head>
+    <link rel="stylesheet" href="blueprint/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/print.css" type="text/css" media="print"/>
+    <!--[if IE]>
+    <link rel="stylesheet" href="blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <link rel="stylesheet" href="blueprint/plugins/tabs/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/plugins/buttons/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="css/ui.base.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/common.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/commonprint.css" type="text/css" media="print"/>
+    <link rel="stylesheet" href="css/tablesorter/style.css" type="text/css" media="screen"/>
+
+    <script type='text/javascript' src='js/jquery-1.3.1.min.js'></script>
+    <script type="text/javascript" src="js/jquery.hotkeys-0.7.8-packed.js"></script>
+    <script type="text/javascript" src="js/ui.core.js"></script>
+    <script type='text/javascript' src='js/ui.datepicker.js'></script>
+    <script type='text/javascript' src='js/ui.datepicker-ja.js'></script>
+    <title>Create Virtual Port</title>
+</head>
+<body>
+<div id="hd" role="banner">
+    <h1>Create Virtual Port (Node:<span wicket:id="nodeName"></span>)</h1>
+</div>
+<form wicket:id="backForm" name="backForm">
+    <button wicket:id="back" type="submit" tabindex="0" id="back-button" class="negative span-5">
+        <img src="blueprint/plugins/buttons/icons/cross.png" alt="Discard and Back"/>Discard and Back
+    </button>
+</form>
+<hr/>
+Fields marked with * are mandatory
+<div wicket:id="feedback">Error detail here</div>
+<br/>
+<form wicket:id="editInterface" name="editInterface">
+    <table>
+        <tr>
+            <th>Attribute</th>
+            <th>Type</th>
+            <th>Value</th>
+            <th>Overview</th>
+        </tr>
+        <tr>
+            <th>ifName *</th>
+            <th>String</th>
+            <td class="nowrap"><input wicket:id="ifName" type="text"/></td>
+            <td>IfName of this port.</td>
+        </tr>
+        <tr>
+            <th>Interface Type *</th>
+            <th>String</th>
+            <td><select wicket:id="ifType">
+                <option value="eth-port">Ethernet</option>
+                <option value="atm-port">ATM</option>
+                <option value="serial-port">Serial</option>
+                <option value="pos-port">POS</option>
+            </select></td>
+            <td>Interface Type of this port (Can not change later)</td>
+        </tr>
+    </table>
+    <button wicket:id="proceed" type="submit" tabindex="0" id="apply-button" class="positive span-5">
+        <img src="blueprint/plugins/buttons/icons/tick.png" alt="Apply"/>OK
+    </button>
+</form>
+</body>
+</html>

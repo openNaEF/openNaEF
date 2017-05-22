@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- These settings is only for Phalanx Client UI. -->
+
+    <!-- Attribute name to store the value for inventory ID -->
+    <id-field-name>Route Distinguisher</id-field-name>
+
+    <!-- List display target item
+         value: [OBJECT_TYPE] Distinguished name in RenderingUtil -->
+    <fields>
+        <value>VPN ID</value>
+        <value>Routing Instance</value>
+        <value>Route Distinguisher</value>
+        <value>Node</value>
+        <value>Facility Status</value>
+        <value>Company ID</value>
+    </fields>
+
+    <!-- Property display target item
+         value: [OBJECT_TYPE] Distinguished name in RenderingUtil -->
+    <property-fields>
+        <value>VPN ID</value>
+        <value>Routing Instance</value>
+        <value>Route Distinguisher</value>
+        <value>Node</value>
+        <value>Facility Status</value>
+        <value>Company ID</value>
+        <value>Note</value>
+    </property-fields>
+
+    <!-- Filter view search item
+         value: [OBJECT_TYPE] Distinguished name in RenderingUtil -->
+    <filtering-fields>
+        <value>VPN ID</value>
+        <value>Routing Instance</value>
+        <value>Route Distinguisher</value>
+        <value>Node</value>
+        <value>Facility Status</value>
+        <value>Company ID</value>
+        <value>Note</value>
+    </filtering-fields>
+
+    <!-- Filter view Search type of search item
+         key: [OBJECT_TYPE] Distinguished name in RenderingUtil
+         value: Search type [contain/select/equal/numeric] -->
+    <condition-of-filtering>
+        <prop key="VPN ID">contain</prop>
+        <prop key="Routing Instance">contain</prop>
+        <prop key="Route Distinguisher">contain</prop>
+        <prop key="Node">contain</prop>
+        <prop key="Facility Status">select</prop>
+        <prop key="Company ID">contain</prop>
+        <prop key="Note">contain</prop>
+    </condition-of-filtering>
+
+    <!-- Display string on UI
+         key: [OBJECT_TYPE] Distinguished name in RenderingUtil
+         value: Display Name -->
+    <display-name>
+        <prop key="VPN ID">VPN ID</prop>
+        <prop key="Routing Instance名">Routing Instance</prop>
+        <prop key="Route Distinguisher">Route Distinguisher</prop>
+        <prop key="Node">Node</prop>
+        <prop key="Facility Status">Facility Status</prop>
+        <prop key="Company ID">Company ID</prop>
+        <prop key="Note">Note</prop>
+    </display-name>
+</configuration>

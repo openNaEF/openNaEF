@@ -1,0 +1,178 @@
+
+vlans:
+  get:
+    summary: すべてのvlanを取得する
+    description: すべてのvlanを取得する
+    parameters:
+      - name: deref
+        in: query
+        description: |
+          true を指定した場合は、MvoLinkではなく、Dtoを返す
+        required: false
+        type: boolean
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: version
+        in: query
+        description: |
+          ターゲットとなるバージョン。
+          指定しない場合は最新のバージョンが指定される。
+        required: false
+        type: string
+    tags:
+      - vlan
+    responses:
+      200:
+        description: vlanのリスト
+        schema:
+          type: array
+          items:
+            $ref: '#/defs/MvoLink'
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+  post:
+    summary: vlanを新規作成する
+    description: vlanを新規作成する
+    parameters:
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: vlan
+        in: body
+        description: vlan
+        required: true
+        schema:
+          $ref: '#/defs/Vlan'
+    tags:
+      - vlan
+    responses:
+      201:
+        description: Make a new vlan
+        headers:
+          Location:
+            description: 新規作成されたvlanのuri
+            type: string
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+vlans_mvo-id:
+  get:
+    summary: vlanを取得する
+    description: vlanを取得する
+    parameters:
+      - name: mvo-id
+        in: path
+        description: ID of the mvo
+        required: true
+        type: string
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: version
+        in: query
+        description: |
+          ターゲットとなるバージョン。
+          指定しない場合は最新のバージョンが指定される。
+        required: false
+        type: string
+    tags:
+      - vlan
+    responses:
+      200:
+        description: vlan
+        schema:
+          $ref: '#/defs/Vlan'
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+  put:
+    summary: vlanを更新する
+    description: vlanを更新する
+    parameters:
+      - name: mvo-id
+        in: path
+        description: ID of the mvo
+        required: true
+        type: string
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: vlan
+        in: body
+        description: vlan
+        required: true
+        schema:
+          $ref: '#/defs/Vlan'
+    tags:
+      - vlan
+    responses:
+      204:
+        description: Updates the vlan
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+  delete:
+    summary: vlanを削除する
+    description: vlanを削除する
+    parameters:
+      - name: mvo-id
+        in: path
+        description: ID of the mvo
+        required: true
+        type: string
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+    tags:
+      - vlan
+    responses:
+      204:
+        description: Deletes the vlan
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+
+defs:
+  Vlan:
+    type: object
+    properties:
+      vlan_id_pool:
+        description: vlan-id-poolのmvo-id
+        type: string
+        example: mvo-id
+      vlan_id:
+        description: vlan-id
+        type: integer
+        example: 1

@@ -1,0 +1,11 @@
+new-hardware module ""
+  attribute set モジュール種別 RE-S-2000
+
+  new-hardware jack fxp0
+    new-port eth-port ""
+#      attribute set トランシーバ TP
+    context ..
+  context ..
+
+
+context ..

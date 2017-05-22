@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<j:jelly
+  trim="false" escapeText="false"
+  xmlns:j="jelly:core" xmlns:define="jelly:define" xmlns:voss="voss">
+
+  <!-- Here is an example how to round a variable to a multiple of 64k. -->
+  <!-- j:set var="fuga" value="1000000"/>
+  <j:invokeStatic className="voss.nms.inventory.script.renderer.jelly.RendererUtil"
+    method="round64k" var="hoge">
+    <j:arg type="long" value="${fuga}"/>
+  </j:invokeStatic -->
+
+  <!-- printf の試験 (引数一つだけしかサポートしていない) -->
+  <j:invokeStatic className="voss.nms.inventory.script.renderer.jelly.RendererUtil"
+    method="printf" var="foo">
+    <j:arg type="java.lang.String" value="%08.3f"/>
+    <j:arg type="java.lang.Float" value="2007.1234"/>
+  </j:invokeStatic>
+
+  <!-- 64k で切り上げ -->
+  <j:invokeStatic className="voss.nms.inventory.script.renderer.jelly.RendererUtil"
+    method="roundUp" var="bar">
+    <j:arg type="long" value="1000000"/>
+    <j:arg type="long" value="64000"/>
+  </j:invokeStatic>
+
+  <!-- さらに 500k で切り上げ -->
+  <j:invokeStatic className="voss.nms.inventory.script.renderer.jelly.RendererUtil"
+    method="roundUp" var="baz">
+    <j:arg type="long" value="${bar}"/>
+    <j:arg type="long" value="500000"/>
+  </j:invokeStatic>
+
+  <!-- 500k で切り上げの別解 -->
+  <j:invokeStatic className="voss.nms.inventory.script.renderer.jelly.RendererUtil"
+    method="roundUp" var="baz2">
+    <j:arg type="long" value="${bar}"/>
+    <j:arg type="java.lang.String" value="500 k"/>
+  </j:invokeStatic>
+
+  <!-- Here is an example how to capitalize the first character of a variable. -->
+  <j:set var="test1" value="fa0/1"/>
+  <j:invokeStatic className="voss.nms.inventory.script.renderer.jelly.RendererUtil"
+    method="getCapitalized" var="result1a">
+    <j:arg type="java.lang.String" value="${test1}"/>
+  </j:invokeStatic>
+  
+  <!-- cisco IOS 風変換 -->
+  <j:invokeStatic className="voss.nms.inventory.script.renderer.jelly.RendererUtil"
+    method="getCanonicalIfname" var="result1b">
+    <j:arg type="java.lang.String" value="${test1}"/>
+    <j:arg type="java.lang.String" value="Cisco-IOS"/>
+  </j:invokeStatic>
+
+  <!-- Foundry 風変換 -->
+  <j:invokeStatic className="voss.nms.inventory.script.renderer.jelly.RendererUtil"
+    method="getCanonicalIfname" var="result1c">
+    <j:arg type="java.lang.String" value="${test1}"/>
+    <j:arg type="java.lang.String" value="Foundry"/>
+  </j:invokeStatic>
+
+  <!-- AlaxalA 風変換 -->
+  <j:invokeStatic className="voss.nms.inventory.script.renderer.jelly.RendererUtil"
+    method="getCanonicalIfname" var="result1d">
+    <j:arg type="java.lang.String" value="${test1}"/>
+    <j:arg type="java.lang.String" value="AlaxalA"/>
+  </j:invokeStatic>
+
+  <!-- 無変換 -->
+  <j:invokeStatic className="voss.nms.inventory.script.renderer.jelly.RendererUtil"
+    method="getCanonicalIfname" var="result1e">
+    <j:arg type="java.lang.String" value="${test1}"/>
+    <j:arg type="java.lang.String" value="Extreme"/>
+  </j:invokeStatic>
+
+  <result foo="${foo}" bar="${bar}" baz="${baz}"/>
+  <baz>${baz}</baz>
+  <baz2>${baz2}</baz2>
+  <test1 from="test1" result="${result1a}"/>
+  <test1 from="test1" result="${result1b}"/>
+  <test1 from="test1" result="${result1c}"/>
+  <test1 from="test1" result="${result1d}"/>
+  <test1 from="test1" result="${result1e}"/>
+
+</j:jelly>

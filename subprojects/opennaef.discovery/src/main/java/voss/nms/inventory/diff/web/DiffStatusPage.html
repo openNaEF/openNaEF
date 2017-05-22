@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/">
+<head>
+    <title>Diff Status</title>
+</head>
+<body>
+<h1>Diff Status</h1>
+<a wicket:id="refresh">[Refresh]</a>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Operation</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr wicket:id="statusTable">
+        <td wicket:id="name"></td>
+        <td wicket:id="status"></td>
+        <td wicket:id="result"></td>
+        <td wicket:id="lastCommittedTime"></td>
+        <td>
+            <button wicket:id="operation"><span wicket:id="operationName"></span></button>
+            <button wicket:id="deprive">Deprive Lock<span wicket:id="userName"></span></button>
+        </td>
+        <td>
+            <a wicket:id="show" href="#">show diff</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

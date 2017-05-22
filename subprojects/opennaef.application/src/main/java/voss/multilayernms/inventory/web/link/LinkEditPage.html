@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/">
+<head>
+    <title>Physical Link Edit</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .link_cell {
+            width: 200px;
+        }
+        .line {
+            border: 1px solid #000000;
+            background-color: #000000;
+        }
+        .middle {
+            vertical-align: bottom
+        }
+        .border {
+            border: 1px solid #000000;
+            background-color: #FFFFFF;
+        }
+    </style>
+    <link rel="stylesheet" href="blueprint/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/print.css" type="text/css" media="print"/>
+    <!--[if IE]>
+    <link rel="stylesheet" href="blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <link rel="stylesheet" href="blueprint/plugins/tabs/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/plugins/buttons/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="css/ui.base.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/tablesorter/style.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/common.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/commonprint.css" type="text/css" media="print"/>
+
+    <script type='text/javascript' src='js/jquery-1.3.1.min.js'></script>
+    <script type="text/javascript" src="js/ui.core.js"></script>
+    <script type="text/javascript" src="js/jquery.suggest.js"></script>
+    <script type='text/javascript' src='js/jquery.tablesorter.min.js'></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.tablesorter.defaults.widgets = ['zebra'];
+            $('table.tablesorter').tablesorter();
+        });
+    </script>
+</head>
+<body>
+<div id="hd" role="banner">
+    <h1>Physical Link on <span wicket:id="baseName"></span></h1>
+</div>
+<div id="menu">
+    <button wicket:id="back">[Back]</button>
+</div>
+<hr/>
+<h3>Physical Link</h3>
+<div wicket:id="feedback">Error detail here</div>
+<table>
+    <tr>
+        <th colspan="3" align="center">Physical Link</th>
+    </tr>
+    <tr>
+        <td class="border">
+            Node: <span wicket:id="node">Node1</span><br/>
+            Port: <span wicket:id="ifName">ifName1</span><br/>
+        </td>
+        <td class="middle link_cell">
+            <hr class="line link_cell"/>
+        </td>
+        <td class="border">
+            Neighbor Node: <a wicket:id="neighborNode" href="#"><span wicket:id="nodeName"></span></a><br/>
+            Neighbor Port:<span wicket:id="neighborIfName"></span><br/>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td class="link_cell">
+        </td>
+        <td>
+            <wicket:enclosure child="createLink">
+                <button wicket:id="createLink">Select Neighbor Node</button>
+                <br/>
+            </wicket:enclosure>
+            <wicket:enclosure>
+                <button wicket:id="deleteLink" onclick="return confirm('Are you sure to delete?');">Delete Link</button>
+            </wicket:enclosure>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

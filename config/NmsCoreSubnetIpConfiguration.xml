@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- These settings is only for Phalanx Client UI. -->
+
+    <!-- Attribute name to store the value for inventory ID -->
+    <id-field-name>TargetIfName</id-field-name>
+
+    <!-- List display target item
+         value: [OBJECT_TYPE] Distinguished name in RenderingUtil -->
+    <fields>
+        <value>SubnetIP</value>
+        <value>vpn-prefix</value>
+        <value>TargetNodeName</value>
+        <value>TargetIfName</value>
+    </fields>
+
+    <!-- Property display target item
+         value: [OBJECT_TYPE] Distinguished name in RenderingUtil -->
+    <property-fields>
+        <value>SubnetIP</value>
+        <value>vpn-prefix</value>
+        <value>TargetNodeName</value>
+        <value>TargetIfName</value>
+    </property-fields>
+
+    <!-- Filter view search item
+         value: [OBJECT_TYPE] Distinguished name in RenderingUtil -->
+    <filtering-fields>
+        <value>SubnetIP</value>
+        <value>TargetNodeName</value>
+        <value>TargetIfName</value>
+    </filtering-fields>
+
+    <!-- Filter view Search type of search item
+         key: [OBJECT_TYPE] Distinguished name in RenderingUtil
+         value: Search type [contain/select/equal/numeric] -->
+    <condition-of-filtering>
+        <prop key="SubnetIP">contain</prop>
+        <prop key="TargetNodeName">contain</prop>
+        <prop key="TargetIfName">contain</prop>
+    </condition-of-filtering>
+
+    <!-- Display string on UI
+         key: [OBJECT_TYPE] Distinguished name in RenderingUtil
+         value: Display Name -->
+    <display-name>
+        <prop key="SubnetIP">SubnetIP</prop>
+        <prop key="vpn-prefix">VPN PREFIX</prop>
+        <prop key="TargetNodeName">TargetNodeName</prop>
+        <prop key="TargetIfName">TargetIfName</prop>
+    </display-name>
+</configuration>

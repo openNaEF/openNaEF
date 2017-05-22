@@ -1,0 +1,10 @@
+new-hardware module ""
+  attribute set モジュール種別 "PIC: 1x 10GE(LAN),XENPAK"
+
+  new-hardware jack 0
+    new-port eth-port ""
+      attribute set Prefix "xe-"
+    context ..
+  context ..
+
+context ..

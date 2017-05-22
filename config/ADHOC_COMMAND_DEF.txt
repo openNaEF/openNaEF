@@ -1,0 +1,46 @@
+# Entry is empty line or terminated with EOF
+# # is a comment line
+
+class=CiscoCatalystDiscovery, node=.*-bas-.*
+	ENABLE, show running-config
+	ENABLE, show tech-support
+
+class=CiscoCatalystDiscovery, node=ap-.*
+	ENABLE, show running-config
+	ENABLE, show process memory
+	ENABLE, show controllers ethernet-controller
+	ENABLE, show ip ospf neighbor
+	ENABLE, show ip route summary
+	ENABLE, show flash:
+	ENABLE, show bootflash:
+	
+class=CiscoCatalystDiscovery, node=nigs-.*
+	ENABLE, show running-config
+	ENABLE, show version
+	ENABLE, show logging
+#	ENABLE, show tech-support
+
+class=CiscoCatalystDiscovery, node=ote-.*
+	ENABLE, show running-config
+	ENABLE, show version
+	ENABLE, show logging
+	ENABLE, show interface status
+	ENABLE, show interface description
+	ENABLE, show ip interface brief
+	ENABLE, show process cpu
+
+class=CiscoCatalystDiscovery, node=.*
+#	ENABLE, show running-config
+#	ENABLE, show clock
+	ENABLE, show version
+#	ENABLE, show logging
+#	ENABLE, show interface status
+#	ENABLE, show interface description
+#	ENABLE, show ip interface brief
+#	ENABLE, show process cpu
+#	ENABLE, show process memory
+#	ENABLE, show controllers ethernet-controller
+#	ENABLE, show ip ospf neighbor
+#	ENABLE, show ip route summary
+#	ENABLE, show flash:
+#	ENABLE, show bootflash:

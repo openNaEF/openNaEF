@@ -1,0 +1,240 @@
+nodes:
+  get:
+    summary: すべてのノードを取得する
+    description: すべてのノードを取得する
+    parameters:
+      - name: deref
+        in: query
+        description: |
+          true を指定した場合は、MvoLinkではなく、Dtoを返す
+        required: false
+        type: boolean
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: version
+        in: query
+        description: |
+          ターゲットとなるバージョン。
+          指定しない場合は最新のバージョンが指定される。
+        required: false
+        type: string
+    tags:
+      - node
+    responses:
+      200:
+        description: ノードのリスト
+        schema:
+          type: array
+          items:
+            $ref: '#/defs/MvoLink'
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+  post:
+    summary: ノードを新規作成する
+    description: ノードを新規作成する
+    parameters:
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: node
+        in: body
+        description: ノード
+        required: true
+        schema:
+          $ref: '#/defs/Node'
+    tags:
+      - node
+    responses:
+      201:
+        description: Make a new node
+        headers:
+          Location:
+            description: 新規作成されたノードのuri
+            type: string
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+
+nodes_mvo-id:
+  get:
+    summary: ノードを取得する
+    description: ノードを取得する
+    parameters:
+      - name: mvo-id
+        in: path
+        description: ID of the mvo
+        required: true
+        type: string
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: version
+        in: query
+        description: |
+          ターゲットとなるバージョン。
+          指定しない場合は最新のバージョンが指定される。
+        required: false
+        type: string
+    tags:
+      - node
+    responses:
+      200:
+        description: ノード
+        schema:
+          $ref: '#/defs/Node'
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+  put:
+    summary: ノードを更新する
+    description: ノードを更新する
+    parameters:
+      - name: mvo-id
+        in: path
+        description: ID of the mvo
+        required: true
+        type: string
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: node
+        in: body
+        description: ノード
+        required: true
+        schema:
+          $ref: '#/defs/Node'
+    tags:
+      - node
+    responses:
+      204:
+        description: ノードの更新に成功した
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+  delete:
+    summary: ノードを削除する
+    description: ノードを削除する
+    parameters:
+      - name: mvo-id
+        in: path
+        description: ID of the mvo
+        required: true
+        type: string
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+    tags:
+      - node
+    responses:
+      204:
+        description: ノードの削除に成功した
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+
+defs:
+  Node:
+    type: object
+    properties:
+      name:
+        description: ノード名
+        type: string
+        example: node-name
+      vendor:
+        description: ベンダー名
+        type: string
+        example: vendor
+      node_type:
+        description: 機種名
+        type: string
+        example: node-type
+      os_type:
+        description: OS種別
+        type: string
+        example: os
+      os_version:
+        description: OSバージョン
+        type: string
+        example: v1.0.0
+      management_ip_address:
+        description: 管理IPアドレス. SNMP/TELNET/SSH 等でアクセス可能なアドレスを指定します.
+        type: string
+        example: 127.0.0.1
+      snmp_mode:
+        description: SNMPアクセス方法. SNMP でアクセスする方法を指定します. なしに指定すると差分検出を行わないことがあります.
+        type: string
+        example: SNMP v1
+      snmp_comunity:
+        description: SNMPコミュニティ(RO). SNMP でアクセスする際のコミュニティ名 (Read Only) を指定します. 空欄の場合, 差分検出を行わないことがあります.
+        type: string
+        example: public
+      login_user:
+        description: コンソールログインパスワード. telnet/ssh でログインする際のアカウント名. 半角の英数記号のみ.
+        type: string
+        example: user
+      login_passward:
+        description: コンソールログインユーザ名. telnet/ssh でログインする際のパスワードを入力します. 半角の英数記号のみ.
+        type: string
+        example: '*****'
+      admin_user:
+        description: 特権ユーザ名. ログインしてから特権モードに遷移するタイプの OS (ex. IOS) の場合に, 特権モード遷移用アカウント名. 半角英数字のみ.
+        type: string
+        example: admin
+      admin_passward:
+        description: 特権パスワード. ログインしてから特権モードに遷移するタイプの OS (ex. IOS) の場合に, 特権モード遷移用パスワードを入力します. 半角英数字のみ.
+        type: string
+        example: '*****'
+      cli_mode:
+        description: コンソール種別. 装置のコマンドラインインターフェースに接続する際のプロトコルを指定します.
+        type: string
+        example: SSH
+      virtualized_hosting_enable:
+        description: |
+          仮想ノードのホストを保持できるようにするには true をセットする. なおデフォルト値は true (VM 保持可能).
+          true をセットすると, このノード上に仮想ノードを作成できるようになる
+        type: boolean
+        example: true
+      purpose:
+        description: 用途
+        type: string
+        example: purpose
+      note:
+        description: 備考
+        type: string
+        example: note
+      location:
+        description: ロケーション
+        type: string
+        example: mvo-id;0-0

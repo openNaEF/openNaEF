@@ -1,0 +1,217 @@
+@charset "UTF-8";
+/* CSS Document */
+
+a {
+	color:#000000;
+}
+label {
+	margin:1em 0.5em 0 0;
+}
+
+label input {
+	margin:0 0.5em;
+}
+dl {
+	overflow:hidden;
+}
+dt {
+	font-weight:bold !important;
+	padding:0.5em 1em;
+	margin-top:1em;
+	border:1px solid #EBEBEB;
+	clear:left;
+}
+
+dd {
+	margin:1em 2em 0;
+}
+#hd {
+	clear:both;
+	padding:5px 15px;
+	margin:1em 0;
+}
+
+
+
+#bd {
+	/*width:1170px;*/
+	padding:5px 15px;
+	margin:1em 0;
+}
+.footer {
+	display:none;
+}
+.footer a {
+	text-decoration:none;
+}
+
+.display {
+	clear:both;
+}
+.display dt {
+	border:none;
+	width:15em;
+	float:left;
+	padding:0;
+	margin:0;
+	font-size:100%;
+	clear:left;
+}
+
+.display dd {		
+	display:block;
+	margin-top:0;
+}
+
+.compare dd {		
+	display:block;
+	margin:0;
+}
+
+button {
+	display:none;
+}
+a.edit {
+	margin:0;
+	text-decoration:none;
+	padding-top:4px;
+	margin-left:1em;
+}
+dl.compare {
+	margin:1em; auto;
+}
+
+dl.compare dt {
+	border:none;
+	width:8em;
+	float:left;
+	padding:0 0.5em;
+	margin:0;
+	font-size:100%;
+	clear:left;
+}
+dl.compare dd {
+	display:block;
+	padding:0 0.5em;
+}
+dt.current {
+}
+dt.future {
+}
+table {
+	/*width: 100%;8*/
+	margin: 0 0 20px;
+	border-collapse: collapse;
+	border: 1px #CCCCCC solid;
+	clear:both;
+}
+table th {
+	padding: 5px 10px;
+	border: 1px #CCCCCC solid;
+}
+table td {
+	padding: 2px;
+	border: 1px #CCCCCC solid;
+}
+
+#bd {
+	overflow:hidden;
+}
+
+#entry_area {
+	overflow:hidden;
+	margin:1em 0;
+	padding:1em;
+	clear:both;
+}
+
+#entry_area table {
+	
+}
+
+#entry_area td {
+	background:#fff;
+}
+
+#makenew {
+	float:left;
+}
+.discontinue {
+	color:#990000;
+}
+
+dt.toggle {
+	cursor:pointer;
+}
+
+.stylebutton { outline: 0; margin:0 4px 0 0; padding: .4em 1em; text-decoration:none !important; cursor:pointer; position: relative; text-align: center; zoom: 1; white-space:nowrap; line-height:16px }
+.ui-icon {
+	float:left;
+}
+
+td button.stylebutton {display:none!important;}
+
+dd button {
+	margin-bottom:1em !important;
+}
+
+dd td button {
+	margin-bottom:0 !important;
+	vertical-align:middle;
+	font-size:10px !important;
+}
+#mask {
+  position:absolute;
+  left:0;
+  top:0;
+  z-index:9000;
+  background-color:#000;
+  display:none;
+}
+  
+#boxes .window {
+  position:absolute;
+  left:0;
+  top:0;
+  width:440px;
+  height:350px;
+  display:none;
+  z-index:9999;
+  padding:20px;
+  background-color:#fff;
+}
+#boxes .window p {
+	margin:1em 0;
+}
+
+textarea {
+	height:3em;
+}
+#gridtable {
+	clear:left;
+}
+#gridtable th, #gridtable td {
+	white-space:nowrap;
+}
+
+#gridtable td button {
+	display:inline;
+	float:right;
+}
+.fakeContainer { /* The parent container */
+	clear:left;
+    min-width: 1000px; /* Required to set */
+    overflow: hidden; /* Required to set */
+}
+ul.box li {margin-left:1em;}
+.boxlist {padding:1.5em;margin-bottom:1.5em;background:#E5ECF9; overflow:hidden}
+.boxlist li {float:left; list-style:none; padding-right:2em; width:10em; white-space:nowrap}
+.boxlist li a, ul.box li a { text-decoration:none}
+label input {margin-left:1em!important}
+
+.sFHeader, .sFData, .sHeader {
+	display:none;
+}
+.notice, .error {
+	display:none;
+}

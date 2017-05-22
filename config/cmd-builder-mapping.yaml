@@ -1,0 +1,605 @@
+nodes: ./apis/nodes.yaml
+
+ports:
+  mvos:
+    - naef.mvo.Port
+    - naef.mvo.eth.EthPort
+  dtos:
+    - naef.dto.PortDto
+    - naef.dto.eth.EthPortDto
+  helper: opennaef.rest.api.helper.PhysicalPortBuilderHelper
+
+eth-links:
+  mvos:
+    - naef.mvo.P2pLink
+    - naef.mvo.L2Link
+  dtos:
+    - naef.dto.LinkDto
+    - naef.dto.L2LinkDto
+  builder:
+    class-name: opennaef.rest.workaround._LinkCommandBuilder
+    constructors:
+      create:
+        args:
+          - java-class: naef.dto.PortDto
+            attribute-name: member_ports[0]
+          - java-class: naef.dto.PortDto
+            attribute-name: member_ports[1]
+          - java-class: java.lang.String
+            attribute-name: editor-name
+      update:
+        args:
+          - java-class: naef.dto.LinkDto
+            attribute-name: $id
+          - java-class: java.lang.String
+            attribute-name: editor-name
+        description: editor-name
+      delete:
+        args:
+          - java-class: naef.dto.LinkDto
+            attribute-name: $id
+          - java-class: java.lang.String
+            attribute-name: editor-name
+        description:
+    methods:
+      setLinkID:
+        args:
+          - java-class: java.lang.String
+            attribute-name: name
+        description: リンク名
+
+vlan-id-pools:
+  mvos:
+    - naef.mvo.vlan.VlanIdPool$Dot1q
+  dtos:
+    - naef.dto.vlan.VlanIdPoolDto
+  builder:
+    class-name: opennaef.rest.builder.VlanIdPoolCommandBuilder
+    constructors:
+      create:
+        args:
+          - java-class: java.lang.String
+            attribute-name: name
+          - java-class: java.lang.String
+            attribute-name: editor-name
+        description:
+      update:
+        args:
+          - java-class: naef.dto.vlan.VlanIdPoolDto
+            attribute-name: $id
+          - java-class: java.lang.String
+            attribute-name: editor-name
+        description:
+      delete:
+        args:
+          - java-class: naef.dto.vlan.VlanIdPoolDto
+            attribute-name: $id
+          - java-class: java.lang.String
+            attribute-name: editor-name
+        description:
+    methods:
+      setName:
+        args:
+          - java-class: java.lang.String
+            attribute-name: name
+        description:
+
+vlans:
+  mvos:
+    - naef.mvo.vlan.Vlan
+  dtos:
+    - naef.dto.vlan.VlanDto
+  builder:
+    class-name: voss.nms.inventory.builder.VlanCommandBuilder
+    constructors:
+      create:
+        args:
+          - java-class: naef.dto.vlan.VlanIdPoolDto
+            attribute-name: vlan_id_pool
+          - java-class: java.lang.String
+            attribute-name: editor-name
+        description:
+      update:
+        args:
+          - java-class: naef.dto.vlan.VlanDto
+            attribute-name: $id
+          - java-class: java.lang.String
+            attribute-name: editor-name
+        description:
+      delete:
+        args:
+          - java-class: naef.dto.vlan.VlanDto
+            attribute-name: $id
+          - java-class: java.lang.String
+            attribute-name: editor-name
+        description:
+    methods:
+      setPool:
+        args:
+          - java-class: naef.dto.vlan.VlanIdPoolDto
+            attribute-name: vlan_id_pool
+        description:
+      setVlanID:
+        args:
+          - java-class: java.lang.Integer
+            attribute-name: vlan_id
+        description:
+
+vlan-ifs:
+  mvos:
+    - naef.mvo.vlan.VlanIf
+  dtos:
+    - naef.dto.vlan.VlanIfDto
+  helper: opennaef.rest.api.helper.VlanIfBuildHelper
+
+vlan-links:
+  mvos:
+    - naef.mvo.vlan.VlanLink
+  dtos:
+    - naef.dto.vlan.VlanLinkDto
+  helper: opennaef.rest.api.helper.VlanLinkBuildHelper
+
+customer-infos:
+  mvos:
+    - naef.mvo.CustomerInfo
+  dtos:
+    - naef.dto.CustomerInfoDto
+    - pasaran.naef.dto.CustomerInfo2dDto
+  helper: opennaef.rest.api.helper.CustomerInfoBuildHelper
+
+locations:
+  mvos:
+    - naef.mvo.Location
+  dtos:
+    - naef.dto.LocationDto
+  builder:
+    class-name: opennaef.rest.builder.LocationCommandBuilder
+    constructors:
+      create:
+        args:
+          - java-class: naef.dto.LocationDto
+            attribute-name: parent
+          - java-class: java.lang.String
+            attribute-name: location_type
+          - java-class: java.lang.String
+            attribute-name: caption
+          - java-class: java.lang.String
+            attribute-name: editor-name
+        description:
+      update:
+        args:
+          - java-class: naef.dto.LocationDto
+            attribute-name: $id
+          - java-class: java.lang.String
+            attribute-name: editor-name
+        description:
+      delete:
+        args:
+          - java-class: naef.dto.LocationDto
+            attribute-name: $id
+          - java-class: java.lang.String
+            attribute-name: editor-name
+        description:
+    methods:
+      setCaption:
+        args:
+          - java-class: java.lang.String
+            attribute-name: caption
+        description: 表示名
+      setSortOrder:
+        args:
+          - java-class: java.lang.String
+            attribute-name: sort_order
+        description: ソート用文字列
+      setParent:
+        args:
+          - java-class: naef.dto.LocationDto
+            attribute-name: parent
+        description: 備考
+      setNote:
+        args:
+          - java-class: java.lang.String
+            attribute-name: note
+        description: 備考
+
+of-patch-id-pools:
+  mvos:
+    - naef.mvo.of.OfPatchLink$PatchIdPool
+  dtos:
+    - naef.dto.of.OfPatchLinkDto$PatchIdPoolDto
+  builder:
+    class-name: opennaef.builder.OfPatchLinkPatchIdPoolCommandBuilder
+    constructors:
+      create:
+        args:
+          - java-class: java.lang.String
+            attribute-name: name
+          - java-class: java.lang.String
+            attribute-name: editor-name
+        description:
+      update:
+        args:
+          - java-class: naef.dto.of.OfPatchLinkDto$PatchIdPoolDto
+            attribute-name: $id
+          - java-class: java.lang.String
+            attribute-name: editor-name
+        description:
+      delete:
+        args:
+          - java-class: naef.dto.of.OfPatchLinkDto$PatchIdPoolDto
+            attribute-name: $id
+          - java-class: java.lang.String
+            attribute-name: editor-name
+        description:
+    methods:
+      name:
+        args:
+          - java-class: java.lang.String
+            attribute-name: name
+        description: of-patch id-pool名
+
+of-patch-links:
+  mvos:
+    - naef.mvo.of.OfPatchLink
+  dtos:
+    - naef.dto.of.OfPatchLinkDto
+  builder:
+    class-name: opennaef.builder.OfPatchLinkCommandBuilder
+    constructors:
+      create:
+        args:
+          - java-class: naef.dto.of.OfPatchLinkDto$PatchIdPoolDto
+            attribute-name: patch_id_pool
+          - java-class: naef.dto.PortDto
+            attribute-name: patch_port1
+          - java-class: naef.dto.PortDto
+            attribute-name: patch_port2
+          - java-class: java.lang.String
+            attribute-name: editor-name
+        description:
+      update:
+        args:
+          - java-class: naef.dto.of.OfPatchLinkDto
+            attribute-name: $id
+          - java-class: java.lang.String
+            attribute-name: editor-name
+        description:
+      delete:
+        args:
+          - java-class: naef.dto.of.OfPatchLinkDto
+            attribute-name: $id
+          - java-class: java.lang.String
+            attribute-name: editor-name
+        description:
+    methods:
+#      patchId:
+#        args:
+#          - java-class: java.lang.String
+#            attribute-name: patch-id
+      port1:
+        args:
+          - java-class: naef.dto.PortDto
+            attribute-name: patch_port1
+      port2:
+        args:
+          - java-class: naef.dto.PortDto
+            attribute-name: patch_port2
+
+
+###### ここから下はMvoDtoMappingから自動生成したもの
+network-type:
+  mvos:
+    - naef.mvo.NetworkType
+  dtos:
+    - naef.dto.NetworkTypeDto
+rsvp-lsp-hop:
+  mvos:
+    - naef.mvo.mpls.RsvpLspHop
+  dtos:
+    - naef.dto.PathHopDto
+vlan-link:
+  mvos:
+    - naef.mvo.vlan.VlanLink
+  dtos:
+    - naef.dto.vlan.VlanLinkDto
+ip-subnet:
+  mvos:
+    - naef.mvo.ip.IpSubnet
+  dtos:
+    - naef.dto.ip.IpSubnetDto
+node-type:
+  mvos:
+    - naef.mvo.NodeType
+  dtos:
+    - naef.dto.NodeTypeDto
+vlan-segment-gateway-if:
+  mvos:
+    - naef.mvo.vlan.VlanSegmentGatewayIf
+  dtos:
+    - naef.dto.vlan.VlanSegmentGatewayIfDto
+l2-link:
+  mvos:
+    - naef.mvo.L2Link
+  dtos:
+    - naef.dto.L2LinkDto
+ip-subnet-namespace:
+  mvos:
+    - naef.mvo.ip.IpSubnetNamespace
+  dtos:
+    - naef.dto.ip.IpSubnetNamespaceDto
+ip-subnet-address:
+  mvos:
+    - naef.mvo.ip.IpSubnetAddress
+  dtos:
+    - naef.dto.ip.IpSubnetAddressDto
+pseudowire-string-id-pool:
+  mvos:
+    - naef.mvo.mpls.PseudowireStringIdPool
+  dtos:
+    - naef.dto.mpls.PseudowireStringIdPoolDto
+atm-pvp-if:
+  mvos:
+    - naef.mvo.atm.AtmPvpIf
+  dtos:
+    - naef.dto.atm.AtmPvpIfDto
+customer-info:
+  mvos:
+    - naef.mvo.CustomerInfo
+  dtos:
+    - naef.dto.CustomerInfoDto
+    - pasaran.naef.dto.CustomerInfo2dDto
+tdm-serial-if:
+  mvos:
+    - naef.mvo.serial.TdmSerialIf
+  dtos:
+    - naef.dto.serial.TdmSerialIfDto
+multipoint-vlan-segment:
+  mvos:
+    - naef.mvo.vlan.MultipointVlanSegment
+  dtos:
+    - naef.dto.vlan.MultipointVlanSegmentDto
+location:
+  mvos:
+    - naef.mvo.Location
+  dtos:
+    - naef.dto.LocationDto
+system-user:
+  mvos:
+    - naef.mvo.SystemUser
+  dtos:
+    - naef.dto.SystemUserDto
+vpls:
+  mvos:
+    - naef.mvo.vpls.Vpls
+  dtos:
+    - naef.dto.vpls.VplsDto
+ip-if:
+  mvos:
+    - naef.mvo.ip.IpIf
+  dtos:
+    - naef.dto.ip.IpIfDto
+isdn-channel-if:
+  mvos:
+    - naef.mvo.isdn.IsdnChannelIf
+  dtos:
+    - naef.dto.isdn.IsdnChannelIfDto
+string-type:
+  mvos:
+    - naef.mvo.vrf.VrfIdPool$StringType
+  dtos:
+    - naef.dto.vrf.VrfStringIdPoolDto
+ospf-process:
+  mvos:
+    - naef.mvo.ospf.OspfProcess
+  dtos:
+    - naef.dto.ospf.OspfProcessDto
+node-element-type:
+  mvos:
+    - naef.mvo.NodeElementType
+  dtos:
+    - naef.dto.NodeElementTypeDto
+serial-port:
+  mvos:
+    - naef.mvo.serial.SerialPort
+  dtos:
+    - naef.dto.serial.SerialPortDto
+pos-port:
+  mvos:
+    - naef.mvo.pos.PosPort
+  dtos:
+    - naef.dto.pos.PosPortDto
+dot1q:
+  mvos:
+    - naef.mvo.vlan.VlanIdPool$Dot1q
+  dtos:
+    - naef.dto.vlan.VlanIdPoolDto
+vlan:
+  mvos:
+    - naef.mvo.vlan.Vlan
+  dtos:
+    - naef.dto.vlan.VlanDto
+naef-object-type:
+  mvos:
+    - naef.mvo.NaefObjectType
+  dtos:
+    - naef.dto.NaefObjectTypeDto
+chassis:
+  mvos:
+    - naef.mvo.Chassis
+  dtos:
+    - naef.dto.ChassisDto
+rsvp-lsp-hop-series-id-pool:
+  mvos:
+    - naef.mvo.mpls.RsvpLspHopSeriesIdPool
+  dtos:
+    - naef.dto.mpls.RsvpLspHopSeriesIdPoolDto
+atm-pvc-if:
+  mvos:
+    - naef.mvo.atm.AtmPvcIf
+  dtos:
+    - naef.dto.atm.AtmPvcIfDto
+eth-lag-if:
+  mvos:
+    - naef.mvo.eth.EthLagIf
+  dtos:
+    - naef.dto.eth.EthLagIfDto
+port:
+  mvos:
+    - naef.mvo.Port
+  dtos:
+    - naef.dto.PortDto
+p2p-link:
+  mvos:
+    - naef.mvo.P2pLink
+  dtos:
+    - naef.dto.LinkDto
+abstract-network:
+  mvos:
+    - naef.mvo.AbstractNetwork
+  dtos:
+    - naef.dto.NetworkDto
+port-type:
+  mvos:
+    - naef.mvo.PortType
+  dtos:
+    - naef.dto.PortTypeDto
+vrf:
+  mvos:
+    - naef.mvo.vrf.Vrf
+  dtos:
+    - naef.dto.vrf.VrfDto
+module:
+  mvos:
+    - naef.mvo.Module
+  dtos:
+    - naef.dto.ModuleDto
+vrf-if:
+  mvos:
+    - naef.mvo.vrf.VrfIf
+  dtos:
+    - naef.dto.vrf.VrfIfDto
+eth-port:
+  mvos:
+    - naef.mvo.eth.EthPort
+  dtos:
+    - naef.dto.eth.EthPortDto
+atm-aps-if:
+  mvos:
+    - naef.mvo.atm.AtmApsIf
+  dtos:
+    - naef.dto.atm.AtmApsIfDto
+interconnection-if:
+  mvos:
+    - naef.mvo.InterconnectionIf
+  dtos:
+    - naef.dto.InterconnectionIfDto
+node-group:
+  mvos:
+    - naef.mvo.NodeGroup
+  dtos:
+    - naef.dto.NodeGroupDto
+pos-aps-if:
+  mvos:
+    - naef.mvo.pos.PosApsIf
+  dtos:
+    - naef.dto.pos.PosApsIfDto
+isdn-port:
+  mvos:
+    - naef.mvo.isdn.IsdnPort
+  dtos:
+    - naef.dto.isdn.IsdnPortDto
+vpls-if:
+  mvos:
+    - naef.mvo.vpls.VplsIf
+  dtos:
+    - naef.dto.vpls.VplsIfDto
+string-type:
+  mvos:
+    - naef.mvo.vpls.VplsIdPool$StringType
+  dtos:
+    - naef.dto.vpls.VplsStringIdPoolDto
+fr-pvc-if:
+  mvos:
+    - naef.mvo.fr.FrPvcIf
+  dtos:
+    - naef.dto.fr.FrPvcIfDto
+rsvp-lsp-id-pool:
+  mvos:
+    - naef.mvo.mpls.RsvpLspIdPool
+  dtos:
+    - naef.dto.mpls.RsvpLspIdPoolDto
+rip-process:
+  mvos:
+    - naef.mvo.rip.RipProcess
+  dtos:
+    - naef.dto.rip.RipProcessDto
+pseudowire:
+  mvos:
+    - naef.mvo.mpls.Pseudowire
+  dtos:
+    - naef.dto.mpls.PseudowireDto
+rsvp-lsp:
+  mvos:
+    - naef.mvo.mpls.RsvpLsp
+  dtos:
+    - naef.dto.mpls.RsvpLspDto
+jack:
+  mvos:
+    - naef.mvo.Jack
+  dtos:
+    - naef.dto.JackDto
+atm-port:
+  mvos:
+    - naef.mvo.atm.AtmPort
+  dtos:
+    - naef.dto.atm.AtmPortDto
+abstract-port:
+  mvos:
+    - naef.mvo.AbstractPort
+  dtos:
+    - naef.dto.PortDto
+node:
+  mvos:
+    - naef.mvo.Node
+  dtos:
+    - naef.dto.NodeDto
+bgp-process:
+  mvos:
+    - naef.mvo.bgp.BgpProcess
+  dtos:
+    - naef.dto.bgp.BgpProcessDto
+hardware-type:
+  mvos:
+    - naef.mvo.HardwareType
+  dtos:
+    - naef.dto.HardwareTypeDto
+slot:
+  mvos:
+    - naef.mvo.Slot
+  dtos:
+    - naef.dto.SlotDto
+integer-type:
+  mvos:
+    - naef.mvo.vpls.VplsIdPool$IntegerType
+  dtos:
+    - naef.dto.vpls.VplsIntegerIdPoolDto
+rsvp-lsp-hop-series:
+  mvos:
+    - naef.mvo.mpls.RsvpLspHopSeries
+  dtos:
+    - naef.dto.mpls.RsvpLspHopSeriesDto
+vlan-if:
+  mvos:
+    - naef.mvo.vlan.VlanIf
+  dtos:
+    - naef.dto.vlan.VlanIfDto
+pseudowire-id-pool:
+  mvos:
+    - naef.mvo.mpls.PseudowireIdPool
+  dtos:
+    - naef.dto.mpls.PseudowireLongIdPoolDto
+integer-type:
+  mvos:
+    - naef.mvo.vrf.VrfIdPool$IntegerType
+  dtos:
+    - naef.dto.vrf.VrfIntegerIdPoolDto

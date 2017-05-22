@@ -1,0 +1,12 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+    <layer_block name="LAG から Untagged VLAN 削除" snmptrap="disable">
+      <j:if test="${empty(op.lagId.value)}">
+        ERROR: op.lagId is empty.
+      </j:if>
+      configure terminal
+      interface Port-channel${op.lagId}
+      default switchport access vlan
+      exit
+      exit
+    </layer_block>
+</j:jelly>

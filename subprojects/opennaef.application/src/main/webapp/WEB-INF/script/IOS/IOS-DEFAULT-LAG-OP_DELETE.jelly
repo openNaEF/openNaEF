@@ -1,0 +1,10 @@
+<j:jelly xmlns:j="jelly:core" xmlns:define="jelly:define" trim="false">
+    <layer_block name="LAG 陷台ｼ∝求" snmptrap="disable">
+      <j:if test="${empty(op.lagId.pre)}">
+        ERROR: op.lagId.pre is empty.
+      </j:if>
+      configure terminal
+      no interface Port-channel${op.lagId.pre}
+      exit
+    </layer_block>
+</j:jelly>

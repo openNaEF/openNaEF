@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         id="WebApp_ID" version="2.5">
+  <display-name>/opennaef.application</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <filter>
+    <filter-name>DiffConfigEditorView</filter-name>
+    <filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
+    <init-param>
+      <param-name>applicationClassName</param-name>
+      <param-value>voss.multilayernms.inventory.config.MplsnmsDiffConfigurationApplication</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>DiffConfigEditorView</filter-name>
+    <url-pattern>/diffconfig/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+  </filter-mapping>
+
+  <servlet>
+    <servlet-name>DiffServlet</servlet-name>
+    <servlet-class>voss.multilayernms.inventory.diff.web.DifferenceServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ReloadConfigServlet</servlet-name>
+    <servlet-class>voss.multilayernms.inventory.config.ReloadDiffConfigServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>DiffServlet</servlet-name>
+    <url-pattern>/diff/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ReloadConfigServlet</servlet-name>
+    <url-pattern>/reloadDiffConfig/*</url-pattern>
+  </servlet-mapping>
+
+  <session-config>
+    <session-timeout>120</session-timeout>
+  </session-config>
+</web-app>

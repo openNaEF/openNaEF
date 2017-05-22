@@ -1,0 +1,69 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+ ### DEBUG start ###
+ File: FortiOS-DEFAULT-VLAN_SUBIF-OP_CREATE.jelly
+ op.vlanid: ${op.vlanId}
+ op.ifname: ${op.ifname}
+ op.parentIfname: ${op.parentIfname}
+ empty(op.parentIfname): ${empty(op.parentIfname)} <!-- op.parentIfname は ConfigChangeUnit ではなく String なので .value は不要  -->
+ op.description: ${op.description}
+ empty(op.description.value): ${empty(op.description.value)}
+ op.ipAddress: ${op.ipAddress}
+ empty(op.ipAddress.value): ${empty(op.ipAddress.value)}
+ op.subnetMask: ${op.subnetMask}
+ empty(op.subnetMask.value): ${empty(op.subnetMask.value)}
+ ### DEBUG end ###
+ <!-- TODO: vdom 作るのは別の OP 作成予定
+[21:08:07] endoh: 藤沼さん、vdom 作ったり消したりするのって ALIAS-OP_XXX でやるのでしょうか ?
+[21:08:39] Kentaro Fujinuma: うーむ
+[21:08:45] Kentaro Fujinuma: まだそれに対応するオペレーション定義してないですね
+[21:08:49] endoh: なるほど
+[21:08:59] Kentaro Fujinuma: VM-OP_CREATE
+[21:09:04] Kentaro Fujinuma: VM-OP_DELETE
+[21:09:07] Kentaro Fujinuma: とかになるかな
+     <layer_block name="VDOM 作成" snmptrap="disable">
+       config vdom
+       edit "${op.vdom}"
+       next
+       end
+     </layer_block>
+ -->
+ <!--
+   非 root な vdom 上の VLAN サブインターフェイスも一旦 root vdom 上に作る.
+   これは, VLAN サブインターフェイスのライフサイクルと alias のライフサイクルが独立しているという思想に基づく.
+   例えば VLAN サブインターフェイスを先に作っておいて後から alias を作ったり,
+   ある VLAN サブインターフェイスが所属している vdom を変更したりとか.
+   尚, Forti では set vdom コマンドを入れないと config が通らないため,
+   必ず set vdom root コマンドは入力するようにしている.
+  -->
+ <layer_block name="ポート上に VLAN サブインターフェイス作成" snmptrap="disable">
+   <j:if test="${empty(op.vlanId.value)}">
+     ERROR: op.vlanId is empty.
+   </j:if>
+   <j:if test="${empty(op.ifname.value)}">
+     ERROR: op.ifname is empty.
+   </j:if>
+   <j:if test="${empty(op.parentIfname)}"> <!-- op.parentIfname は ConfigChangeUnit ではなく String なので .value は不要  -->
+     ERROR: op.parentIfname is empty.
+   </j:if>
+   config global
+   config system interface
+   edit "${op.ifname}"
+   set vdom "root"
+   set allowaccess ping
+   set interface "${op.parentIfname}"
+   set vlanid ${op.vlanId}
+   <j:if test="${!empty(op.ipAddress.value) and !empty(op.subnetMask.value)}">
+     set ip ${op.ipAddress} ${op.subnetMask}
+   </j:if>
+   <!-- secondary IP address の設定方法不明 -->
+   <!--j:if test="${!empty(op.ipAddress2.value) and !empty(op.subnetMask2.value)}">
+     set ip ${op.ipAddress2} ${op.subnetMask2}
+   </j:if-->
+   <j:if test="${!empty(op.description.value)}">
+     set description "${op.description}"
+   </j:if>
+   next
+   end
+   end
+ </layer_block>
+</j:jelly>

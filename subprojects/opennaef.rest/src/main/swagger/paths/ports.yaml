@@ -1,0 +1,214 @@
+ports:
+  get:
+    summary: すべてのポートを取得する
+    description: すべてのポートを取得する
+    parameters:
+      - name: deref
+        in: query
+        description: |
+          true を指定した場合は、MvoLinkではなく、Dtoを返す
+        required: false
+        type: boolean
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: version
+        in: query
+        description: |
+          ターゲットとなるバージョン。
+          指定しない場合は最新のバージョンが指定される。
+        required: false
+        type: string
+    tags:
+      - port
+    responses:
+      200:
+        description: ポートのリスト
+        schema:
+          type: array
+          items:
+            $ref: '#/defs/MvoLink'
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+  post:
+    summary: ポートを新規作成する
+    description: ポートを新規作成する
+    parameters:
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: port
+        in: body
+        description: ポート
+        required: true
+        schema:
+          $ref: '#/defs/Port'
+    tags:
+      - port
+    responses:
+      201:
+        description: Make a new port
+        headers:
+          Location:
+            description: 新規作成されたポートのuri
+            type: string
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+ports_mvo-id:
+  get:
+    summary: ポートを取得する
+    description: ポートを取得する
+    parameters:
+      - name: mvo-id
+        in: path
+        description: ID of the mvo
+        required: true
+        type: string
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: version
+        in: query
+        description: |
+          ターゲットとなるバージョン。
+          指定しない場合は最新のバージョンが指定される。
+        required: false
+        type: string
+    tags:
+      - port
+    responses:
+      200:
+        description: ポート
+        schema:
+          $ref: '#/defs/Port'
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+  put:
+    summary: ポートを更新する
+    description: ポートを更新する
+    parameters:
+      - name: mvo-id
+        in: path
+        description: ID of the mvo
+        required: true
+        type: string
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: port
+        in: body
+        description: ポート
+        required: true
+        schema:
+          $ref: '#/defs/Port'
+    tags:
+      - port
+    responses:
+      204:
+        description: Updates the port
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+  delete:
+    summary: ポートを削除する
+    description: ポートを削除する
+    parameters:
+      - name: mvo-id
+        in: path
+        description: ID of the mvo
+        required: true
+        type: string
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+    tags:
+      - port
+    responses:
+      204:
+        description: Deletes the port
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+
+defs:
+  Port:
+    type: object
+    properties:
+      name:
+        description: ポート名
+        type: string
+        example: eth0
+      if_name:
+        description: インターフェイス名
+        type: string
+        example: eth0
+      owner:
+        description: ポートを所有するChassis, Moduleのmvo-id
+        type: string
+        example: mvo-id
+      port_type:
+        description: |
+          このポートのインターフェース種別
+          Ethernet, atm-port, ATM APS, Serial, POS,
+          POS APS, ISDN, WDM, loopback, pipe, tunnel,
+          EthernetLAG, EthernetEPS, VLAN, VRF, VPLS,
+          ATM PVP, ATM PVC, FR PVC, ISDN Ch., Channel, Virutal NIC
+        type: string
+        example: Ethernet
+      port_mode:
+        description: ポートモード(IP, VLAN)
+        type: string
+        example: IP
+      switch_port_mode:
+        description: スイッチポートモード(ACCESS, TRUNK, DOT1Q_TUNNEL)
+        type: string
+        example: ACCESS
+      bandwidth:
+        description: 帯域(bps)
+        type: integer
+        example: 1000000000
+      oper_status:
+        description: 動作状態(up, down)
+        type: string
+        example: up
+      purpose:
+        description: 用途
+        type: string
+        example: purpose
+      note:
+        description: 備考
+        type: string
+        example: note

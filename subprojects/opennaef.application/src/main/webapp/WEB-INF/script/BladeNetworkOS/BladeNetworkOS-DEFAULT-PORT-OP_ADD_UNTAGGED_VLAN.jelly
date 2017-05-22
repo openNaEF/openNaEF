@@ -1,0 +1,33 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+ <layer_block name="ポートに Untagged VLAN 設定" snmptrap="disable">
+   <j:if test="${empty(op.vlanId.value)}">
+     ERROR: op.vlanId is empty.
+   </j:if>
+   <j:if test="${empty(op.ifname.value)}">
+     ERROR: op.ifname is empty.
+   </j:if>
+   <j:set var="ifId" value="${op.ifname.value.replaceFirst('^[a-zA-Z\s]*', '')}"/>
+   <j:if test="${!ifId.matches('[0-9]+')}">
+     ERROR: ifId is not numeric. maybe ifname is an unexpected format. (ifname: ${op.ifname})
+   </j:if>
+   configure terminal
+   vlan ${op.vlanId}
+   member ${ifId}
+   exit
+   <j:if test="${!empty(op.duplex.value) or !empty(op.linkNegotiation.value) or !empty(op.portSpeed.value)}">
+     interface ${op.ifname}
+     <j:if test="${!empty(op.duplex.value)}">
+       duplex ${op.duplex}
+     </j:if>
+     <j:if test="${!empty(op.portSpeed.value)}">
+       speed ${op.portSpeed}
+     </j:if>
+     <!-- FIXME: linkNegotiation のフォーマット未定. boolean ではないので↓は間違い -->
+     <j:if test="${!empty(op.linkNegotiation.value)}">
+       auto
+     </j:if>
+     exit
+   </j:if>
+   end
+ </layer_block>
+</j:jelly>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- These settings is only for Phalanx Client UI. -->
+
+    <!-- Attribute name to store the value for inventory ID -->
+    <id-field-name>Route Distinguisher</id-field-name>
+
+    <!-- List display target item
+         value: [OBJECT_TYPE] Distinguished name in RenderingUtil -->
+    <fields>
+        <value>VLAN ID</value>
+        <value>SubnetAddress</value>
+        <value>Subnet</value>
+        <value>User</value>
+        <value>AreaCode</value>
+        <value>UserCode</value>
+        <value>Purpose</value>
+        <value>Notice</value>
+        <value>VLAN Pool</value>
+    </fields>
+
+    <!-- Property display target item
+         value: [OBJECT_TYPE] Distinguished name in RenderingUtil -->
+    <property-fields>
+        <value>VLAN ID</value>
+        <value>SubnetAddress</value>
+        <value>Subnet</value>
+        <value>User</value>
+        <value>AreaCode</value>
+        <value>UserCode</value>
+        <value>Purpose</value>
+        <value>Notice</value>
+        <value>VLAN Pool</value>
+    </property-fields>
+
+    <!-- Filter view search item
+         value: [OBJECT_TYPE] Distinguished name in RenderingUtil -->
+    <filtering-fields>
+        <value>VLAN ID</value>
+        <value>SubnetAddress</value>
+        <value>Subnet</value>
+        <value>User</value>
+        <value>AreaCode</value>
+        <value>UserCode</value>
+        <value>VLAN Pool</value>
+    </filtering-fields>
+
+    <!-- Filter view Search type of search item
+         key: [OBJECT_TYPE] Distinguished name in RenderingUtil
+         value: Search type [contain/select/equal/numeric] -->
+    <condition-of-filtering>
+        <prop key="VLAN ID">contain</prop>
+        <prop key="SubnetAddress">contain</prop>
+        <prop key="Subnet">contain</prop>
+        <prop key="User">contain</prop>
+        <prop key="AreaCode">contain</prop>
+        <prop key="UserCode">contain</prop>
+        <prop key="VLAN Pool">contain</prop>
+    </condition-of-filtering>
+
+    <!-- Display string on UI
+         key: [OBJECT_TYPE] Distinguished name in RenderingUtil
+         value: Display Name -->
+    <display-name>
+        <prop key="VLAN ID">VLAN ID</prop>
+        <prop key="SubnetAddress">NetworkAddress</prop>
+        <prop key="Subnet">AddressNameSpace</prop>
+        <prop key="User">User</prop>
+        <prop key="Purpose">Purpose</prop>
+        <prop key="AreaCode">AreaCode</prop>
+        <prop key="UserCode">UserCode</prop>
+        <prop key="Notice">Notice</prop>
+        <prop key="VLAN Pool">VLAN Pool</prop>
+    </display-name>
+</configuration>

@@ -1,0 +1,57 @@
+buildscript {
+    dependencies {
+        classpath "org.akhikhl.gretty:gretty:$grettyVersion"
+    }
+}
+
+apply plugin: 'war'
+apply plugin: 'org.akhikhl.gretty'
+
+dependencies {
+    compile name: 'voss/jp.iiga.nmt.model'
+    compile name: 'voss/phalanx.core'
+    compile name: 'voss/phalanx.constants'
+    compile name: 'voss/net.phalanx.compare.core'
+    compile name: 'voss/net.phalanx.event.core.models'
+    compile name: 'voss/net.phalanx.fwlb.model'
+    compile name: 'voss/net.phalanx.portedit.model'
+    compile name: 'voss/voss.subnet-address-allocator'
+
+    compile project(':opennaef.webhelper')
+    compile project(':opennaef.devicedriver.device')
+    compile project(':opennaef.discovery')
+
+    compileOnly "javax.servlet:javax.servlet-api:$servletApiVersion"
+}
+
+artifacts {
+    archives jar
+    archives sourcesJar
+    archives javadocJar
+}
+
+gretty {
+    servletContainer = 'tomcat8'
+    httpPort = 8080
+    contextPath = '/opennaef.application'
+    loggingLevel = 'DEBUG'
+    consoleLogEnabled = true
+    fileLogEnabled = false
+    logDir = "logs"
+    logbackConfigFile = './src/main/resources/logback.xml'
+    jvmArgs = [
+            "-Dvoss.root.dir=\"${rootProject.rootDir}\"",
+            "-Dvossnms.root.dir=\"${rootProject.rootDir}\""
+    ]
+    afterEvaluate {
+        appRunDebug {
+            debugPort = 5005
+            debugSuspend = true
+        }
+    }
+}
+
+uploadArchives.doFirst {
+    // maven repository へ war を publish しない
+    configurations.archives.artifacts.removeAll { it.type == 'war' }
+}

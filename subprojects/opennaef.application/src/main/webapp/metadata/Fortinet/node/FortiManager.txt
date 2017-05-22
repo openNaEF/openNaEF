@@ -1,0 +1,5 @@
+#FortiManagerは、NW機器として管理しないのでノード情報のみ追加する。
+new-node "_NODENAME_"
+  attribute set ベンダー名 Fortinet
+  attribute set 機種 "FortiManager"
+context ..

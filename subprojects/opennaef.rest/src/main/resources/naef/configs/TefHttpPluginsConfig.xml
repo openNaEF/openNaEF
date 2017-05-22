@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+
+<!DOCTYPE tef-http-plugins-config [
+  <!ELEMENT tef-http-plugins-config (plug-in*)>
+
+  <!ELEMENT plug-in EMPTY>
+  <!ATTLIST plug-in
+    name CDATA #REQUIRED
+    class CDATA #REQUIRED>
+]>
+
+<tef-http-plugins-config>
+  <plug-in name="batch" 
+   class="tef.ui.http.ProcessBatchResponse"/>
+  <plug-in name="mvo.Dump" 
+   class="tef.ui.http.DumpObjectResponse"/>
+  <plug-in name="mvo.Stacktrace" 
+   class="tef.ui.http.PrintStackTraceLinesResponse"/>
+  <plug-in name="mvo.Search" 
+   class="tef.ui.http.SearchObjectResponse"/>
+  <plug-in name="run" 
+   class="tef.ui.http.RunExternalProgramResponse"/>
+
+  <plug-in name="tef-skelton.attribute-search" 
+   class="tef.skelton.http.AttributeSearchHttp"/>
+  <plug-in name="tef.query" 
+   class="tef.skelton.http.ObjectQueryExpressionHttp"/>
+</tef-http-plugins-config>

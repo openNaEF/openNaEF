@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>OpenNaEF Main</title>
+    <link rel="stylesheet" href="blueprint/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/print.css" type="text/css" media="print"/>
+    <!--[if IE]><link rel="stylesheet" href="blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <link rel="stylesheet" href="blueprint/plugins/tabs/screen.css" type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="blueprint/plugins/buttons/screen.css" type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="css/ui.base.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/commonprint.css" type="text/css" media="print" />
+    <link rel="stylesheet" href="css/tablesorter/style.css" type="text/css" media="screen" />
+
+    <script type='text/javascript' src='js/jquery-1.3.1.min.js'></script>
+    <script type="text/javascript" src="js/ui.core.js"></script>
+</head>
+<body>
+<div id="hd" role="banner">
+    <h1>OpenNaEF Main Menu</h1>
+</div>
+<h3>
+    <table>
+        <tr><th colspan="3">Inventory</th></tr>
+        <tr>
+            <td><a wicket:id="node" href="#">Physical Nodes</a></td>
+            <td><a wicket:id="vmHost" href="#">Virtual Nodes</a></td>
+            <td><a wicket:id="nodeAddLink" href="#">Create Node</a></td>
+        </tr><tr>
+            <td><a wicket:id="location" href="#">Location</a></td>
+            <td><a wicket:id="search" href="#">Search Nodes</a></td>
+            <td></td>
+        </tr>
+    </table>
+    <table>
+        <tr><th colspan="3">Network</th></tr>
+        <tr>
+            <td><a wicket:id="vlan" href="#">VLAN</a></td>
+            <td><a wicket:id="subnet" href="#">SUBNET</a></td>
+            <td><a wicket:id="etherlink" href="#">Ether Link</a></td>
+        </tr><tr>
+            <td><a wicket:id="rsvplsp" href="#">RSVP LSP</a></td>
+            <td><a wicket:id="path" href="#">LSP Path</a></td>
+            <td><a wicket:id="pw" href="#">Pseudo Wire</a></td>
+        </tr>
+    </table>
+    <table>
+        <tr><th colspan="1">Customer</th></tr>
+        <tr>
+            <td><a wicket:id="customer" href="#">Tenant Resource Manage</a></td>
+        </tr>
+    </table>
+    <table>
+        <tr><th colspan="2">System</th></tr>
+        <tr>
+            <td><a wicket:id="reloadAppConfig" href="#">Reload Config</a></td>
+            <td><a wicket:id="user" href="#">System User</a></td>
+        </tr><tr>
+            <td><a wicket:id="deploy" href="#">Initial data construction</a></td>
+            <td><a wicket:id="lockmgr" href="#">Lock Manager</a></td>
+        </tr>
+    </table>
+</h3>
+<div class="footer" role="contentinfo">
+    <small><img src="./image/logo.png" width="57" height="36"/><a href="https://www.opennaef.io/">OpenNaEF</a></small>
+</div>
+</body>
+</html>

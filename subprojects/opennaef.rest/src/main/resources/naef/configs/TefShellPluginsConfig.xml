@@ -1,0 +1,121 @@
+<?xml version="1.0" ?>
+
+<!DOCTYPE tef-shell-plugins-config [
+  <!ELEMENT tef-shell-plugins-config (plug-in*)>
+
+  <!ELEMENT plug-in EMPTY>
+  <!ATTLIST plug-in
+    name CDATA #REQUIRED
+    class CDATA #REQUIRED>
+]>
+
+<tef-shell-plugins-config>
+  <plug-in name="help" 
+   class="tef.ui.shell.HelpCommand" />
+  <plug-in name="gc" 
+   class="tef.ui.shell.GcCommand" />
+  <plug-in name="memory" 
+   class="tef.ui.shell.PrintFreeMemoryCommand" />
+  <plug-in name="run" 
+   class="tef.ui.shell.RunExternalProgramCommand" />
+  <plug-in name="time" 
+   class="tef.ui.shell.SetTargetTimeCommand" />
+  <plug-in name="version" 
+   class="tef.ui.shell.SetTargetVersionCommand" />
+  <plug-in name="show-transactions" 
+   class="tef.ui.shell.ShowActiveTransactionsCommand" />
+  <plug-in name="show-updatable-config-names" 
+   class="tef.ui.shell.ShowUpdatableConfigNamesCommand" />
+  <plug-in name="update-businesslogic" 
+   class="tef.ui.shell.UpdateBusinessLogicPoolCommand" />
+  <plug-in name="update-config" 
+   class="tef.ui.shell.UpdateConfigCommand" />
+  <plug-in name="update-http-plugins" 
+   class="tef.ui.shell.UpdateHttpPluginsCommand" />
+  <plug-in name="update-shell-plugins" 
+   class="tef.ui.shell.UpdateShellPluginsCommand" />
+  <plug-in name="kill-transaction" 
+   class="tef.ui.shell.KillTransactionCommand" />
+  <plug-in name="compute-mvo-summary" 
+   class="tef.ui.shell.ComputeMvoSummaryCommand" />
+  <plug-in name="set-system-property" 
+   class="tef.ui.shell.SetSystemPropertyCommand" />
+  <plug-in name="show-module-versions" 
+   class="tef.ui.shell.ShowModuleVersionsCommand" />
+  <plug-in name="show-system-properties" 
+   class="tef.ui.shell.ShowSystemPropertiesCommand" />
+
+  <plug-in name="alter-name" 
+   class="tef.skelton.shell.AlterNameCommand"/>
+  <plug-in name="assign" 
+   class="tef.skelton.shell.AssignVariableCommand"/>
+  <plug-in name="assert-attribute" 
+   class="tef.skelton.shell.AssertAttributeValueCommand"/>
+  <plug-in name="assert-mvo-version" 
+   class="tef.skelton.shell.AssertMvoVersionCommand"/>
+  <plug-in name="attribute" 
+   class="tef.skelton.shell.AttributeCommand"/>
+  <plug-in name="attribute-task" 
+   class="tef.skelton.shell.AttributeTaskCommand"/>
+  <plug-in name="configure-id-pool" 
+   class="tef.skelton.shell.ConfigureIdPoolCommand"/>
+  <plug-in name="dump" 
+   class="tef.skelton.shell.DumpCommand"/>
+  <plug-in name="edit-constants" 
+   class="tef.skelton.shell.EditConstantsCommand"/>
+  <plug-in name="new" 
+   class="tef.skelton.shell.NewNamedModelCommand"/>
+  <plug-in name="new-hierarchical-model" 
+   class="tef.skelton.shell.NewHierarchicalModelCommand"/>
+  <plug-in name="new-named-model" 
+   class="tef.skelton.shell.NewNamedModelCommand"/>
+  <plug-in name="show-attributes" 
+   class="tef.skelton.shell.ShowAttributesCommand"/>
+  <plug-in name="show-dto-attributes" 
+   class="tef.skelton.shell.ShowDtoAttributesCommand"/>
+  <plug-in name="show-types" 
+   class="tef.skelton.shell.ShowTypenamesCommand"/>
+
+  <plug-in name="query" 
+   class="tef.skelton.shell.ObjectQueryExpressionCommand"/>
+
+  <plug-in name="alter-hierarchical-model-parent" 
+   class="naef.shell.AlterHierarchicalModelParentCommand"/>
+  <plug-in name="alter-owner" 
+   class="naef.shell.AlterOwnerCommand"/>
+  <plug-in name="configure-demarcation-link" 
+   class="naef.shell.ConfigureDemarcationLinkCommand"/>
+  <plug-in name="configure-link" 
+   class="naef.shell.ConfigureLinkCommand"/>
+  <plug-in name="configure-network-ix" 
+   class="naef.shell.ConfigureNetworkInterconnectionCommand"/>
+  <plug-in name="configure-network-port" 
+   class="naef.shell.ConfigureNetworkPortCommand"/>
+  <plug-in name="configure-path-hop" 
+   class="naef.shell.ConfigurePathHopCommand"/>
+  <plug-in name="configure-port-ix"
+   class="naef.shell.ConfigurePortInterconnectionCommand"/>
+  <plug-in name="configure-pseudowire" 
+   class="naef.shell.ConfigurePseudowireCommand"/>
+  <plug-in name="context" 
+   class="naef.shell.SetContextModelCommand"/>
+  <plug-in name="navigate" 
+   class="naef.shell.NavigateContextObjectCommand"/>
+  <plug-in name="new-hardware" 
+   class="naef.shell.NewHardwareCommand"/>
+  <plug-in name="new-network" 
+   class="naef.shell.NewNetworkCommand"/>
+  <plug-in name="new-node" 
+   class="naef.shell.NewNodeCommand"/>
+  <plug-in name="new-port" 
+   class="naef.shell.NewPortCommand"/>
+  <plug-in name="release-network-id"
+   class="naef.shell.ReleaseNetworkIdCommand"/>
+  <plug-in name="remove-element" 
+   class="naef.shell.RemoveElementCommand"/>
+  <plug-in name="show-elements" 
+   class="naef.shell.ShowElementsCommand"/>
+   
+   <plug-in name="customerinfo-2d" class="pasaran.naef.shell.CustomerInfo2dCommand" />
+   <plug-in name="configure-of-patch-link" class="naef.shell.ConfigureOfPatchLinkCommand" />
+</tef-shell-plugins-config>

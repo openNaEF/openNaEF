@@ -1,0 +1,27 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+    <layer_block name="LAG から Tagged VLAN 削除" snmptrap="disable">
+      <j:if test="${empty(op.vlanId.value)}">
+        ERROR: op.vlanId is empty.
+      </j:if>
+      <j:if test="${empty(op.lagId.value)}">
+        ERROR: op.lagId is empty.
+      </j:if>
+      <!--
+      <call_check name="廃止/事前チェック/EtherChannel VLAN確認/show vlan">
+        <argument name="vlanId">${op.vlanId}</argument>
+        <argument name="lagId">${op.lagId}</argument>
+      </call_check>
+      -->
+      configure terminal
+      interface Port-channel${op.lagId}
+      switchport trunk allowed vlan remove ${op.vlanId}
+      exit
+      exit
+      <!--
+      <call_check name="廃止/事後チェック/EtherChannel VLAN確認/show vlan">
+        <argument name="vlanId">${op.vlanId}</argument>
+        <argument name="lagId">${op.lagId}</argument>
+      </call_check>
+      -->
+    </layer_block>
+</j:jelly>

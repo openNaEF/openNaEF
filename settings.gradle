@@ -1,0 +1,20 @@
+include '38k.tef'
+include '38k.tef-skelton'
+include '38k.naef'
+include 'opennaef.mpls-nms.core'
+include 'pasaran.naef'
+include 'opennaef.api'
+include 'opennaef.discovery'
+include 'opennaef.devicedriver.core'
+include 'opennaef.devicedriver.device'
+include 'opennaef.webhelper'
+include 'opennaef.application'
+include 'opennaef.notification'
+include 'opennaef.rest'
+include 'pasaran'
+
+rootProject.children.each { prj ->
+    prj.projectDir = new File("$rootDir/subprojects/$prj.name")
+}
+
+rootProject.name = 'opennaef'

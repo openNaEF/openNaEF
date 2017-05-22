@@ -1,0 +1,13 @@
+<j:jelly xmlns:j="jelly:core" trim="false" >
+ <j:if test="${!empty(op.ConfigName.pre)}">
+ ### vSwitchOS-DEFAULT-VLAN-OP_DELETE DEBUG start ###
+ op.ConfigName.pre: ${op.ConfigName.pre}
+ op.configName: ${op.configName}
+ empty(op.ConfigName.pre): ${empty(op.ConfigName.pre)}
+ op.virtualDeviceName: ${op.virtualDeviceName}
+ ### DEBUG end ###
+  <layer_block name="VLAN陷台ｼ∝求" snmptrap="disable">
+    /usr/sbin/esxcfg-vswitch --del-pg="${op.ConfigName.pre}" "${op.virtualDeviceName}"
+  </layer_block>
+ </j:if>
+</j:jelly>

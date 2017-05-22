@@ -1,0 +1,5 @@
+# Extra Device Discovery Factory Definition:
+# This is the mapping file for extra discovery logic.
+# 1st column: typeName on AGENT_SELECTOR_LIST.txt.
+# 2nd column: Factory Class Name implementing voss.discovery.agent.common.ExtraDiscoveryFactory.
+VMwareEsxDiscovery	voss.discovery.agent.vmware.VMwareDiscoveryFactory

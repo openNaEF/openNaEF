@@ -1,0 +1,104 @@
+mvos:
+  - naef.mvo.Node
+dtos:
+  - naef.dto.NodeDto
+builder:
+  class-name: opennaef.rest.builder.NodeCommandBuilder
+  constructors:
+    create:
+      args:
+        - java-class: java.lang.String
+          attribute-name: editor-name
+      description:
+    update:
+      args:
+        - java-class: naef.dto.NodeDto
+          attribute-name: $id
+        - java-class: java.lang.String
+          attribute-name: editor-name
+      description:
+    delete:
+      args:
+        - java-class: naef.dto.NodeDto
+          attribute-name: $id
+        - java-class: java.lang.String
+          attribute-name: editor-name
+      description:
+  methods:
+    setNodeName:
+      args:
+        - java-class: java.lang.String
+          attribute-name: name
+    setVendor:
+      args:
+        - java-class: java.lang.String
+          attribute-name: vendor
+    setNodeType:
+      args:
+        - java-class: java.lang.String
+          attribute-name: node_type
+    setOsType:
+      args:
+        - java-class: java.lang.String
+          attribute-name: os_type
+    setOsVersion:
+      args:
+        - java-class: java.lang.String
+          attribute-name: os_version
+    setIpAddress:
+      args:
+        - java-class: java.lang.String
+          attribute-name: management_ip_address
+    setSnmpMode:
+      args:
+        - java-class: java.lang.String
+          attribute-name: snmp_mode
+    setSnmpCommunityRO:
+      args:
+        - java-class: java.lang.String
+          attribute-name: snmp_comunity
+    setLoginUser:
+      args:
+        - java-class: java.lang.String
+          attribute-name: login_user
+    setLoginPassword:
+      args:
+        - java-class: java.lang.String
+          attribute-name: login_passward
+    setAdminUser:
+      args:
+        - java-class: java.lang.String
+          attribute-name: admin_user
+    setAdminPassword:
+      args:
+        - java-class: java.lang.String
+          attribute-name: admin_passward
+    setCliMode:
+      args:
+        - java-class: java.lang.String
+          attribute-name: cli_mode
+    setVmHostingEnabled:
+      args:
+        - java-class: boolean
+          attribute-name: virtualized_hosting_enable
+      description: |
+        仮想ノードのホストを保持できるようにするには true をセットする. なおデフォルト値は true (VM 保持可能).
+        true をセットすると, このノード上に仮想ノードを作成できるようになる
+    setPurpose:
+      args:
+        - java-class: java.lang.String
+          attribute-name: purpose
+    setNote:
+      args:
+        - java-class: java.lang.String
+          attribute-name: note
+    setCascadeDelete:
+      args:
+        - java-class: boolean
+          attribute-name: cascade_delete
+      description: 子の要素も一緒に削除する
+    setLocation:
+      args:
+        - java-class: naef.dto.LocationDto
+          attribute-name: location
+      description: ロケーション

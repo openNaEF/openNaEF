@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<j:jelly
+  trim="true" escapeText="false"
+  xmlns:j="jelly:core" xmlns:define="jelly:define" xmlns:voss="voss" xmlns:debug="debugTagLib">
+
+  <define:taglib uri="voss">
+    <define:jellybean name="format" className="voss.nms.inventory.script.renderer.jelly.DateFormatTag" />
+  </define:taglib>
+  <define:taglib uri="voss">
+    <define:jellybean name="configOperation" className="voss.nms.inventory.script.renderer.jelly.ForEachConfigOperationTag" />
+  </define:taglib>
+  <define:taglib uri="voss">
+    <define:jellybean name="templateSelectAndImporter" className="voss.nms.inventory.script.renderer.jelly.TemplateSelectorTag" />
+  </define:taglib>
+  <define:taglib uri="voss">
+    <define:jellybean name="templateImporter" className="voss.nms.inventory.script.renderer.jelly.TemplateImportTag" />
+  </define:taglib>
+  <define:taglib uri="voss">
+     <define:jellybean name="dump" className="voss.nms.inventory.script.renderer.jelly.DumpVariablesTag"/>
+  </define:taglib>
+  <define:taglib uri="voss">
+     <define:jellybean name="versionComparator" className="voss.nms.inventory.script.renderer.jelly.VersionComparatorTag"/>
+  </define:taglib>
+  <define:taglib uri="voss">
+     <define:jellybean name="getConfigOperationsByDevice" className="voss.nms.inventory.script.renderer.jelly.GetConfigOperationsByDeviceTag"/>
+  </define:taglib>
+  <define:taglib uri="voss">
+     <define:jellybean name="filterOperation" className="voss.nms.inventory.script.renderer.jelly.FilterConfigOperationTag"/>
+  </define:taglib>
+
+  <voss:format varname="currentTime" date="${util.now}" format="yyyy/MM/dd HH:mm"/>
+  <j:set var="dir" value="${params.dir}"/>
+  <j:import uri="script_title_builder_simple.jelly" inherit="true"/>
+
+  <!-- タイトルが長すぎると Windows でログファイルの生成に失敗するので 200 文字で trim -->
+  <j:if test="${title.length() &gt; 200}">
+    <j:invoke method="substring" on="${title}" var="title">
+      <j:arg value="${0}"/>
+      <j:arg value="${200}"/>
+    </j:invoke>
+  </j:if>
+
+  <script start_date="${currentTime}" title="${title}" operation_type="新設">
+    <explain>${param.explain}</explain>
+
+    <j:forEach items="${basicConfigContexts}" var="context">
+      <voss:templateImporter filename="${context.scriptUri}" directory="${dir}" subdirectory=""/>
+    </j:forEach>
+  
+  </script>
+</j:jelly>

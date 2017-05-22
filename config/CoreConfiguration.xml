@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <naef-bridge>voss.nms.inventory.database.DefaultNaefBridge</naef-bridge>
+
+    <attribute-policy>voss.nms.inventory.config.DefaultAttributePolicy</attribute-policy>
+
+    <inventory-service-port>4649</inventory-service-port>
+
+    <debug-mode>debug</debug-mode>
+
+    <debug-dir>./debug</debug-dir>
+
+    <db-server-address>127.0.0.1</db-server-address>
+    <db-server-port>38100</db-server-port>
+    <db-service-name>mplsnms</db-service-name>
+    <db-service-mode>separate</db-service-mode>
+    <!--
+    <db-service-mode>integrated</db-service-mode>
+     -->
+    <update-server-address>127.0.0.1</update-server-address>
+    <update-server-port>38100</update-server-port>
+
+    <db-history-url>http://127.0.0.1:38104/mvo.Dump?id=</db-history-url>
+</configuration>

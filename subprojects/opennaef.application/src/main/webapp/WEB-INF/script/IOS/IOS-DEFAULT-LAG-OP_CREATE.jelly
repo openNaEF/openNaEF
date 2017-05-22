@@ -1,0 +1,16 @@
+<j:jelly xmlns:j="jelly:core" xmlns:define="jelly:define" trim="false">
+    <layer_block name="LAG 作成" snmptrap="disable">
+      <j:if test="${empty(op.lagId.value)}">
+        ERROR: op.lagId is empty.
+      </j:if>
+      configure terminal
+      interface Port-channel${op.lagId}
+      exit
+      <j:forEach items="${op.lagMemberPorts}" var="memberPort">
+        interface ${memberPort.fullIfName}
+          channel-group ${op.lagId} mode on
+        exit
+      </j:forEach>
+      exit
+    </layer_block>
+</j:jelly>

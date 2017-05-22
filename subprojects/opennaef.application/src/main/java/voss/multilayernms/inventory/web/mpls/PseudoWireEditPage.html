@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/">
+<head>
+    <title>PseudoWire ID Edit</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="blueprint/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/print.css" type="text/css" media="print"/>
+    <!--[if IE]>
+    <link rel="stylesheet" href="blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <link rel="stylesheet" href="blueprint/plugins/tabs/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/plugins/buttons/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="css/ui.base.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/common.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/commonprint.css" type="text/css" media="print"/>
+
+    <script type='text/javascript' src='js/jquery-1.3.1.min.js'></script>
+    <script type="text/javascript" src="js/ui.core.js"></script>
+    <script type='text/javascript' src='js/ui.datepicker.js'></script>
+    <script type='text/javascript' src='js/ui.datepicker-ja.js'></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#testDate").datepicker();
+            $("#startDate").datepicker();
+        });
+    </script>
+</head>
+
+<body>
+<div id="hd" role="banner">
+    <h1>PseudoWire ID Edit</h1>
+</div>
+<div id="bd" role="main">
+    <dl>
+        <dt class="ui-state-default ui-corner-all">PseudoWire Resource Pool</dt>
+        <dd>
+            <table>
+                <thead>
+                <tr>
+                    <th>ID Range</th>
+                    <th>Available ID</th>
+                    <th>In-use ID</th>
+                    <th>Pool Name</th>
+                    <th>Purpose</th>
+                    <th colspan="2">Last Edit Time</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td wicket:id="range"></td>
+                    <td wicket:id="remains" align="right"></td>
+                    <td wicket:id="used" align="right"></td>
+                    <td wicket:id="poolName"></td>
+                    <td wicket:id="purpose"></td>
+                    <td wicket:id="lastEditor"></td>
+                    <td><span wicket:id="lastEditTime" align="right"></span>
+                        <span wicket:id="version"></span></td>
+                </tr>
+                </tbody>
+            </table>
+        </dd>
+        <dt class="ui-state-default ui-corner-all">PseudoWire ID Edit</dt>
+        <dd>
+            <form wicket:id="backForm" name="backForm">
+                <button wicket:id="back" type="submit" tabindex="0" id="clear-button" class="negative span-5">
+                    <img src="blueprint/plugins/buttons/icons/cross.png" alt="Discard and back"/>Discard and back
+                </button>
+            </form>
+            <hr/>
+            <div wicket:id="feedback">Error detail here</div>
+            <form wicket:id="editForm" name="editForm">
+                <table>
+                    <tr>
+                        <th>Items</th>
+                        <th></th>
+                        <th>Overview</th>
+                    </tr>
+                    <tr>
+                        <td>PseudoWire VC ID</td>
+                        <td><span wicket:id="vcId">12345</span></td>
+                        <td>PseudoWire ID (Unable to edit)</td>
+                    </tr>
+                    <tr>
+                        <td>PseudoWire Name</td>
+                        <td><input wicket:id="pwName" type="text" value="12345"/></td>
+                        <td>PseudoWire Name (Unable to edit).</td>
+                    </tr>
+                    <tr>
+                        <td>Operational Status</td>
+                        <td>
+                            <div wicket:id="operStatus"><label><input
+                                    type="radio" name="stauts" value="reserve"/>Up </label></div>
+                        </td>
+                        <td>Operational Status of this PseudoWire</td>
+                    </tr>
+                    <tr>
+                        <td>Facility Status</td>
+                        <td class="nowrap">
+                            <select wicket:id="facilityStatus">
+                                <option>Reserved</option>
+                            </select>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Bandwidth</td>
+                        <td class="nowrap"><input wicket:id="bandwidth" type="text"/></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>PseudoWire Type</td>
+                        <td class="nowrap">
+                            <select wicket:id="pseudoWireType">
+                                <option>epipe</option>
+                                <option>cpipe</option>
+                            </select>
+                        </td>
+                        <td>epipe/cpipe</td>
+                    </tr>
+                    <tr>
+                        <td>Service Type</td>
+                        <td class="nowrap"><input wicket:id="serviceType" type="text"/></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Accommodation Service Type</td>
+                        <td class="nowrap"><input wicket:id="accommodationServiceType" type="text"/></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>AC (A Side)</td>
+                        <td>
+                            <table cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <th>Port</th>
+                                    <td><span wicket:id="acLinkCell1"></span></td>
+                                    <td wicket:id="ifName_1"></td>
+                                    <td>
+                                        <a wicket:id="selectAC_1" href="#">Select Port</a>
+                                        <a wicket:id="deleteAC_1" href="#">Delete</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>AC (Z Side)</td>
+                        <td>
+                            <table cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <th>Port</th>
+                                    <td><span wicket:id="acLinkCell2"></span></td>
+                                    <td wicket:id="ifName_2"></td>
+                                    <td>
+                                        <a wicket:id="selectAC_2" href="#">Select Port</a>
+                                        <a wicket:id="deleteAC_2" href="#">Delete</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>LSP1</td>
+                        <td class="nowrap">
+                            <select wicket:id="lsp1">
+                            </select>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>LSP2</td>
+                        <td class="nowrap">
+                            <select wicket:id="lsp2">
+                            </select>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Note</td>
+                        <td><textarea wicket:id="noteArea" name="memo" rows="3" id="memo"></textarea></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Test finish date</td>
+                        <td><input wicket:id="testDate" name="schedule_on_date" type="text" class="date"
+                                   id="testDate" value="" style="float: left"/> <span
+                                class="ui-icon ui-icon-calendar"></span></td>
+                        <td>'yyyy/MM/dd HH:mm' format (ex. 2010/03/12 05:10). '0' padding is needed.</td>
+                    </tr>
+                    <tr>
+                        <td>Service start date</td>
+                        <td><input wicket:id="startDate" name="on_date" type="text" class="date" id="startDate"
+                                   value="" style="float: left"/> <span
+                                class="ui-icon ui-icon-calendar"></span></td>
+                        <td>'yyyy/MM/dd HH:mm' format (ex. 2010/03/12 05:10). '0' padding is needed.</td>
+                    </tr>
+                    <tr>
+                        <td>Customer Name</td>
+                        <td class="nowrap"><input wicket:id="customerName" type="text"/></td>
+                        <td>Customer Name</td>
+                    </tr>
+                    <tr>
+                        <td>AP NAME 1</td>
+                        <td class="nowrap"><input wicket:id="apName1" type="text"/></td>
+                        <td>AP NAME 1</td>
+                    </tr>
+                    <tr>
+                        <td>AP NAME 2</td>
+                        <td class="nowrap"><input wicket:id="apName2" type="text"/></td>
+                        <td>AP NAME 2</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <button wicket:id="proceed" type="submit" tabindex="0" id="pushbutton1-button"
+                                    class="positive span-5">
+                                <img src="blueprint/plugins/buttons/icons/tick.png" alt="Apply"/>OK
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </dd>
+    </dl>
+    <div class="footer" role="contentinfo">
+        <small><a href="https://www.opennaef.io/">OpenNaEF</a></small>
+    </div>
+</div>
+</body>
+</html>

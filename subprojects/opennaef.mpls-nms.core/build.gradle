@@ -1,0 +1,8 @@
+dependencies {
+    compile project(':38k.naef')
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}

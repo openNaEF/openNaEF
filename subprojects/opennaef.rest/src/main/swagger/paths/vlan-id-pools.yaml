@@ -1,0 +1,172 @@
+vlan-id-pools:
+  get:
+    summary: すべてのvlan-id-poolを取得する
+    description: すべてのvlan-id-poolを取得する
+    parameters:
+      - name: deref
+        in: query
+        description: |
+          true を指定した場合は、MvoLinkではなく、Dtoを返す
+        required: false
+        type: boolean
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: version
+        in: query
+        description: |
+          ターゲットとなるバージョン。
+          指定しない場合は最新のバージョンが指定される。
+        required: false
+        type: string
+    tags:
+      - vlan-id-pool
+    responses:
+      200:
+        description: vlan-id-poolのリスト
+        schema:
+          type: array
+          items:
+            $ref: '#/defs/MvoLink'
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+  post:
+    summary: vlan-id-poolを新規作成する
+    description: vlan-id-poolを新規作成する
+    parameters:
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: vlan-id-pool
+        in: body
+        description: vlan-id-pool
+        required: true
+        schema:
+          $ref: '#/defs/VlanIdPool'
+    tags:
+      - vlan-id-pool
+    responses:
+      201:
+        description: Make a new vlan-id-pool
+        headers:
+          Location:
+            description: 新規作成されたvlan-id-poolのuri
+            type: string
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+vlan-id-pools_mvo-id:
+  get:
+    summary: vlan-id-poolを取得する
+    description: vlan-id-poolを取得する
+    parameters:
+      - name: mvo-id
+        in: path
+        description: ID of the mvo
+        required: true
+        type: string
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: version
+        in: query
+        description: |
+          ターゲットとなるバージョン。
+          指定しない場合は最新のバージョンが指定される。
+        required: false
+        type: string
+    tags:
+      - vlan-id-pool
+    responses:
+      200:
+        description: vlan-id-pool
+        schema:
+          $ref: '#/defs/VlanIdPool'
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+  put:
+    summary: vlan-id-poolを更新する
+    description: vlan-id-poolを更新する
+    parameters:
+      - name: mvo-id
+        in: path
+        description: ID of the mvo
+        required: true
+        type: string
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: vlan-id-pool
+        in: body
+        description: vlan-id-pool
+        required: true
+        schema:
+          $ref: '#/defs/VlanIdPool'
+    tags:
+      - vlan-id-pool
+    responses:
+      204:
+        description: Updates the vlan-id-pool
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+  delete:
+    summary: vlan-id-poolを削除する
+    description: vlan-id-poolを削除する
+    parameters:
+      - name: mvo-id
+        in: path
+        description: ID of the mvo
+        required: true
+        type: string
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+    tags:
+      - vlan-id-pool
+    responses:
+      204:
+        description: Deletes the vlan-id-pool
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+defs:
+  VlanIdPool:
+    type: object
+    properties:
+      name:
+        description: vlan-id-pool名
+        type: string
+        example: vlans

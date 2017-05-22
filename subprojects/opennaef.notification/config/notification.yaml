@@ -1,0 +1,16 @@
+# notifier ping delay (seconds)
+ping-delay: 3
+
+# naef
+naef-addr: localhost
+naef-port: 38100
+naef-service-name: mplsnms
+naef-rmc-port: 38105
+
+# naef rest api
+naef-rest-api-port: 2510
+naef-rest-api-version: v1
+
+# scheduled-notifier
+scheduled-notifier:
+  db: ./notifier-db

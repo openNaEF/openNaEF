@@ -1,0 +1,231 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+    ### DEBUG start ###
+    File: NX-OS-DEFAULT-PORT-OP_CHANGE.jelly
+    op.switchPortMode.pre: ${op.switchPortMode.pre}
+    op.switchPortMode: ${op.switchPortMode}
+    op.isChanged('switchPortMode'):${op.isChanged('switchPortMode')}
+     
+    op.portMode.pre: ${op.portMode.pre}
+    op.portMode: ${op.portMode}
+    op.isChanged('portMode'):${op.isChanged('portMode')}
+    
+    op.linkNegotiation.isChanged(): ${op.linkNegotiation.isChanged()}
+    op.linkNegotiation: ${op.linkNegotiation}
+    
+    op.duplex.isChanged(): ${op.duplex.isChanged()}
+    op.portSpeed.isChanged(): ${op.portSpeed.isChanged()}
+    op.duplex: ${op.duplex}
+    op.portSpeed: ${op.portSpeed}
+    op.portSpeed.value: ${op.portSpeed.value}
+    op.stormControlAction: ${op.stormControlAction}
+    op.stormControlBroadcastLevel: ${op.stormControlBroadcastLevel}
+    op.isChanged('stormControlAction'):${op.isChanged('stormControlAction')}
+    op.isChanged('stormControlBroadcastLevel'):${op.isChanged('stormControlBroadcastLevel')}
+    op.stormControlAction == '[trap, shutdown]': ${op.stormControlAction == '[trap, shutdown]'}
+    op.stormControlAction == '[trap]': ${op.stormControlAction == '[trap]'}
+    op.stormControlAction == '[]': ${op.stormControlAction == '[]'}
+    op.stormControlAction.pre: ${op.stormControlAction.pre}
+    op.adminStatus: ${op.adminStatus}
+    op.adminStatus.pre: ${op.adminStatus.pre}
+    op.isChanged('adminStatus'):${op.isChanged('adminStatus')}
+    op.AdministrativeDuplex: ${op.AdministrativeDuplex}
+    op.AdministrativeDuplex.pre: ${op.AdministrativeDuplex.pre}
+    op.isChanged('AdministrativeDuplex'):${op.isChanged('AdministrativeDuplex')}
+    op.AdministrativeSpeed: ${op.AdministrativeSpeed}
+    op.AdministrativeSpeed.pre: ${op.AdministrativeSpeed.pre}
+    op.isChanged('AdministrativeSpeed'):${op.isChanged('AdministrativeSpeed')}
+    
+    ### DEBUG end ###
+    
+    <layer_block name="ポート設定変更" snmptrap="disable">
+      <j:if test="${empty(op.ifname.value)}">
+        ERROR: op.ifname is empty.
+      </j:if>
+      <j:if test="${empty(op.fullIfname.value)}">
+        ERROR: op.fullIfname is empty.
+      </j:if>
+      configure terminal
+      interface ${op.fullIfname}
+      <j:if test="${op.ipAddress.isChanged() or op.subnetMask.isChanged()}">
+        <j:choose>
+          <j:when test="${empty(op.ipAddress.value)}"> <!-- ipAddress が null なら subnetMask に関わりなく消す -->
+            no ip address
+          </j:when>
+          <j:when test="${!empty(op.ipAddress.value) and empty(op.subnetMask.value)}"> <!-- ipAddress があるのに subnetMask が null は設定不可 -->
+            ERROR: op.subnetMask is empty.
+          </j:when>
+          <j:otherwise>
+            ip address ${op.ipAddress} ${op.subnetMask}
+          </j:otherwise>
+        </j:choose>
+      </j:if>
+      <j:if test="${op.ipAddress2.isChanged() or op.subnetMask2.isChanged()}">
+        <j:choose>
+          <j:when test="${empty(op.ipAddress2.value)}"> <!-- ipAddress が null なら subnetMask に関わりなく消す -->
+            no ip address
+          </j:when>
+          <j:when test="${!empty(op.ipAddress2.value) and empty(op.subnetMask2.value)}"> <!-- ipAddress があるのに subnetMask が null は設定不可 -->
+            ERROR: op.subnetMask2 is empty.
+          </j:when>
+          <j:otherwise>
+            ip address ${op.ipAddress2} ${op.subnetMask2} secondary
+            <!-- TODO: Cisco の場合, 古いアドレスを消す操作が必要 -->
+          </j:otherwise>
+        </j:choose>
+      </j:if>
+      <j:if test="${op.description.isChanged()}">
+        <j:choose>
+          <j:when test="${!empty(op.description.value)}">
+            description ${op.description}
+          </j:when>
+          <j:otherwise>
+            no description
+          </j:otherwise>
+        </j:choose>
+      </j:if>
+      <j:if test="${op.AdministrativeDuplex.isChanged() or op.AdministrativeSpeed.isChanged() or op.linkNegotiation.isChanged()}">
+        <!--
+        設定できるのは下記パターンのみ:
+        - speed/duplex 共に auto
+        - speed 固定, duplex は何でもいい
+        -->
+        <!-- TODO: duplex コマンド発行前に speed コマンドは入れられなかったような。。。要確認 -->
+        <j:choose>
+          <!-- speed/duplex 共に auto -->
+          <j:when test="${(op.linkNegotiation == 'on' or op.linkNegotiation == 'default' or empty(op.linkNegotiation)) and
+                          (op.AdministrativeSpeed == 'auto' or op.AdministrativeSpeed == 'default' or empty(op.AdministrativeSpeed.value)) and
+                          (op.AdministrativeDuplex == 'auto' or op.AdministrativeDuplex == 'default' or empty(op.AdministrativeSpeed.value))}">
+            duplex auto
+            speed auto
+          <j:set var="configuredFlag" value="true"/>
+          </j:when>
+          <!-- speed 固定, duplex は何でもいい -->
+          <j:when test="${configuredFlag != 'true' and
+                         (empty(op.linkNegotiation.value) or op.linkNegotiation == 'off') and
+                         (op.isChanged('AdministrativeDuplex') or op.AdministrativeSpeed.isChanged()) and
+                         (op.AdministrativeDuplex == 'full' or op.AdministrativeDuplex == 'half' or op.AdministrativeDuplex == 'auto' or op.AdministrativeDuplex == 'default' or empty(op.AdministrativeDuplex.value)) and
+                         (op.AdministrativeSpeed == '10000000' or op.AdministrativeSpeed == '100000000' or op.AdministrativeSpeed == '1000000000' or op.AdministrativeSpeed == '10000000000' or empty(op.AdministrativeSpeed.value))}">
+            <j:if test="${op.isChanged('AdministrativeDuplex') and !empty(op.AdministrativeDuplex.value)}">
+              duplex ${op.AdministrativeDuplex}
+            </j:if>
+            <j:if test="${op.isChanged('AdministrativeDuplex') and empty(op.AdministrativeDuplex.value)}">
+              default duplex
+            </j:if>
+            <j:if test="${op.AdministrativeSpeed.isChanged() and !empty(op.AdministrativeSpeed.value) and op.AdministrativeSpeed == '10000000'}">
+              speed 10
+            </j:if>
+            <j:if test="${op.AdministrativeSpeed.isChanged() and !empty(op.AdministrativeSpeed.value) and op.AdministrativeSpeed == '100000000'}">
+              speed 100
+            </j:if>
+            <j:if test="${op.AdministrativeSpeed.isChanged() and !empty(op.AdministrativeSpeed.value) and op.AdministrativeSpeed == '1000000000'}">
+              speed 1000
+            </j:if>
+            <j:if test="${op.AdministrativeSpeed.isChanged() and !empty(op.AdministrativeSpeed.value) and op.AdministrativeSpeed == '10000000000'}">
+              speed 10000
+            </j:if>
+            <j:if test="${op.AdministrativeSpeed.isChanged() and empty(op.AdministrativeSpeed.value)}">
+              default speed
+            </j:if>
+          </j:when>
+          <j:otherwise>
+            ERROR: unsupported linkNegotiation/speed/duplex combination [linkNegotiation = ${op.linkNegotiation}, AdministrativeSpeed = ${op.AdministrativeSpeed}, AdministrativeDuplex = ${op.AdministrativeDuplex}].
+          </j:otherwise>
+        </j:choose>
+      </j:if>
+      <!--ポートモード設定-->
+      <j:if test="${op.isChanged('portMode')}">
+        <j:choose>
+          <!-- portMode が VLANに変更された場合 -->
+          <j:when test="${op.portMode == 'VLAN'}">
+            switchport
+          </j:when>
+          <!-- portMode が IPに変更された場合 -->
+          <j:when test="${op.portMode == 'IP'}">
+            no switchport
+          </j:when>
+          <j:otherwise>
+            ERROR: unsupported portmode type ${op.portMode} .
+          </j:otherwise>
+        </j:choose>
+      </j:if>
+      <!--スイッチポートモード設定-->
+      <j:if test="${op.isChanged('switchPortMode')}">
+        <j:choose>
+          <!-- switchPortMode が ACCESSに変更された場合 -->
+          <j:when test="${op.switchPortMode == 'ACCESS'}">
+            switchport mode access
+            no switchport trunk encapsulation dot1q
+            no switchport trunk allowed vlan
+          </j:when>
+          <!-- switchPortMode が TRUNKに変更された場合 -->
+          <j:when test="${op.switchPortMode == 'TRUNK'}">
+            switchport mode trunk
+          </j:when>
+          <!-- switchPortMode が DOT1Q_TUNNELに変更された場合 -->
+          <j:when test="${op.switchPortMode == 'DOT1Q_TUNNEL'}">
+            switchport mode dot1q-tunnel
+          </j:when>
+          <j:otherwise>
+            ERROR: unsupported switchPortMode type ${op.switchPortMode} .
+          </j:otherwise>
+        </j:choose>
+      </j:if>
+      <!--ポート shut / no shut 設定-->
+      <j:if test="${op.isChanged('adminStatus')}">
+        <j:choose>
+          <!-- operStatus が UPに変更された場合 -->
+          <j:when test="${op.adminStatus == 'enabled'}">
+            no shutdown
+          </j:when>
+          <!-- operStatus が downに変更された場合 -->
+          <j:when test="${op.adminStatus == 'disabled'}">
+            shutdown
+          </j:when>
+          <j:otherwise>
+            ERROR: unsupported adminStatus type ${op.adminStatus} .
+          </j:otherwise>
+        </j:choose>
+      </j:if>
+      <!--ポート storm-control broadcast level設定-->
+      <j:if test="${op.isChanged('stormControlBroadcastLevel')}">
+        <j:choose>
+          <j:when test="${!empty(op.stormControlBroadcastLevel)}">
+            storm-control broadcast level ${op.stormControlBroadcastLevel}
+          </j:when>
+          <j:otherwise>
+            ERROR: unsupported storm-control broadcast level value ${op.stormControlBroadcastLevel} .
+          </j:otherwise>
+        </j:choose>
+      </j:if>
+      <!--ポート storm-control action 設定-->
+      <j:if test="${op.isChanged('stormControlAction')}">
+        <j:choose>
+          <j:when test="${op.stormControlAction == '[trap, shutdown]' and op.stormControlAction.pre == '[]'}">
+            storm-control action shutdown
+            storm-control action trap
+          </j:when>
+          <j:when test="${op.stormControlAction == '[trap]' and op.stormControlAction.pre == '[]'}">
+            storm-control action trap
+          </j:when>
+          <j:when test="${op.stormControlAction == '[]' and op.stormControlAction.pre == '[trap, shutdown]'}">
+            no storm-control action trap
+            no storm-control action shutdown
+          </j:when>
+          <j:when test="${op.stormControlAction == '[]' and op.stormControlAction.pre == '[trap]'}">
+            no storm-control action trap
+          </j:when>
+          <j:when test="${op.stormControlAction == '[trap]' and op.stormControlAction.pre == '[trap, shutdown]'}">
+            no storm-control action shutdown
+          </j:when>
+          <j:when test="${op.stormControlAction == '[trap, shutdown]' and op.stormControlAction.pre == '[trap]'}">
+            storm-control action shutdown
+          </j:when>
+          <j:otherwise>
+            ERROR: unsupported storm-control action value ${op.stormControlAction} .
+          </j:otherwise>
+        </j:choose>
+      </j:if>
+      exit
+      exit
+    </layer_block>
+</j:jelly>

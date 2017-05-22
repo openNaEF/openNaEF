@@ -1,0 +1,154 @@
+swagger: '2.0'
+info:
+  title: naef restful api
+  description: |
+    [ErrorCode一覧](error-codes.html)
+  version: 1.0.0
+host: localhost:2510
+schemes:
+  - http
+basePath: /api/v1
+produces:
+  - application/json
+paths:
+  /mvo:
+    $ref: ./paths/mvos.yaml#/mvos
+#  /mvo/{mvo-id}:
+#    $ref: ./paths/mvos.yaml#/mvos_mvo-id
+
+  /nodes:
+    $ref: ./paths/nodes.yaml#/nodes
+  /nodes/{mvo-id}:
+    $ref: ./paths/nodes.yaml#/nodes_mvo-id
+
+  /ports:
+    $ref: ./paths/ports.yaml#/ports
+  /ports/{mvo-id}:
+    $ref: ./paths/ports.yaml#/ports_mvo-id
+
+  /eth-links:
+    $ref: ./paths/eth-links.yaml#/eth-links
+  /eth-links/{mvo-id}:
+    $ref: ./paths/eth-links.yaml#/eth-links_mvo-id
+# vlan
+  /vlan-id-pools:
+    $ref: ./paths/vlan-id-pools.yaml#/vlan-id-pools
+  /vlan-id-pools/{mvo-id}:
+    $ref: ./paths/vlan-id-pools.yaml#/vlan-id-pools_mvo-id
+
+  /vlans:
+    $ref: ./paths/vlans.yaml#/vlans
+  /vlans/{mvo-id}:
+    $ref: ./paths/vlans.yaml#/vlans_mvo-id
+
+  /vlan-ifs:
+    $ref: ./paths/vlan-ifs.yaml#/vlan-ifs
+  /vlan-ifs/{mvo-id}:
+    $ref: ./paths/vlan-ifs.yaml#/vlan-ifs_mvo-id
+
+  /vlan-links:
+    $ref: ./paths/vlan-links.yaml#/vlan-links
+  /vlan-links/{mvo-id}:
+    $ref: ./paths/vlan-links.yaml#/vlan-links_mvo-id
+
+  /customer-infos:
+    $ref: ./paths/customer-infos.yaml#/customer-infos
+  /customer-infos/{mvo-id}:
+    $ref: ./paths/customer-infos.yaml#/customer-infos_mvo-id
+
+  /locations:
+    $ref: ./paths/locations.yaml#/locations
+  /locations/{mvo-id}:
+    $ref: ./paths/locations.yaml#/locations_mvo-id
+
+# of-patch
+  /of-patch-id-pools:
+    $ref: ./paths/of-patch-id-pools.yaml#/of-patch-id-pools
+  /of-patch-id-pools/{mvo-id}:
+    $ref: ./paths/of-patch-id-pools.yaml#/of-patch-id-pools_mvo-id
+
+  /of-patch-links:
+    $ref: ./paths/of-patch-links.yaml#/of-patch-links
+  /of-patch-links/{mvo-id}:
+    $ref: ./paths/of-patch-links.yaml#/of-patch-links_mvo-id
+
+  /batch:
+    $ref: ./paths/batch.yaml#/batch
+
+  /dto-changes:
+    $ref: ./paths/dto-changes.yaml#/dto-changes
+
+  /{type}/{mvo-id}/{attr-name}:
+    get:
+      summary: 子要素を取得する
+      description: |
+        Mvoの子要素を取得する
+
+      parameters:
+        - name: mvo-id
+          in: path
+          description: ID of the mvo
+          required: true
+          type: string
+        - name: type
+          in: path
+          description: nodes, ports, など
+          required: true
+          type: string
+        - name: attr-name
+          in: path
+          description: 子要素の属性名
+          required: true
+          type: string
+        - name: deref
+          in: query
+          description: |
+            true を指定した場合は、MvoLinkではなく、Dtoを返す
+          required: false
+          type: boolean
+        - name: time
+          in: query
+          description: |
+            ターゲットとなる時間。
+            指定しない場合は現在の時間が指定される。
+          required: false
+          type: number
+          format: int64
+        - name: version
+          in: query
+          description: |
+            ターゲットとなるバージョン。
+            指定しない場合は最新のバージョンが指定される。
+          required: false
+          type: string
+      tags:
+        - node
+        - port
+        - eth-link
+        - vlan-id-pool
+        - vlan-if
+        - vlan-link
+        - vlan
+      responses:
+        200:
+          description: 子要素
+          schema:
+            type: object
+        4xx, 5xx:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+definitions:
+  Error:
+    type: object
+    properties:
+      http_response_code:
+        type: int
+        example: 500
+      code:
+        type: string
+        example: API-XXYZZ
+      message:
+        type: string
+        example: naef api error

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- If set to true, script factory is enabled, otherwise it is invalid. -->
+    <script-factory>true</script-factory>
+
+    <script-directory>./subprojects/opennaef.activation/script</script-directory>
+
+    <!-- If true, dto-changes needs to update system-user -->
+    <need-system-user>false</need-system-user>
+
+    <!-- Update of this user is not subject to script generation -->
+    <ignored-system-users>
+        <system-user>Administrator</system-user>
+        <system-user>System</system-user>
+    </ignored-system-users>
+
+    <!-- script context generator -->
+    <context-generator-factory>voss.nms.inventory.script.contextgenerator.DefaultContextGeneratorFactory
+    </context-generator-factory>
+
+    <trigger-service-port>1100</trigger-service-port>
+
+    <!-- Script Service Class (for external) -->
+    <script-service-class>voss.nms.inventory.script.service.ScriptFactoryService</script-service-class>
+
+    <configurator-host>127.0.0.1</configurator-host>
+    <configurator-port>1099</configurator-port>
+
+    <!-- Conversion of DTO attribute name and config attribute name is executed.
+    Do not forget to add an entry to OP_ATTR when adding an entry here and make it constant.
+    If there is no entry here, DTO attribute name = config attribute name. -->
+    <attr-name-translations>
+        <translation from="naef.port.ifindex" to="ifIndex"/>
+        <translation from="naef.port.ifname" to="ifName"/>
+        <translation from="利用者" to="end-user"/>
+        <translation from="動作状態" to="operStatus"/>
+        <translation from="naef.port-mode" to="portMode"/>
+        <translation from="naef.switch-port-mode" to="switchPortMode"/>
+        <translation from="OperationalSpeed" to="portSpeed"/>
+        <translation from="OperationalDuplex" to="duplex"/>
+        <translation from="AutoNegotiation" to="linkNegotiation"/>
+        <!-- lag-if -->
+        <translation class="EthLagIfDto" from="naef.dto.port.parts" to="lagMember"/>
+        <!-- vlan-if -->
+        <translation class="VlanIfDto" from="naef.vlan.vlan-if.vlan-id" to="vlanId"/>
+        <translation class="VlanIfDto" from="naef.dto.port.lower-layers" to="taggedVlans"/>
+        <translation class="VlanIfDto" from="naef.dto.port.cross-connections" to="untaggedVlans"/>
+        <translation class="VlanIfDto" from="naef.dto.vlan-if.vlan-segment-gateway-ifs" to="tagChangers"/>
+        <!-- The following are fictitious attribute names and are not used. -->
+        <translation class="VlanIfDto" from="naef.vlan.vlan-if.stp-id" to="stp-id"/>
+        <translation class="VlanIfDto" from="naef.vlan.vlan-if.stp-type" to="stp-type"/>
+    </attr-name-translations>
+
+    <!-- Convert attribute values.
+    Only attribute values of type String are subject to conversion,
+    so please note that dto reference type, integer, datetime etc are not converted.
+    It is used for the purpose such as converting to English alphabet when jelly can not handle Japanese sentences. -->
+    <value-translations>
+        <translation from="hoge" to="fuga"/>
+    </value-translations>
+</configuration>

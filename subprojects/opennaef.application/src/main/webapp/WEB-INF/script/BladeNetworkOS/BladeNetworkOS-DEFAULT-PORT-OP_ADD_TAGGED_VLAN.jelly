@@ -1,0 +1,19 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+ <layer_block name="ポートに Tagged VLAN 追加" snmptrap="disable">
+   <j:if test="${empty(op.vlanId.value)}">
+     ERROR: op.vlanId is empty.
+   </j:if>
+   <j:if test="${empty(op.ifname.value)}">
+     ERROR: op.ifname is empty.
+   </j:if>
+   <j:set var="ifId" value="${op.ifname.value.replaceFirst('^[a-zA-Z\s]*', '')}"/>
+   <j:if test="${!ifId.matches('[0-9]+')}">
+     ERROR: ifId is not numeric. maybe ifname is an unexpected format. (ifname: ${op.ifName})
+   </j:if>
+   configure terminal
+   vlan ${op.vlanId}
+   member ${ifId}
+   exit
+   end
+ </layer_block>
+</j:jelly>

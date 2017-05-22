@@ -1,0 +1,3 @@
+new-hardware module ""
+  attribute set モジュール種別 "SIB-I-M320"
+context ..

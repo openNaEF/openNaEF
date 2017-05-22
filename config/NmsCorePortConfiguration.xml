@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- These settings is only for Phalanx Client UI. -->
+
+    <!-- Attribute name to store the value for inventory ID -->
+    <id-field-name>IfName</id-field-name>
+
+    <!-- Attribute name to prepare choice of operation state -->
+    <operation-status-field-names>
+        <value>Operational Status</value>
+    </operation-status-field-names>
+
+    <!-- List display target item
+         value: [OBJECT_TYPE] Distinguished name in RenderingUtil -->
+    <fields>
+        <value>IfName</value>
+        <value>Node</value>
+        <value>ConfigName</value>
+        <value>IPAddress</value>
+        <value>NetMask</value>
+        <value>VLAN ID</value>
+        <value>VPI</value>
+        <value>VCI</value>
+        <value>Bandwidth</value>
+        <!--value>Operational Status</value-->
+        <value>Admin Status</value>
+        <!--value>Facility Status</value-->
+        <value>Member Ports</value>
+        <value>description</value>
+        <value>Connection destination node</value>
+        <value>Connection destination port</value>
+        <!--value>Member VLAN ID</value-->
+        <value>PortMode</value>
+        <value>SwitchPortMode</value>
+        <!--value>Speed</value-->
+        <value>AdministrativeSpeed</value>
+        <!--value>Duplex</value-->
+        <value>AdministrativeDuplex</value>
+        <value>AutoNegotiation</value>
+        <value>Notices</value>
+        <value>Purpose</value>
+        <value>EndUser</value>
+    </fields>
+
+    <!-- Property display target item
+         value: [OBJECT_TYPE] Distinguished name in RenderingUtil -->
+    <property-fields>
+        <value>IfName</value>
+        <value>Node</value>
+        <value>ConfigName</value>
+        <value>IPAddress</value>
+        <value>NetMask</value>
+        <value>IPAddressNamespace</value>
+        <value>vpn prefix</value>
+        <value>VLAN ID</value>
+        <value>VPI</value>
+        <value>VCI</value>
+        <value>Bandwidth</value>
+        <!--value>Operational Status</value-->
+        <value>Admin Status</value>
+        <!--value>Facility Status</value-->
+        <value>Member Ports</value>
+        <value>description</value>
+        <value>Connection destination node</value>
+        <value>Connection destination port</value>
+        <!--value>Member VLAN ID</value-->
+        <value>PortMode</value>
+        <value>SwitchPortMode</value>
+        <!--value>Speed</value-->
+        <value>AdministrativeSpeed</value>
+        <!--value>Duplex</value-->
+        <value>AdministrativeDuplex</value>
+        <value>AutoNegotiation</value>
+        <value>Notices</value>
+        <value>Purpose</value>
+        <value>EndUser</value>
+    </property-fields>
+
+    <!-- Filter view search item
+         value: [OBJECT_TYPE] Distinguished name in RenderingUtil -->
+    <filtering-fields>
+        <value>IfName</value>
+        <value>Node</value>
+        <value>ConfigName</value>
+        <value>IPAddress</value>
+        <value>NetMask</value>
+        <value>VLAN_ID</value><!--for Search-->
+        <value>VPI</value>
+        <value>VCI</value>
+        <value>Bandwidth</value>
+        <!--value>Operational Status</value-->
+        <!--value>Facility Status</value-->
+    </filtering-fields>
+
+    <!-- Filter view Search type of search item
+         key: [OBJECT_TYPE] Distinguished name in RenderingUtil
+         value: Search type [contain/select/equal/numeric] -->
+    <condition-of-filtering>
+        <prop key="IfName">contain</prop>
+        <prop key="Node">contain</prop>
+        <prop key="ConfigName">contain</prop>
+        <prop key="IPAddress">contain</prop>
+        <prop key="NetMask">contain</prop>
+        <prop key="VLAN_ID">contain</prop><!--for Search-->
+        <prop key="VPI">VPI</prop>
+        <prop key="VCI">VCI</prop>
+        <prop key="Bandwidth">numeric</prop>
+        <prop key="Operational Status">select</prop>
+        <prop key="Facility Status">select</prop>
+    </condition-of-filtering>
+
+    <!-- Display string on UI
+         key: [OBJECT_TYPE] Distinguished name in RenderingUtil
+         value: Display Name -->
+    <display-name>
+        <prop key="IfName">IfName</prop>
+        <prop key="Node">Node</prop>
+        <prop key="ConfigName">ConfigName</prop>
+        <prop key="IPAddress">IPAddress</prop>
+        <prop key="NetMask">NetMask</prop>
+        <prop key="IPAddressNamespace">IPAddressNamespace</prop>
+        <prop key="vpn prefix">VPN PREFIX</prop>
+        <prop key="VLAN ID">VLAN ID</prop><!--for List View-->
+        <prop key="VLAN_ID">VLAN ID</prop><!--for Search-->
+        <prop key="Member VLAN ID">Member VLAN ID</prop>
+        <prop key="VPI">VPI</prop>
+        <prop key="VCI">VCI</prop>
+        <prop key="Bandwidth">Bandwidth</prop>
+        <prop key="Operational Status">Operational Status</prop>
+        <prop key="Admin Status">Admin Status</prop>
+        <prop key="Facility Status">Facility Status</prop>
+        <prop key="Member Ports">Member Ports</prop>
+        <prop key="description">description</prop>
+        <prop key="Connection destination node">Connection destination node</prop>
+        <prop key="Connection destination port">Connection destination port</prop>
+        <prop key="PortMode">PortMode</prop>
+        <prop key="SwitchPortMode">SwitchPortMode</prop>
+        <prop key="Speed">Speed</prop>
+        <prop key="AdministrativeSpeed">AdministrativeSpeed</prop>
+        <prop key="Duplex">Duplex</prop>
+        <prop key="AdministrativeDuplex">AdministrativeDuplex</prop>
+        <prop key="AutoNegotiation">AutoNegotiation</prop>
+        <prop key="Notices">Notices</prop>
+        <prop key="Purpose">Purpose</prop>
+        <prop key="EndUser">EndUser</prop>
+    </display-name>
+</configuration>

@@ -1,0 +1,30 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+    ### DEBUG start ###
+    File: NX-OS-DEFAULT-VLAN-OP_CREATE.jelly
+    op.vlanId: ${op.vlanId}
+    ### DEBUG end ###
+    <layer_block name="VLAN作成" snmptrap="disable">
+      <j:if test="${empty(op.vlanId.value)}">
+        XXX: ERROR: op.vlanId is empty.
+      </j:if>
+      <set_var var_name="vlanId" value="${op.vlanId}" scope="layer_block"/>
+      <!--
+      <call_check name="事前チェック/VLAN不在確認">
+        <argument name="vlanId">[vlanId]</argument>
+      </call_check>
+      -->
+      configure terminal
+      no spanning-tree vlan ${op.vlanId}
+      vlan ${op.vlanId}
+      <!--j:if test="${!empty(op.vlanName.value)}">
+        name ${op.vlanName}
+      </j:if-->
+      exit
+      exit
+      <!--
+      <call_check name="事後チェック/VLAN存在確認">
+        <argument name="vlanId">[vlanId]</argument>
+      </call_check>
+      -->
+    </layer_block>
+</j:jelly>

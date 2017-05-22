@@ -1,0 +1,4 @@
+# M320 Control Board
+new-hardware module ""
+  attribute set モジュール種別 CB-M-R
+context ..

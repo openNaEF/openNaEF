@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- IP address giving connection source permission
+        Normally, only describe where the dispatcher is running (localhost) -->
+    <dispatcher-ip-address>
+        <value>127.0.0.1</value>
+        <value>0:0:0:0:0:0:0:1</value>
+    </dispatcher-ip-address>
+
+</configuration>

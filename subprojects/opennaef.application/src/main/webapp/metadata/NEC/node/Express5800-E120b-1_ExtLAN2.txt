@@ -1,0 +1,30 @@
+# Express5800/E120b-1 増設ポート2個
+
+new-node "_NODENAME_"
+
+  new-hardware chassis ""
+
+    new-hardware jack eth0
+      new-port eth-port ""
+      context ..
+    context ..
+    new-hardware jack eth1
+      new-port eth-port ""
+      context ..
+    context ..
+    new-hardware jack mng0
+      new-port eth-port ""
+      context ..
+    context ..
+    new-hardware jack ext0
+      new-port eth-port ""
+      context ..
+    context ..
+    new-hardware jack ext1
+      new-port eth-port ""
+      context ..
+    context ..
+
+  context ..
+
+context ..

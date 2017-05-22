@@ -1,0 +1,44 @@
+#http://support.f5.com/content/kb/en-us/products/big-ip_ltm/manuals/product/pg_1600/_jcr_content/pdfAttach/download/file.res/Platform_Guide__1600_MAN-0326-02.pdf
+#BIG-IP1600には、ifNameのMIBがないので、ifDescrのMIBを代わりにいれている。
+new-node "_NODENAME_"
+  attribute set ベンダー名 BIG-IP
+  attribute set 機種 "BIG-IP1600"
+
+  new-hardware chassis ""
+    new-hardware jack 1.1
+      new-port eth-port ""
+        attribute set naef.port.ifname "1.1"
+      context ..
+    context ..
+    new-hardware jack 1.2
+      new-port eth-port ""
+       attribute set naef.port.ifname "1.2"
+      context ..
+    context ..
+    new-hardware jack 1.3
+      new-port eth-port ""
+       attribute set naef.port.ifname "1.3"
+      context ..
+    context ..
+    new-hardware jack 1.4
+      new-port eth-port ""
+       attribute set naef.port.ifname "1.4"
+      context ..
+    context ..
+    new-hardware jack 2.1
+      new-port eth-port ""
+       attribute set naef.port.ifname "2.1"
+      context ..
+    context ..
+    new-hardware jack 2.2
+      new-port eth-port ""
+       attribute set naef.port.ifname "2.2"
+      context ..
+    context ..
+    new-hardware jack mgmt
+      new-port eth-port ""
+       attribute set naef.port.ifname "mgmt"
+      context ..
+    context ..
+  context ..
+context ..

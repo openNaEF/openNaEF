@@ -1,0 +1,149 @@
+vlan-links:
+  get:
+    summary: すべてのvlan-linkを取得する
+    description: すべてのvlan-linkを取得する
+    parameters:
+      - name: deref
+        in: query
+        description: |
+          true を指定した場合は、MvoLinkではなく、Dtoを返す
+        required: false
+        type: boolean
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: version
+        in: query
+        description: |
+          ターゲットとなるバージョン。
+          指定しない場合は最新のバージョンが指定される。
+        required: false
+        type: string
+    tags:
+      - vlan-link
+    responses:
+      200:
+        description: vlan-linkのリスト
+        schema:
+          type: array
+          items:
+            $ref: '#/defs/MvoLink'
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+  post:
+    summary: vlan-linkを新規作成する
+    description: vlan-linkを新規作成する
+    parameters:
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: vlan-link
+        in: body
+        description: vlan-link
+        required: true
+        schema:
+          $ref: '#/defs/VlanLink'
+    tags:
+      - vlan-link
+    responses:
+      201:
+        description: Make a new vlan-link
+        headers:
+          Location:
+            description: 新規作成されたvlan-linkのuri
+            type: string
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+vlan-links_mvo-id:
+  get:
+    summary: vlan-linkを取得する
+    description: vlan-linkを取得する
+    parameters:
+      - name: mvo-id
+        in: path
+        description: ID of the mvo
+        required: true
+        type: string
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: version
+        in: query
+        description: |
+          ターゲットとなるバージョン。
+          指定しない場合は最新のバージョンが指定される。
+        required: false
+        type: string
+    tags:
+      - vlan-link
+    responses:
+      200:
+        description: vlan-link
+        schema:
+          $ref: '#/defs/VlanLink'
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+  delete:
+    summary: vlan-linkを削除する
+    description: vlan-linkを削除する
+    parameters:
+      - name: mvo-id
+        in: path
+        description: ID of the mvo
+        required: true
+        type: string
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+    tags:
+      - vlan-link
+    responses:
+      204:
+        description: Deletes the vlan-link
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+
+defs:
+  VlanLink:
+    type: object
+    properties:
+      member_ports:
+        description: 両端のポートのmvo-idのリスト
+        type: array
+        items:
+          type: string
+        example: ["vlan-if-A", "vlan-if-B"]
+      lower_layers:
+        description: vlan-linkをstackするeth-link
+        type: array
+        items:
+          type: string
+        example: ["stack-eth-link"]

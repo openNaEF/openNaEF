@@ -1,0 +1,208 @@
+customer-infos:
+  get:
+    summary: すべてのcustomer-infoを取得する
+    description: すべてのcustomer-infoを取得する
+    parameters:
+      - name: deref
+        in: query
+        description: |
+          true を指定した場合は、MvoLinkではなく、Dtoを返す
+        required: false
+        type: boolean
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: version
+        in: query
+        description: |
+          ターゲットとなるバージョン。
+          指定しない場合は最新のバージョンが指定される。
+        required: false
+        type: string
+    tags:
+      - customer-info
+    responses:
+      200:
+        description: customer-infoのリスト
+        schema:
+          type: array
+          items:
+            $ref: '#/defs/MvoLink'
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+  post:
+    summary: customer-infoを新規作成する
+    description: customer-infoを新規作成する
+    parameters:
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: customer-info
+        in: body
+        description: customer-info
+        required: true
+        schema:
+          $ref: '#/defs/CustomerInfo_CUD'
+    tags:
+      - customer-info
+    responses:
+      201:
+        description: Make a new customer-info
+        headers:
+          Location:
+            description: 新規作成されたcustomer-infoのuri
+            type: string
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+customer-infos_mvo-id:
+  get:
+    summary: customer-infoを取得する
+    description: customer-infoを取得する
+    parameters:
+      - name: mvo-id
+        in: path
+        description: ID of the mvo
+        required: true
+        type: string
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: version
+        in: query
+        description: |
+          ターゲットとなるバージョン。
+          指定しない場合は最新のバージョンが指定される。
+        required: false
+        type: string
+    tags:
+      - customer-info
+    responses:
+      200:
+        description: customer-info
+        schema:
+          $ref: '#/defs/CustomerInfo'
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+  put:
+    summary: customer-infoを更新する
+    description: customer-infoを更新する
+    parameters:
+      - name: mvo-id
+        in: path
+        description: ID of the mvo
+        required: true
+        type: string
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: customer-info
+        in: body
+        description: customer-info
+        required: true
+        schema:
+          $ref: '#/defs/CustomerInfo_CUD'
+    tags:
+      - customer-info
+    responses:
+      204:
+        description: Updates the customer-info
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+  delete:
+    summary: customer-infoを削除する
+    description: customer-infoを削除する
+    parameters:
+      - name: mvo-id
+        in: path
+        description: ID of the mvo
+        required: true
+        type: string
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+    tags:
+      - customer-info
+    responses:
+      204:
+        description: Deletes the customer-info
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+
+defs:
+  CustomerInfo:
+    type: object
+    properties:
+      name:
+        description: name
+        type: string
+        example: customerA
+      references:
+        description: customerが所有する機材などのリスト
+        type: array
+        items:
+          schema:
+            $ref: '#/definitions/Error'
+        example: [
+          {
+            "id": "mvo-id",
+            "object_type_name": "node",
+            "name": "node-name",
+            "if_name": "if-name",
+            "href": "http://example.com/api/v1/nodes/mvo-id",
+            "rel": "node"
+          }
+        ]
+  CustomerInfo_CUD:
+    type: object
+    properties:
+      name:
+        description: name
+        type: string
+        example: customerA
+      add_references:
+        description: 追加するオブジェクトのmvo-idのリスト
+        type: array
+        items:
+          type: string
+        example: ["mvo-id;A", "mvo-id;B"]
+      remove_references:
+        description: 削除するオブジェクトのmvo-idのリスト
+        type: array
+        items:
+          type: string
+        example: ["mvo-id;A", "mvo-id;B"]

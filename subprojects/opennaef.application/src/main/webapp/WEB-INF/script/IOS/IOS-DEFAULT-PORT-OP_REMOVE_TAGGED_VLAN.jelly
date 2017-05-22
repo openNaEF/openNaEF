@@ -1,0 +1,18 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+    <layer_block name="ポートから Tagged VLAN 削除" snmptrap="disable">
+      <j:if test="${empty(op.vlanId.value)}">
+        XXX: ERROR: op.vlanId is empty.
+      </j:if>
+      <j:if test="${empty(op.ifname.value)}">
+        XXX: ERROR: op.ifname is empty.
+      </j:if>
+      <j:if test="${empty(op.fullIfname.value)}">
+        XXX: ERROR: op.fullIfname is empty.
+      </j:if>
+      configure terminal
+      interface ${op.fullIfname}
+      switchport trunk allowed vlan remove ${op.vlanId}
+      exit
+      exit
+    </layer_block>
+</j:jelly>

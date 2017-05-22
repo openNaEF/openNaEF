@@ -1,0 +1,68 @@
+<j:jelly xmlns:j="jelly:core" xmlns:define="jelly:define" trim="false">
+ ### DEBUG start ###
+ File: IOS-DEFAULT-LAG-OP_CHANGE.jelly
+ op.lagId: ${op.lagId}
+ op.LagAddedMembers: ${op.LagAddedMembers}
+
+       <!-- 追加されたメンバーポート-->
+      <j:forEach items="${op.LagAddedMembers}" var="memberPort">
+        test ${memberPort.fullIfName}
+      </j:forEach>
+
+ op.LagRemovedMembers: ${op.LagRemovedMembers}
+
+       <!-- 削除されたメンバーポート-->
+      <j:forEach items="${op.LagRemovedMembers}" var="memberPort">
+        test ${memberPort.fullIfName}
+      </j:forEach>
+
+ op.adminStatus: ${op.adminStatus}
+ op.adminStatus.pre: ${op.adminStatus.pre}
+ op.isChanged('adminStatus'):${op.isChanged('adminStatus')}
+
+ ### DEBUG end ###
+    <layer_block name="LAG 設定変更" snmptrap="disable">
+      <j:if test="${empty(op.lagId.value)}">
+        ERROR: op.lagId is empty.
+      </j:if>
+      configure terminal
+      interface Port-channel${op.lagId}
+      <!--ポート shut / no shut 設定-->
+      <j:if test="${op.isChanged('adminStatus')}">
+        <j:choose>
+          <!-- adminStatus が enabledに変更された場合 -->
+          <j:when test="${op.adminStatus == 'enabled'}">
+            no shutdown
+          </j:when>
+          <!-- operStatus が disabledに変更された場合 -->
+          <j:when test="${op.adminStatus == 'disabled'}">
+            shutdown
+          </j:when>
+          <j:otherwise>
+            ERROR: unsupported adminStatus type ${op.adminStatus} .
+          </j:otherwise>
+        </j:choose>
+      </j:if>
+      <!-- description設定 -->
+      <j:if test="${op.isChanged('description') and !empty(op.description.value)}">
+        description ${op.description}
+      </j:if>
+      <j:if test="${op.isChanged('description') and empty(op.description.value)}">
+        no description
+      </j:if>
+      exit
+      <!-- メンバポート追加 -->
+      <j:forEach items="${op.LagAddedMembers}" var="memberPort">
+        interface ${memberPort.fullIfName}
+          channel-group ${op.lagId} mode on
+        exit
+      </j:forEach>
+      <!-- メンバポート削除 -->
+      <j:forEach items="${op.LagRemovedMembers}" var="memberPort">
+        interface ${memberPort.fullIfName}
+          no channel-group ${op.lagId} mode on
+        exit
+      </j:forEach>
+      exit
+    </layer_block>
+</j:jelly>

@@ -1,0 +1,5 @@
+dependencies {
+    compile project(':38k.naef')
+    compile project(':opennaef.mpls-nms.core')
+    compile name: '38k/38k.envision-engine'
+}

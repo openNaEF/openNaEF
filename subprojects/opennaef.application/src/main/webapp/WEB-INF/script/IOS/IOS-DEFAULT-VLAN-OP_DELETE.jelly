@@ -1,0 +1,20 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+    <layer_block name="VLAN削除" snmptrap="disable">
+      <j:if test="${empty(op.vlanId.pre)}">
+        ERROR: op.vlanId.pre is empty.
+      </j:if>
+      <!--
+      <call_check name="廃止/事前チェック/VLAN確認/show vlan">
+        <argument name="vlanId">${op.vlanId.pre}</argument>
+      </call_check>
+      -->
+      configure terminal
+      no vlan ${op.vlanId.pre}
+      exit
+      <!--
+      <call_check name="廃止/事後チェック/VLAN確認/show vlan">
+        <argument name="vlanId">${op.vlanId.pre}</argument>
+      </call_check>
+      -->
+    </layer_block>
+</j:jelly>

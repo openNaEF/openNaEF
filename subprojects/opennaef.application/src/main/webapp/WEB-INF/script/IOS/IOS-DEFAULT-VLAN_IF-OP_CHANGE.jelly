@@ -1,0 +1,75 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+    ### DEBUG start ###
+    File: IOS-DEFAULT-VLAN_IF-OP_CHANGE.jelly
+    op.description.isChanged: ${op.description.isChanged()}
+    op.description: ${op.description}
+    op.isChanged(description): ${op.isChanged('description')}
+    op.isChange(description): ${op.isChange('description')}
+    op.fullIfname: ${op.fullIfname}
+    op.vlanId: ${op.vlanId}
+    op.vlanName: ${op.vlanName}
+    op.svi_port: ${op.svi_port}
+    op.svi_port.isChanged: ${op.svi_port.isChanged()}
+    op.isChanged('svi_port'): ${op.isChanged('svi_port')}
+    op.ipAddress.isChanged(): ${op.ipAddress.isChanged()}
+    op.isChanged('ipAddress'): ${op.isChanged('ipAddress')}
+    empty(op.ipAddress): ${empty(op.ipAddress)}
+    empty(op.ipAddress.value): ${empty(op.ipAddress.value)}
+    op.ipAddress: ${op.ipAddress}
+    op.ipAddress.pre: ${op.ipAddress.pre}
+    op.subnetMask.isChanged: ${op.subnetMask.isChanged()}
+    op.isChanged('subnetMask'): ${op.isChanged('subnetMask')}
+    op.subnetMask: ${op.subnetMask}
+    op.subnetMask.pre: ${op.subnetMask.pre}
+    op.maskLength.isChanged: ${op.maskLength.isChanged()}
+    op.isChanged('maskLength'): ${op.isChanged('maskLength')}
+    op.maskLength: ${op.maskLength}
+    op.maskLength.pre: ${op.maskLength.pre}
+    ### DEBUG end ###
+    <layer_block name="SVI設定変更" snmptrap="disable">
+      <j:if test="${empty(op.vlanId.value)}">
+        XXX: ERROR: op.vlanId is empty.
+      </j:if>
+      configure terminal
+      interface vlan${op.vlanId}
+      <j:if test="${op.ipAddress.isChanged() or op.subnetMask.isChanged()}">
+        <j:choose>
+          <j:when test="${empty(op.ipAddress.value)}"> <!-- ipAddress が null なら subnetMask に関わりなく消す -->
+            no ip address
+          </j:when>
+          <j:when test="${!empty(op.ipAddress.value) and empty(op.subnetMask.value)}"> <!-- ipAddress があるのに subnetMask が null は設定不可 -->
+            ERROR: op.subnetMask is empty.
+          </j:when>
+          <j:otherwise>
+            ip address ${op.ipAddress} ${op.subnetMask}
+          </j:otherwise>
+        </j:choose>
+      </j:if>
+      <j:if test="${op.ipAddress2.isChanged() or op.subnetMask2.isChanged()}">
+        <j:choose>
+          <j:when test="${empty(op.ipAddress2.value)}"> <!-- ipAddress が null なら subnetMask に関わりなく消す -->
+            no ip address
+          </j:when>
+          <j:when test="${!empty(op.ipAddress2.value) and empty(op.subnetMask2.value)}"> <!-- ipAddress があるのに subnetMask が null は設定不可 -->
+            ERROR: op.subnetMask2 is empty.
+          </j:when>
+          <j:otherwise>
+            ip address ${op.ipAddress2} ${op.subnetMask2} secondary
+            <!-- TODO: Cisco の場合, 古いアドレスを消す操作が必要 -->
+          </j:otherwise>
+        </j:choose>
+      </j:if>
+      <j:if test="${op.description.isChanged()}">
+        <j:choose>
+          <j:when test="${empty(op.description.value)}">
+            no description
+          </j:when>
+          <j:otherwise>
+            description ${op.description}
+          </j:otherwise>
+        </j:choose>
+      </j:if>
+      exit
+      exit
+    </layer_block>
+</j:jelly>

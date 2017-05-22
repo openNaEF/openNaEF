@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/">
+<head>
+    <title>Configuration Editor</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="blueprint/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/print.css" type="text/css" media="print"/>
+    <!--[if IE]>
+    <link rel="stylesheet" href="blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <link rel="stylesheet" href="blueprint/plugins/tabs/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/plugins/buttons/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="css/ui.base.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/tablesorter/style.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/common.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/commonprint.css" type="text/css" media="print"/>
+
+    <script type='text/javascript' src='js/jquery-1.3.1.min.js'></script>
+    <script type="text/javascript" src="js/ui.core.js"></script>
+    <script type="text/javascript" src="js/jquery.suggest.js"></script>
+    <script type='text/javascript' src='js/jquery.tablesorter.min.js'></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.tablesorter.defaults.widgets = ['zebra'];
+            $('table.tablesorter').tablesorter();
+        });
+    </script>
+</head>
+
+<body>
+<div class="container">
+    <div id="hd" role="banner">
+        <h2>Configuration Editor</h2>
+    </div>
+    <div id="menu" role="menu">
+        <a wicket:id="top" href="#">[Menu]</a> |
+        <a wicket:id="refresh" href="#">[Refresh]</a> |
+        <a wicket:id="reload" href="#">[ReloadConfig]</a>
+    </div>
+    <div id="bd" role="main">
+        <div wicket:id="feedback">Error detail here</div>
+        <form wicket:id="form" name="form">
+            <table>
+                <tr>
+                    <th>Discovery Setting</th>
+                </tr>
+                <tr>
+                    <td>
+                        RTT Scheduler Base Time:
+                        <input wicket:id="rttSchedulerBaseTime" type="text" name="rtt-scheduler-base-time"/> (yyyy/MM/dd HH:mm)<br/>
+                        RTT Scheduler Interval(min):
+                        <input wicket:id="rttSchedulerIntervalMin" type="text" name="rtt-scheduler-interval"/><br/>
+                        RTT PING number:
+                        <input wicket:id="rttPingNumber" type="text" name="rtt-ping-number"/><br/>
+                        RTT PING packet size:
+                        <input wicket:id="rttPingSize" type="text" name="rtt-ping-size"/><br/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Operational Status Scheduler Base Time:
+                        <input wicket:id="operStatusSchedulerBaseTime" type="text" name="status-scheduler-base-time"/> (yyyy/MM/dd HH:mm)<br/>
+                        Operational Status Scheduler Interval(min):
+                        <input wicket:id="operStatusSchedulerIntervalMin" type="text" name="status-scheduler-interval"/><br/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Server Setting</th>
+                </tr>
+                <tr>
+                    <td>
+                        Event Service URL(RMI):
+                        <input wicket:id="eventManagerURI" type="text" name="event-service-url"/><br/>
+                        HTTP Agent URL:
+                        <input wicket:id="httpAgentURI" type="text" name="http-agent-url"/><br/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button wicket:id="save" type="submit" tabindex="0" id="save-button"
+                                class="positive span-3">Save
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+  ### DEBUG start ###
+  File: IOS-DEFAULT-PORT-OP_ADD_TAGGED_VLAN
+  op.vlanId: ${op.vlanId}
+  empty(op.vlanId.value): ${empty(op.vlanId.value)}
+  op.ifname: ${op.ifname}
+  empty(op.ifname.value): ${empty(op.ifname.value)}
+  op.fullIfname: ${op.fullIfname}
+  empty(op.fullIfname.value): ${empty(op.fullIfname.value)}
+  ### DEBUG end ###
+    <layer_block name="ポートに Tagged VLAN 追加" snmptrap="disable">
+      <j:if test="${empty(op.vlanId.value)}">
+        ERROR: op.vlanId is empty.
+      </j:if>
+      <j:if test="${empty(op.ifname.value)}">
+        ERROR: op.ifname is empty.
+      </j:if>
+      <j:if test="${empty(op.fullIfname.value)}">
+        ERROR: op.fullIfname is empty.
+      </j:if>
+      <!--call_check name="新設/共通/事前/VLAN存在確認">
+        <argument name="vlanId">${op.vlanId}</argument>
+      </call_check-->
+      <!--
+      <call_check name="新設/Taggedポート設定/事前/Taggedポート有効性確認(物理ポート)">
+        <argument name="ifname">${op.ifname}</argument>
+      </call_check>
+      -->
+      configure terminal
+      interface ${op.fullIfname}
+      switchport trunk allowed vlan add ${op.vlanId}
+      exit
+      exit
+      <!--
+      <call_check name="新設/Taggedポート設定/事後/Taggedポート有効性確認">
+        <argument name="ifname">${op.ifname}</argument>
+      </call_check>
+      -->
+      <!--
+      <call_check name="新設/Taggedポート設定/事後/TaggedポートVLAN確認">
+        <argument name="ifname">${op.ifname}</argument>
+        <argument name="vlanId">${op.vlanId}</argument>
+      </call_check>
+      -->
+    </layer_block>
+</j:jelly>

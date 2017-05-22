@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- These settings is only for Phalanx Client UI. -->
+
+    <!-- Attribute name to store the value for inventory ID -->
+    <id-field-name>VLAN link name</id-field-name>
+
+    <!-- List display target item
+         value: [OBJECT_TYPE] Distinguished name in RenderingUtil -->
+    <fields>
+        <value>VLAN link name</value>
+        <value>Endpoint node 1</value>
+        <value>Endpoint physical port 1</value>
+        <value>Endpoint VLAN port 1</value>
+        <value>Endpoint node 2</value>
+        <value>Endpoint physical port 2</value>
+        <value>Endpoint VLAN port 2</value>
+        <value>LastEditTime</value>
+    </fields>
+
+    <!-- Property display target item
+         value: [OBJECT_TYPE] Distinguished name in RenderingUtil -->
+    <property-fields>
+        <value>VLAN link name</value>
+        <value>Endpoint node 1</value>
+        <value>Endpoint physical port 1</value>
+        <value>Endpoint VLAN port 1</value>
+        <value>Endpoint node 2</value>
+        <value>Endpoint physical port 2</value>
+        <value>Endpoint VLAN port 2</value>
+        <value>LastEditTime</value>
+    </property-fields>
+
+    <!-- Filter view search item
+         value: [OBJECT_TYPE] Distinguished name in RenderingUtil -->
+    <filtering-fields>
+        <!--
+        <value>VLAN link name</value>
+        <value>Endpoint node 1</value>
+        <value>Endpoint physical port 1</value>
+        <value>Endpoint VLAN port 1</value>
+        <value>Endpoint node 2</value>
+        <value>Endpoint physical port 2</value>
+        <value>Endpoint VLAN port 2</value>
+        -->
+    </filtering-fields>
+
+    <!-- Filter view Search type of search item
+         key: [OBJECT_TYPE] Distinguished name in RenderingUtil
+         value: Search type [contain/select/equal/numeric] -->
+    <condition-of-filtering>
+        <prop key="VLAN link name">contain</prop>
+        <prop key="Endpoint node 1">contain</prop>
+        <prop key="Endpoint physical port 1">contain</prop>
+        <prop key="Endpoint VLAN port 1">contain</prop>
+        <prop key="Endpoint node 2">contain</prop>
+        <prop key="Endpoint physical port 2">contain</prop>
+        <prop key="Endpoint VLAN port 2">contain</prop>
+        <prop key="LastEditTime">contain</prop>
+    </condition-of-filtering>
+
+    <!-- Display string on UI
+         key: [OBJECT_TYPE] Distinguished name in RenderingUtil
+         value: Display Name -->
+    <display-name>
+        <prop key="VLAN link name">VLAN link name</prop>
+        <prop key="Endpoint node 1">Endpoint node 1</prop>
+        <prop key="Endpoint physical port 1">Endpoint physical port 1</prop>
+        <prop key="Endpoint VLAN port 1">Endpoint VLAN port 1</prop>
+        <prop key="Endpoint node 2">Endpoint node 2</prop>
+        <prop key="Endpoint physical port 2">Endpoint physical port 2</prop>
+        <prop key="Endpoint VLAN port 2">Endpoint VLAN port 2</prop>
+        <prop key="LastEditTime">LastEditTime</prop>
+    </display-name>
+</configuration>

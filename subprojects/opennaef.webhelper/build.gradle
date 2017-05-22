@@ -1,0 +1,26 @@
+apply plugin: 'war'
+
+dependencies {
+    compile project(':opennaef.api')
+
+    compile "joda-time:joda-time:$jodaTimeVersion"
+    compile "net.arnx:jsonic:$jsonicVersion"
+
+    compile "org.apache.wicket:wicket:$wicketVersion"
+    compile "org.apache.wicket:wicket-extensions:$wicketVersion"
+    compile "org.apache.wicket:wicket-datetime:$wicketVersion"
+    compile "com.thoughtworks.xstream:xstream:$xstreamVersion"
+
+    compileOnly "javax.servlet:javax.servlet-api:$servletApiVersion"
+}
+
+artifacts {
+    archives jar
+    archives sourcesJar
+    archives javadocJar
+}
+
+uploadArchives.doFirst {
+    // maven repository へ war を publish しない
+    configurations.archives.artifacts.removeAll { it.type == 'war' }
+}

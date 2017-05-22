@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/">
+<head>
+    <title>VLAN IF Edit</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="blueprint/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/print.css" type="text/css" media="print"/>
+    <!--[if IE]>
+    <link rel="stylesheet" href="blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <link rel="stylesheet" href="blueprint/plugins/tabs/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/plugins/buttons/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="css/ui.base.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/common.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/commonprint.css" type="text/css" media="print"/>
+</head>
+<body>
+<div id="hd">
+    <h1 wicket:id="headTitle">VLAN IF Edit</h1>
+</div>
+<div id="bd">
+    <form wicket:id="backForm" name="backForm">
+        <button wicket:id="back" type="submit" tabindex="0" id="back-button" class="negative span-5">
+            <img src="blueprint/plugins/buttons/icons/cross.png" alt="Back"/>Back
+        </button>
+    </form>
+    <form wicket:id="deleteForm" name="deleteForm">
+        <button wicket:id="delete" type="submit" tabindex="0" id="delete-button" class="negative span-5">
+            <img src="blueprint/plugins/buttons/icons/cross.png" alt="Delete VLAN"/>Delete VLAN IF
+        </button>
+    </form>
+    <hr/>
+    <form wicket:id="form" name="form">
+        <div wicket:id="feedback">Error detail here</div>
+        <table class=tablesorter">
+            <tr>
+                <th>Items</th>
+                <th>Value</th>
+                <th>Overview</th>
+            </tr>
+            <tr>
+                <th>VLAN ID *</th>
+                <td>
+                    <select wicket:id="vlanID">
+                        <option>1</option>
+                        <option>4094</option>
+                    </select>
+                </td>
+                <td>VLAN ID is mandatory. Can not change later</td>
+            </tr>
+            <tr>
+                <th>ifName *</th>
+                <td><input wicket:id="ifName" type="text" name="ifName" value="0"/><br/>
+                    (Auto-Generated Name: <span wicket:id="defaultIfName"></span>)
+                </td>
+                <td>IfName of this port. If ifName is empty, the automatically generated name is given.</td>
+            </tr>
+            <tr>
+                <th>Operational Status</th>
+                <td class="nowrap"><select wicket:id="operStatus">
+                    <option>UP</option>
+                </select></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>Facility Status</th>
+                <td class="nowrap"><select wicket:id="facilityStatus">
+                    <option></option>
+                </select></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>IPAddress</th>
+                <td>
+                    VPN Prefix <input wicket:id="vpnPrefix" type="text" size="10"/><br/>
+                    <input wicket:id="ipAddress" type="text" size="30"/>/<input wicket:id="maskLength" type="text" size="3"/>
+                </td>
+                <td>IP address and mask of this VLAN interface. ex）10.0.0.1/8<br/>
+                    If this IP belongs to the VPN space, enter the VPN space name in the VPN name. For Global IP address, leave it blank.
+                </td>
+            </tr>
+            <tr>
+                <th>Bandwidth</th>
+                <td class="nowrap"><input wicket:id="bandwidth" type="text"/></td>
+                <td>Bandwidth(Kbps)</td>
+            </tr>
+            <tr>
+                <th>OSPF Area ID</th>
+                <td class="nowrap"><input wicket:id="ospfAreaID" type="text"/></td>
+                <td>OSPF Area ID. Numeric format (ex. "1") or IP address format (ex. "0.0.0.1") is supported.</td>
+            </tr>
+            <tr>
+                <th>IGP COST</th>
+                <td class="nowrap"><input wicket:id="igpCost" type="text"/></td>
+                <td>IGP COST</td>
+            </tr>
+            <tr>
+                <th>Purpose</th>
+                <td class="nowrap"><input type="text" wicket:id="purpose"/></td>
+                <td>Purpose</td>
+            </tr>
+            <tr>
+                <th>Note</th>
+                <td class="nowrap"><textarea wicket:id="note" type="text"></textarea></td>
+                <td>Note</td>
+            </tr>
+        </table>
+        <br/>
+        <button wicket:id="proceed" type="submit" tabindex="0" id="apply-button" class="positive span-5">
+            <img src="blueprint/plugins/buttons/icons/tick.png" alt="Apply" />OK
+        </button>
+    </form>
+</div>
+</body>
+</html>

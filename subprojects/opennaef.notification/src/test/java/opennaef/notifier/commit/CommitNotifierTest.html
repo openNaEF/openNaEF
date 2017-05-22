@@ -1,0 +1,31 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            //WebSocketのコネクションを確立する
+            ws = new WebSocket('ws://localhost:8080/opennaef.notifier/commit');
+            ws.open = function (event) {
+                console.log('connected.');
+            };
+
+            ws.onmessage = function (event) {
+                console.log('message received.');
+                var recMessage = event.data;
+                console.log(recMessage);
+                $('#result').append(recMessage + '<br>');
+            };
+        });
+        function sendMessage() {
+            var filter = $('#filter').val();
+            ws.send(filter);
+        }
+    </script>
+</head>
+<body>
+<textarea id="filter">{"exists": ["node"]}</textarea>
+<button onclick="sendMessage();">filter</button>
+<div id="result"></div>
+</body>
+</html>

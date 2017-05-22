@@ -1,0 +1,150 @@
+dto-changes:
+  get:
+    summary: 指定したトランザクションでの変更を取得する
+    description: |
+
+      指定したトランザクションでの変更を取得します。
+
+      new_objects: 新規作成されたオブジェクト
+
+      changed_objects: 変更されたオブジェクト
+
+      変更されたオブジェクトには、"changed_attributes" が追加されています。
+      これは変更があった属性の属性名と、変更前の値を保持するものです。
+
+      属性が、
+
+      リストの場合は追加された要素が"added", 削除された要素が"removed"へ格納されます。
+
+      マップの場合は、追加された要素が"added", 削除された要素が"removed", 変更された要素が"updated"へ格納されます。
+
+      その他の場合は、現在の値が"value", 変更前の値が"pre"へ格納されます。
+    parameters:
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: version
+        in: query
+        description: |
+          ターゲットとなるバージョン。
+          指定しない場合は最新のバージョンが指定される。
+        required: false
+        type: string
+    tags:
+      - dto-changes
+    responses:
+      200:
+        description: DtoChanges
+        schema:
+          $ref: '#/defs/DtoChanges'
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+
+defs:
+  Mvo:
+    type: object
+    properties:
+      $id:
+        type: string
+        description: mvo-id
+        example: mvo-id
+      $absolute-name:
+        type: string
+        description: absolute-name
+        example: mvo;mvo-name
+      $type:
+        type: string
+        description: naef object type
+        example: mvo
+      $time:
+        type: string
+        description: 読み込み時のターゲットとなった時間
+        example: 0
+      $version:
+        type: string
+        description: 読み込み時のターゲットとなったバージョン
+        example: w0
+  ChangedObject:
+    type: object
+    properties:
+      $id:
+        type: string
+        description: mvo-id
+        example: mvo-id
+      $absolute-name:
+        type: string
+        description: absolute-name
+        example: mvo;mvo-name
+      $type:
+        type: string
+        description: naef object type
+        example: mvo
+      $time:
+        type: string
+        description: 読み込み時のターゲットとなった時間
+        example: 0
+      $version:
+        type: string
+        description: 読み込み時のターゲットとなったバージョン
+        example: w0
+      changed_attributes:
+        type: object
+        properties:
+          attribute_name:
+            description: 値が変更された属性名
+            type: object
+            properties:
+              value:
+                description: 変更後の値
+                type: object
+              pre:
+                description: 変更前の値
+                type: object
+              added:
+                description: List, Mapに新規に追加されたオブジェクトのリスト
+                type: array
+                items:
+                  type: object
+              removed:
+                description: List, Mapから削除されたオブジェクトのリスト
+                type: array
+                items:
+                  type: object
+              updated:
+                description: Mapで変更されたオブジェクトのリスト
+                type: array
+                items:
+                  value:
+                    description: 変更後の値
+                    type: object
+                  pre:
+                    description: 変更前の値
+                    type: object
+  DtoChanges:
+    type: object
+    properties:
+      "@version":
+        description: DtoChangesのトランザクションID
+        type: string
+        example: w1234
+      "@time":
+        description: DtoChangesのトランザクションで指定された時間(Epoch time(ミリ秒))
+        type: number
+        example: 1483196400000
+      new_objects:
+        description: 指定したトランザクションで新規作成されたオブジェクト
+        type: array
+        items:
+          $ref: '#/defs/Mvo'
+      changed_objects:
+        description:  指定したトランザクションで変更があったオブジェクト
+        type: array
+        items:
+          $ref: '#/defs/ChangedObject'

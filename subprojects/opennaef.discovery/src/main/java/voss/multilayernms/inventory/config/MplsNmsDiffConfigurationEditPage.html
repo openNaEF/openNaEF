@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Configuration Editor</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="blueprint/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/print.css" type="text/css" media="print"/>
+    <!--[if IE]>
+    <link rel="stylesheet" href="blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <link rel="stylesheet" href="blueprint/plugins/tabs/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/plugins/buttons/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="css/ui.base.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/tablesorter/style.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/common.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/commonprint.css" type="text/css" media="print"/>
+
+    <script type='text/javascript' src='js/jquery-1.3.1.min.js'></script>
+    <script type="text/javascript" src="js/ui.core.js"></script>
+    <script type="text/javascript" src="js/jquery.suggest.js"></script>
+    <script type='text/javascript' src='js/jquery.tablesorter.min.js'></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.tablesorter.defaults.widgets = ['zebra'];
+            $('table.tablesorter').tablesorter();
+        });
+    </script>
+</head>
+
+<body>
+<div class="container">
+    <div id="hd" role="banner">
+        <h2>Diff Configuration Editor</h2>
+    </div>
+    <div id="menu" role="menu">
+        <a wicket:id="top" href="#">[MainMenu]</a> |
+        <a wicket:id="refresh" href="#">[Refresh]</a> |
+        <a wicket:id="reload" href="#">[Reload Config]</a>
+    </div>
+    <div id="bd" role="main">
+        <div wicket:id="feedback">Error detail here</div>
+        <form wicket:id="form" name="form">
+            <table>
+                <tr>
+                    <th>Discovery Configuration</th>
+                </tr>
+                <tr>
+                    <td>
+                        Display-Name: <input wicket:id="discoveryDisplayName" type="text" name="display-name"/><br/>
+                        Default SNMP Community String: <input wicket:id="defaultSnmpCommunityString" type="text"
+                                                              name="default-community-string"/><br/>
+                        Max Thread Size: <input wicket:id="discoveryMaxThreadSize" type="text"
+                                                name="max-thread-size"/><br/>
+                        SNMP Timeout(sec): <input wicket:id="discoverySnmpTimeoutSeconds" type="text"
+                                                  name="snmp-timeout-sec"/><br/>
+                        SNMP Retry: <input wicket:id="discoverySnmpRetryTimes" type="text"
+                                           name="snmp-retry-times"/><br/>
+                        TELNET Timeout(sec): <input wicket:id="discoveryTelnetTimeoutSeconds" type="text"
+                                                    name="telnet-timeout-sec"/><br/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Diff Scheduler Base Time: <input wicket:id="discoverySchedulerBaseTime" type="text"
+                                                         name="diff-scheduler-base-time"/> (yyyy/MM/dd HH:mm)<br/>
+                        Diff Scheduler Interval(min): <input wicket:id="discoverySchedulerIntervalMinutes" type="text"
+                                                             name="diff-scheduler-interval"/><br/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button wicket:id="save" type="submit" tabindex="0" id="pushbutton1-button"
+                                class="positive span-3">Save
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+</body>
+</html>

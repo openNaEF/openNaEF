@@ -1,0 +1,121 @@
+body {
+	
+}
+.tedit-ui,
+.tedit-ui div,
+.tedit-ui .tedit-ui-grid ol,
+.tedit-ui .tedit-ui-grid ol li,
+.tedit-ui .tedit-ui-grid .tedit-ui-cells table,
+.tedit-ui .tedit-ui-grid .tedit-ui-cells td{
+	margin: 0;
+	padding: 0;
+	font-size: 12px;
+}
+.tedit-ui .tedit-ui-toolbar-top{
+	position: relative;
+	padding: 1ex 1ex 0;
+}
+.tedit-ui-toolbar-top .ui-state-default{
+	margin-right: 3px;
+	padding-left: 0;
+}
+.tedit-ui-toolbar-top .ui-icon,
+.tedit-ui-toolbar-bottom .ui-icon{
+	float: left;
+	margin-right: 3px;
+}
+.tedit-ui .tedit-ui-grid{
+	position: relative;
+	padding: 1ex;
+}
+.tedit-ui .tedit-ui-grid .tedit-ui-gcorner{
+	width: 17px;
+	height: 17px;
+	float: left;
+	cursor: move;
+}
+.tedit-ui .tedit-ui-grid .tedit-ui-cgrips,
+.tedit-ui .tedit-ui-grid .tedit-ui-rgrips{
+	float: left;
+	position: relative;
+	overflow: hidden;
+}
+.tedit-ui .tedit-ui-grid .tedit-ui-cgrips ol,
+.tedit-ui .tedit-ui-grid .tedit-ui-rgrips ol{
+	position: absolute;
+	top: 0;
+	left: 0;
+	list-style-type: none;
+}
+.tedit-ui .tedit-ui-grid .tedit-ui-cgrips{
+	height: 16px;
+	border-width: 1px 1px 0;
+}
+.tedit-ui .tedit-ui-grid .tedit-ui-cgrips ol{
+	height: 16px;
+}
+.tedit-ui .tedit-ui-grid .tedit-ui-cgrips li{
+	float: left;
+	height: 16px;
+	border-top-width: 0;
+	border-bottom-width: 0;
+	border-left-color: transparent;
+	list-style-type: none;
+}
+.tedit-ui .tedit-ui-grid .tedit-ui-cgrips li .ui-icon{
+	float: left;
+}
+.tedit-ui .tedit-ui-grid .tedit-ui-rgrips{
+	clear: left;
+	width: 16px;
+	border-width: 1px 0 1px 1px;
+}
+.tedit-ui .tedit-ui-grid .tedit-ui-rgrips ol{
+	width: 16px;
+}
+.tedit-ui .tedit-ui-grid .tedit-ui-rgrips li{
+	width: 16px;
+	border-top-color: transparent;
+	border-right-width: 0;
+	border-left-width: 0;
+	list-style-type: none;
+}
+.tedit-ui .tedit-ui-grid .tedit-ui-cells{
+	float: left;
+	overflow: auto;
+}
+.tedit-ui .tedit-ui-grid .tedit-ui-cells table,
+.tedit-ui .tedit-ui-grid .tedit-ui-cells td{
+	border-collapse: collapse;
+	border-width: 0;
+	background-color: #fff;
+}
+.tedit-ui .tedit-ui-grid .tedit-ui-cells td div{
+	overflow: hidden;
+	height: 100%;
+	border-width: 1px;
+	border-top-color: transparent;
+	border-left-color: transparent;
+	background-color: #fff;
+}
+.tedit-ui .tedit-ui-grid .tedit-ui-grid-thead td div,
+.tedit-ui .tedit-ui-grid .tedit-ui-grid-tfoot td div{
+	font-weight: bold;
+}
+.ui-draggable-dragging{
+	background-image: none !important;
+}
+.tedit-ui .tedit-ui-toolbar-bottom{
+	position: relative;
+	padding: 0 1ex 1ex;
+}
+.tedit-ui .tedit-ui-toolbar-bottom div{
+	float: left;
+}
+.tedit-ui-toolbar-bottom select{
+	margin: 0 1ex;
+}
+.tedit-ui-toolbar-bottom select option{
+	width: 3em;
+	height: 16px;
+}

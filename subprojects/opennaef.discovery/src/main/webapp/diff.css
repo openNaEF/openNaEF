@@ -1,0 +1,24 @@
+.data_table {
+	empty-cells: show;
+	border: 2px solid #000000;
+	border-collapse: collapse;
+	border-spacing: 5px;
+}
+
+.title_cell {
+	border: 1px solid #000000;
+	margin: 2px;
+	padding: 3px;
+	background-color: #69B3CF;
+	color: #FFFFFF;
+	font-size: 14px;
+}
+
+.cell_border_all {
+	border: 1px solid #69B3CF;
+	empty-cells: show;
+	margin: 2px;
+	padding: 3px;
+	font-size: 14px;
+	word-wrap: break-word;
+}

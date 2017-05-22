@@ -1,0 +1,44 @@
+# http://www.juniper.net/techpubs/software/nog/nog-hardware/download/m320-router.pdf
+new-node "_NODENAME_"
+  attribute set ベンダー名 Juniper
+  attribute set 機種 "Juniper M320 Internet Backbone Router"
+  attribute set naef.enabled-networking-function.vpls true
+  attribute set naef.enabled-networking-function.vrf true
+
+  new-hardware chassis ""
+    new-hardware slot RE0
+    context ..
+    new-hardware slot RE1
+    context ..
+    new-hardware slot CB0
+    context ..
+    new-hardware slot CB1
+    context ..
+    new-hardware slot 0
+    context ..
+    new-hardware slot 1
+    context ..
+    new-hardware slot 2
+    context ..
+    new-hardware slot 3
+    context ..
+    new-hardware slot 4
+    context ..
+    new-hardware slot 5
+    context ..
+    new-hardware slot 6
+    context ..
+    new-hardware slot 7
+    context ..
+    new-hardware slot SIB0
+    context ..
+    new-hardware slot SIB1
+    context ..
+    new-hardware slot SIB2
+    context ..
+    new-hardware slot SIB3
+    context ..
+    new-hardware slot CIP
+    context ..
+  context ..
+context ..

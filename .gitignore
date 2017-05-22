@@ -1,0 +1,50 @@
+# Java
+*.class
+*.jar
+*.war
+*.ear
+!lib/**/*.jar
+
+# intellij
+.idea
+.idea_modules/
+*.iml
+*.iws
+*.ipr
+
+# eclipse
+.project
+.metadata
+.settings
+.classpath
+
+# gradle
+.gradle
+!gradle-wrapper.jar
+
+# maven
+/target/
+
+# build
+/out/
+/build/
+/bin/
+
+#
+/logs/
+*.log
+*.swp
+*.bak
+
+# svn
+.svn/
+
+# git
+.git/
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Mac
+*.DS_Store

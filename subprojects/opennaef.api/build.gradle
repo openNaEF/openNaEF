@@ -1,0 +1,19 @@
+dependencies {
+    compile project(':pasaran.naef')
+    compile project(':opennaef.devicedriver.core')
+    
+    compile "ch.qos.logback:logback-classic:$logbackVersion"
+
+    compile "commons-beanutils:commons-beanutils:$commonsBeanutilsVersion"
+    compile "commons-codec:commons-codec:$commonsCodecVersion"
+    compile "commons-collections:commons-collections:$commonsCollectionsVersion"
+    compile "commons-configuration:commons-configuration:$commonsConfigurationVersion"
+    compile "commons-httpclient:commons-httpclient:$commonsHttpclientVersion"
+    compile "commons-io:commons-io:$commonsIoVersion"
+    compile "commons-lang:commons-lang:$commonsLangVersion"
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}

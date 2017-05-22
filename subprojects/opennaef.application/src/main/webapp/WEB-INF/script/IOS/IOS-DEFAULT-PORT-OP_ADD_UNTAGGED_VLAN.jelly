@@ -1,0 +1,37 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+    <layer_block name="ポートに Untagged VLAN 設定" snmptrap="disable">
+      <j:if test="${empty(op.vlanId.value)}">
+        ERROR: op.vlanId is empty.
+      </j:if>
+      <j:if test="${empty(op.ifname.value)}">
+        ERROR: op.ifname is empty.
+      </j:if>
+      <j:if test="${empty(op.fullIfname.value)}">
+        ERROR: op.fullIfname is empty.
+      </j:if>
+      <set_var var_name="uniIfname" value="${op.ifname}" scope="layer_block"/>
+      <!-- set_var var_name="uniFullIfname" value="${op.fullIfname}" scope="layer_block"/-->
+      <set_var var_name="vlanId" value="${op.vlanId}" scope="layer_block"/>
+      <!--
+      <call_check name="事前チェック/UNIポートdisable確認">
+        <argument name="ifname">[uniIfname]</argument>
+      </call_check>
+      -->
+      configure terminal
+      interface ${op.fullIfname}
+      switchport access vlan [vlanId]
+      exit
+      exit
+      <!--
+      <call_check name="事後チェック/UNIポートenable確認">
+        <argument name="fullIfname">[uniFullIfname]</argument>
+      </call_check>
+      -->
+      <!--
+      <call_check name="事後チェック/UNIポートVLAN確認">
+        <argument name="ifname">[uniIfname]</argument>
+        <argument name="vlanId">[vlanId]</argument>
+      </call_check>
+      -->
+    </layer_block>
+</j:jelly>

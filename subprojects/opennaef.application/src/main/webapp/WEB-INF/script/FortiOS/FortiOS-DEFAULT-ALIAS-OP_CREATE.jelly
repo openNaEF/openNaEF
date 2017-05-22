@@ -1,0 +1,22 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+ ### DEBUG start ###
+ File: FortiOS-DEFAULT-ALIAS-OP_CREATE.jelly
+ op.virtualDeviceName: ${op.virtualDeviceName}
+ op.ifName: ${op.ifName}
+ ### DEBUG end ###
+ <layer_block name="ポートを vdom に割り当て" snmptrap="disable">
+   <j:if test="${empty(op.ifName.value)}">
+     ERROR: op.ifName is empty.
+   </j:if>
+   <j:if test="${empty(op.virtualDeviceName.value)}">
+     ERROR: op.virtualDeviceName is empty.
+   </j:if>
+   config global
+   config system interface
+   edit "${op.ifName}"
+   set vdom "${op.virtualDeviceName}"
+   next
+   end
+   end
+ </layer_block>
+</j:jelly>

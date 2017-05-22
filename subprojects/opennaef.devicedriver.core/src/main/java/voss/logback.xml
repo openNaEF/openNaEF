@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+
+    <appender name="snmp-access" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <file>logs/snmp-access.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>logback.%i.log.gz</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>10</maxIndex>
+        </rollingPolicy>
+
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>10MB</maxFileSize>
+        </triggeringPolicy>
+
+        <encoder>
+            <pattern>%date %-5level [%logger{0}] [%F %L] %thread - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date %-5level [%logger{0}] [%F %L] %thread - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="SnmpAccessLog">
+        <level value="info"/>
+    </logger>
+
+    <logger name="SnmpClient">
+        <level value="info"/>
+    </logger>
+
+    <logger name="voss">
+        <level value="debug"/>
+    </logger>
+
+    <logger name="LoaderLog">
+        <level value="info"/>
+    </logger>
+
+    <logger name="ServletLog">
+        <level value="info"/>
+    </logger>
+
+    <logger name="TaskGroupLog">
+        <level value="info"/>
+    </logger>
+
+    <logger name="DSL">
+        <level value="info"/>
+    </logger>
+
+    <root level="info">
+        <!--
+      <appender-ref ref="snmp-access" />
+         -->
+        <appender-ref ref="stdout"/>
+    </root>
+
+</configuration>

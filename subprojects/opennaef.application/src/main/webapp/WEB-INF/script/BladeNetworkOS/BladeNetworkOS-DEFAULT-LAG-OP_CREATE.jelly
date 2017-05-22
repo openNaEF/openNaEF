@@ -1,0 +1,18 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+ <layer_block name="LAG作成" snmptrap="disable">
+   <j:set var="lagId" value="${op.ifName.value.replaceFirst('^[a-zA-Z\s]*', '')}"/>
+   <j:if test="${!lagId.matches('[0-9]+')}">
+     ERROR: lagId is not numeric. maybe lag.ifName is an unexpected format.
+   </j:if>
+   configure terminal
+   <j:forEach items="${op.lagMemberPorts}" var="lagMember">
+     <j:set var="lagMemberIfId" value="${lagMember.ifName.value.replaceFirst('^[a-zA-Z\s]*', '')}"/>
+     <j:if test="${!lagMemberIfId.matches('[0-9]+')}">
+       ERROR: lagMemberIfId is not numeric. maybe ifname is an unexpected format. (ifname: ${lagMember.ifName})
+     </j:if>
+     portchannel ${lagId} port ${lagMemberIfId}
+   </j:forEach>
+   portchannel ${lagId} enable
+   end
+ </layer_block>
+</j:jelly>

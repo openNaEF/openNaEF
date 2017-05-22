@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <debug-store-directory>./temp</debug-store-directory>
+    <diffset-store-directory>./diff</diffset-store-directory>
+    <diff-policy>voss.nms.inventory.diff.network.DefaultDiffPolicy</diff-policy>
+
+    <!-- Policy driver that determines the VPN space to which discovered ip-address / vlan belongs -->
+    <vpn-driver>voss.nms.inventory.diff.network.NullVpnDriver</vpn-driver>
+
+    <!-- Designation of NodeInfo factory class -->
+    <!--
+    <nodeinfo-factory></nodeinfo-factory>
+     -->
+    <nodeinfo-factory>voss.nms.inventory.diff.network.DefaultNodeInfoFactory</nodeinfo-factory>
+
+    <discovery>
+        <auto-apply>false</auto-apply>
+        <run-mode>in-process</run-mode>
+        <server-address>127.0.0.1</server-address>
+        <server-port>4444</server-port>
+        <node-url>http://127.0.0.1:1226/show-device/?site=DEFAULT&amp;device-id=</node-url>
+    </discovery>
+</configuration>

@@ -1,0 +1,12 @@
+.timestamp {
+	color: green !important;
+}
+
+.mvo-field-type {
+	font-weight: bold;
+	color: black !important;
+}
+
+.mvo-field {
+	color: red !important;
+}

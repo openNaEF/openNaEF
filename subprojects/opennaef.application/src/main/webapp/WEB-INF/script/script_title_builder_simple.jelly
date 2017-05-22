@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<j:jelly
+  trim="true" escapeText="false"
+  xmlns:j="jelly:core" xmlns:define="jelly:define" xmlns:voss="voss" xmlns:debug="debugTagLib">
+
+  <j:new className="java.lang.String" var="title"/>
+  <j:new className="java.util.HashMap" var="vlanOpMap"/>
+  <j:new className="java.util.ArrayList" var="addTaggedVlanOps"/>
+  <j:new className="java.util.ArrayList" var="addUntaggedVlanOps"/>
+  <j:new className="java.util.ArrayList" var="removeTaggedVlanOps"/>
+  <j:new className="java.util.ArrayList" var="removeUntaggedVlanOps"/>
+  <j:new className="java.util.ArrayList" var="removeUntaggedVlanOps"/>
+  <j:new className="java.util.ArrayList" var="vlanCreateOps"/>
+  <j:new className="java.util.ArrayList" var="vlanChangeOps"/>
+  <j:new className="java.util.ArrayList" var="vlanDeleteOps"/>
+  <j:new className="java.util.ArrayList" var="vlanIfCreateOps"/>
+  <j:new className="java.util.ArrayList" var="vlanIfChangeOps"/>
+  <j:new className="java.util.ArrayList" var="vlanIfDeleteOps"/>
+  <j:new className="java.util.ArrayList" var="vlanSubifCreateOps"/>
+  <j:new className="java.util.ArrayList" var="vlanSubifChangeOps"/>
+  <j:new className="java.util.ArrayList" var="vlanSubifDeleteOps"/>
+
+  <j:forEach items="${basicConfigContexts}" var="context">
+    <j:set var="configOperations" value="${context.configOperationSet}"/>
+    <j:forEach items="${configOperations.devices}" var="device">
+      <voss:getConfigOperationsByDevice configOperations="${configOperations}" device="${device}" varName="deviceOpList" />
+      <voss:filterOperation source="${deviceOpList}" operationReference="op" rule="${op.targetType == 'VLAN' or op.targetType == 'VLAN_IF' or op.targetType == 'VLAN_SUBIF'}" result="vlanOps"/>
+      <voss:filterOperation source="${deviceOpList}" operationReference="op" rule="${op.targetType != 'VLAN' and op.targetType != 'VLAN_IF' and op.targetType != 'VLAN_SUBIF'}" result="nonVlanOps"/>
+
+      <!-- VLAN 系オペレーションは VLAN ID 毎に正規化 -->
+      <j:forEach items="${vlanOps}" var="vlanOp">
+        <j:choose>
+          <!-- OP_DELETE の場合 (vlanId を pre 付きで取得する必要あり) -->
+          <j:when test="${vlanOp.operationType == 'OP_DELETE'}">
+            <j:set var="vlanId_" value="${vlanOp.vlanId.pre}"/>
+          </j:when>
+          <!-- OP_DELETE でない場合 -->
+          <j:otherwise>
+            <j:set var="vlanId_" value="${vlanOp.vlanId.value}"/>
+          </j:otherwise>
+        </j:choose>
+        <j:choose>
+          <j:when test="${vlanOpMap.containsKey(vlanId_)}">
+            <j:invoke method="add" on="${vlanOpMap.get(vlanId_)}">
+              <j:arg value="${vlanOp}"/>
+            </j:invoke>
+          </j:when>
+          <j:otherwise>
+            <j:new className="java.util.HashSet" var="vlanOpSet"/>
+            <j:invoke method="add" on="${vlanOpSet}">
+              <j:arg value="${vlanOp}"/>
+            </j:invoke>
+            <j:invoke method="put" on="${vlanOpMap}">
+              <j:arg value="${vlanId_}"/>
+              <j:arg value="${vlanOpSet}"/>
+            </j:invoke>
+          </j:otherwise>
+        </j:choose>
+      </j:forEach>
+
+      <!-- 非 VLAN オペレーションは見付かったものから title 作成 -->
+      <j:forEach items="${nonVlanOps}" var="op">
+        <j:if test="${op.targetType == 'PORT'}">
+          <j:if test="${op.operationType == 'OP_CHANGE'}">
+            <j:invoke method="concat" on="${title}" var="title">
+              <j:arg value="ポート(${op.deviceName}:${op.ifName})パラメータ変更 / "/>
+            </j:invoke>
+          </j:if>
+        </j:if>
+        <j:if test="${op.targetType == 'LAG'}">
+          <j:if test="${op.operationType == 'OP_CREATE'}">
+            <j:invoke method="concat" on="${title}" var="title">
+              <j:arg value="LAG(${op.deviceName}:${op.ifName})作成 / "/>
+            </j:invoke>
+          </j:if>
+          <j:if test="${op.operationType == 'OP_CHANGE'}">
+            <j:invoke method="concat" on="${title}" var="title">
+              <j:arg value="LAG(${op.deviceName}:${op.ifName})パラメータ変更 / "/>
+            </j:invoke>
+          </j:if>
+          <j:if test="${op.operationType == 'OP_DELETE'}">
+            <j:invoke method="concat" on="${title}" var="title">
+              <j:arg value="LAG(${op.deviceName}:${op.ifName.pre})削除 / "/>
+            </j:invoke>
+          </j:if>
+        </j:if>
+      </j:forEach>
+
+    </j:forEach>
+  </j:forEach>
+
+  <!-- VLAN 系オペレーションはさらに VLAN 内で TARGET/OPERATION 毎に適当に正規化 -->
+  <j:forEach items="${vlanOpMap.keySet()}" var="vlan">
+    <j:invoke method="clear" on="${addTaggedVlanOps}"/>
+    <j:invoke method="clear" on="${addUntaggedVlanOps}"/>
+    <j:invoke method="clear" on="${removeTaggedVlanOps}"/>
+    <j:invoke method="clear" on="${removeUntaggedVlanOps}"/>
+    <j:invoke method="clear" on="${vlanCreateOps}"/>
+    <j:invoke method="clear" on="${vlanChangeOps}"/>
+    <j:invoke method="clear" on="${vlanDeleteOps}"/>
+    <j:invoke method="clear" on="${vlanIfCreateOps}"/>
+    <j:invoke method="clear" on="${vlanIfChangeOps}"/>
+    <j:invoke method="clear" on="${vlanIfDeleteOps}"/>
+    <j:invoke method="clear" on="${vlanSubifCreateOps}"/>
+    <j:invoke method="clear" on="${vlanSubifChangeOps}"/>
+    <j:invoke method="clear" on="${vlanSubifDeleteOps}"/>
+    <j:forEach items="${vlanOpMap.get(vlan)}" var="vlanOp">
+      <j:if test="${!empty(vlanOp.addedTaggedPorts)}">
+        <j:invoke method="addAll" on="${addTaggedVlanOps}">
+          <j:arg value="${vlanOp.addedTaggedPorts}"/>
+        </j:invoke>
+      </j:if>
+      <j:if test="${!empty(vlanOp.addedUntaggedPorts)}">
+        <j:invoke method="addAll" on="${addUntaggedVlanOps}">
+          <j:arg value="${vlanOp.addedUntaggedPorts}"/>
+        </j:invoke>
+      </j:if>
+      <j:if test="${!empty(vlanOp.removedTaggedPorts)}">
+        <j:invoke method="addAll" on="${removeTaggedVlanOps}">
+          <j:arg value="${vlanOp.removedTaggedPorts}"/>
+        </j:invoke>
+      </j:if>
+      <j:if test="${!empty(vlanOp.removedUntaggedPorts)}">
+        <j:invoke method="addAll" on="${removeUntaggedVlanOps}">
+          <j:arg value="${vlanOp.removedUntaggedPorts}"/>
+        </j:invoke>
+      </j:if>
+      <j:if test="${vlanOp.targetType == 'VLAN'}">
+        <j:if test="${vlanOp.operationType == 'OP_CREATE'}">
+          <j:invoke method="add" on="${vlanCreateOps}">
+            <j:arg value="${vlanOp}"/>
+          </j:invoke>
+        </j:if>
+        <j:if test="${vlanOp.operationType == 'OP_CHANGE'}">
+          <j:if test="${vlanOp.vlanName.isChanged()}">
+            <j:invoke method="add" on="${vlanChangeOps}">
+              <j:arg value="${vlanOp}"/>
+            </j:invoke>
+          </j:if>
+        </j:if>
+        <j:if test="${vlanOp.operationType == 'OP_DELETE'}">
+          <j:invoke method="add" on="${vlanDeleteOps}">
+            <j:arg value="${vlanOp}"/>
+          </j:invoke>
+        </j:if>
+      </j:if>
+      <j:if test="${vlanOp.targetType == 'VLAN_IF'}">
+        <j:if test="${vlanOp.operationType == 'OP_CREATE'}">
+          <j:invoke method="add" on="${vlanIfCreateOps}">
+            <j:arg value="${vlanOp}"/>
+          </j:invoke>
+        </j:if>
+        <j:if test="${vlanOp.operationType == 'OP_CHANGE'}">
+          <j:invoke method="add" on="${vlanIfChangeOps}">
+            <j:arg value="${vlanOp}"/>
+          </j:invoke>
+        </j:if>
+        <j:if test="${vlanOp.operationType == 'OP_DELETE'}">
+          <j:invoke method="add" on="${vlanIfDeleteOps}">
+            <j:arg value="${vlanOp}"/>
+          </j:invoke>
+        </j:if>
+      </j:if>
+      <j:if test="${vlanOp.targetType == 'VLAN_SUBIF'}">
+        <j:if test="${vlanOp.operationType == 'OP_CREATE'}">
+          <j:invoke method="add" on="${vlanSubifCreateOps}">
+            <j:arg value="${vlanOp}"/>
+          </j:invoke>
+        </j:if>
+        <j:if test="${vlanOp.operationType == 'OP_CHANGE'}">
+          <j:invoke method="add" on="${vlanSubifChangeOps}">
+            <j:arg value="${vlanOp}"/>
+          </j:invoke>
+        </j:if>
+        <j:if test="${vlanOp.operationType == 'OP_DELETE'}">
+          <j:invoke method="add" on="${vlanSubifDeleteOps}">
+            <j:arg value="${vlanOp}"/>
+          </j:invoke>
+        </j:if>
+      </j:if>
+    </j:forEach>
+
+    <!-- 正規化した VLAN 系オペレーションからタイトル作成 -->
+    <j:invoke method="concat" on="${title}" var="title">
+      <j:arg value="VLAN${vlan}["/>
+    </j:invoke>
+    <!-- VLAN-OP_CREATE title -->
+    <j:if test="${vlanCreateOps.size() != 0}">
+      <j:invoke method="concat" on="${title}" var="title">
+        <j:arg value="VLAN作成, "/>
+      </j:invoke>
+    </j:if>
+    <!-- VLAN-OP_CHANGE title -->
+    <j:if test="${vlanChangeOps.size() != 0}">
+      <j:invoke method="concat" on="${title}" var="title">
+        <j:arg value="VLANパラメータ変更, "/>
+      </j:invoke>
+    </j:if>
+    <!-- VLAN-OP_DELETE title -->
+    <j:if test="${vlanDeleteOps.size() != 0}">
+      <j:invoke method="concat" on="${title}" var="title">
+        <j:arg value="VLAN削除, "/>
+      </j:invoke>
+    </j:if>
+
+    <!-- VLAN_IF-OP_CREATE title -->
+    <j:if test="${vlanIfCreateOps.size() != 0}">
+      <j:invoke method="concat" on="${title}" var="title">
+        <j:arg value="VLANインターフェイス作成, "/>
+      </j:invoke>
+    </j:if>
+    <!-- VLAN_IF-OP_CHANGE title -->
+    <j:if test="${vlanIfChangeOps.size() != 0}">
+      <j:invoke method="concat" on="${title}" var="title">
+        <j:arg value="VLANインターフェイス パラメータ変更, "/>
+      </j:invoke>
+    </j:if>
+    <!-- VLAN_IF-OP_DELETE title -->
+    <j:if test="${vlanIfDeleteOps.size() != 0}">
+      <j:invoke method="concat" on="${title}" var="title">
+        <j:arg value="VLANインターフェイス削除, "/>
+      </j:invoke>
+    </j:if>
+
+    <!-- VLAN_SUBIF-OP_CREATE title -->
+    <j:if test="${vlanSubifCreateOps.size() != 0}">
+      <j:invoke method="concat" on="${title}" var="title">
+        <j:arg value="VLANサブインターフェイス作成, "/>
+      </j:invoke>
+    </j:if>
+    <!-- VLAN_SUBIF-OP_CHANGE title -->
+    <j:if test="${vlanSubifChangeOps.size() != 0}">
+      <j:invoke method="concat" on="${title}" var="title">
+        <j:arg value="VLANサブインターフェイス パラメータ変更, "/>
+      </j:invoke>
+    </j:if>
+    <!-- VLAN_SUBIF-OP_DELETE title -->
+    <j:if test="${vlanSubifDeleteOps.size() != 0}">
+      <j:invoke method="concat" on="${title}" var="title">
+        <j:arg value="VLANサブインターフェイス削除, "/>
+      </j:invoke>
+    </j:if>
+
+    <!-- ADD_TAGGED_PORT title -->
+    <j:if test="${addTaggedVlanOps.size() != 0}">
+      <j:invoke method="concat" on="${title}" var="title">
+        <j:arg value="Tagged VLAN 追加, "/>
+      </j:invoke>
+    </j:if>
+    <!-- ADD_UNTAGGED_PORT title -->
+    <j:if test="${addUntaggedVlanOps.size() != 0}">
+      <j:invoke method="concat" on="${title}" var="title">
+        <j:arg value="Untagged VLAN 追加, "/>
+      </j:invoke>
+    </j:if>
+    <!-- REMOVE_TAGGED_PORT title -->
+    <j:if test="${removeTaggedVlanOps.size() != 0}">
+      <j:invoke method="concat" on="${title}" var="title">
+        <j:arg value="Tagged VLAN 削除, "/>
+      </j:invoke>
+    </j:if>
+    <!-- REMOVE_UNTAGGED_PORT title -->
+    <j:if test="${removeUntaggedVlanOps.size() != 0}">
+      <j:invoke method="concat" on="${title}" var="title">
+        <j:arg value="Untagged VLAN 削除, "/>
+      </j:invoke>
+    </j:if>
+
+    <j:if test="${title.endsWith(', ')}">
+      <j:invoke method="substring" on="${title}" var="title">
+        <j:arg value="${0}"/>
+        <j:arg value="${title.length() - 2}"/>
+      </j:invoke>
+    </j:if>
+    <j:invoke method="concat" on="${title}" var="title">
+      <j:arg value="] / "/>
+    </j:invoke>
+  </j:forEach>
+
+  <j:if test="${title.endsWith(' / ')}">
+    <j:invoke method="substring" on="${title}" var="title">
+      <j:arg value="${0}"/>
+      <j:arg value="${title.length() - 3}"/>
+    </j:invoke>
+  </j:if>
+
+</j:jelly>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/">
+<head>
+	<title>Ether Link List</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="blueprint/screen.css" type="text/css" media="screen, projection"/>
+<link rel="stylesheet" href="blueprint/print.css" type="text/css" media="print"/>
+<!--[if IE]><link rel="stylesheet" href="blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+<link rel="stylesheet" href="blueprint/plugins/tabs/screen.css" type="text/css" media="screen, projection" />
+<link rel="stylesheet" href="blueprint/plugins/buttons/screen.css" type="text/css" media="screen, projection" />
+<link rel="stylesheet" href="css/ui.base.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="css/tablesorter/style.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="css/common.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="css/commonprint.css" type="text/css" media="print" />
+<script type='text/javascript' src='js/jquery-1.3.1.min.js'></script>
+<script type="text/javascript" src="js/ui.core.js"></script>
+<script type="text/javascript" src="js/jquery.suggest.js"></script>
+<script type='text/javascript' src='js/jquery.tablesorter.min.js'></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$.tablesorter.defaults.widgets = ['zebra'];
+	$('table.tablesorter').tablesorter();
+});
+</script>
+</head>
+<body>
+<div id="hd" role="banner">
+<h1>Ether Link List</h1>
+</div>
+ <a wicket:id="top" href="#">[Menu]</a> |
+ <a wicket:id="search" href="#">[Search Node]</a> |
+ <a wicket:id="refresh" href="#">[Refresh]</a>
+
+<table class="tablesorter">
+	<thead>
+	<tr>
+		<th rowspan="2">Ether Link Name</th>
+		<th rowspan="2">InventoryID</th>
+		<th rowspan="2">Facility Status</th>
+		<th rowspan="2">Data Source</th>
+		<th rowspan="2">Cable Name</th>
+		<th colspan="4">Endpoint port(A)</th>
+		<th colspan="4">Endpoint port(B)</th>
+	</tr>
+	<tr>
+		<th>Node</th>
+		<th>Node Type</th>
+		<th>IfName</th>
+		<th>IPAddress</th>
+		<th>Node</th>
+		<th>Node Type</th>
+		<th>IfName</th>
+		<th>IPAddress</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr wicket:id="links">
+		<td><a wicket:id="editLink" href="#"><span wicket:id="linkName"></span></a></td>
+		<td wicket:id="linkID"></td>
+		<td wicket:id="facilityStatus"></td>
+		<td wicket:id="source"></td>
+		<td wicket:id="cableName"></td>
+		<td><a wicket:id="nodeNameLinkA" href="#"><span wicket:id="nodeName">Node</span></a></td>
+		<td wicket:id="nodeTypeA"></td>
+		<td wicket:id="ifNameA"></td>
+		<td wicket:id="ipAddressA"></td>
+		<td><a wicket:id="nodeNameLinkB" href="#"><span wicket:id="nodeName">Node</span></a></td>
+		<td wicket:id="nodeTypeB"></td>
+		<td wicket:id="ifNameB"></td>
+		<td wicket:id="ipAddressB"></td>
+	</tr>
+	</tbody>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,11 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+ <layer_block name="LAG陷台ｼ∝求" snmptrap="disable">
+   <j:set var="lagId" value="${op.ifName.value.replaceFirst('^[a-zA-Z\s]*', '')}"/>
+   <j:if test="${!lagId.pre.matches('[0-9]+')}">
+     ERROR: lagId is not numeric. maybe lag.ifName is an unexpected format.
+   </j:if>
+   configure terminal
+   no portchannel ${lagId.pre}
+   end
+ </layer_block>
+</j:jelly>

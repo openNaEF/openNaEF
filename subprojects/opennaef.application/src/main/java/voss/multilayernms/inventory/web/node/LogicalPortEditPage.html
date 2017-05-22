@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/">
+<head>
+    <title>Aggregation Interface Edit</title>
+    <link rel="stylesheet" href="blueprint/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/print.css" type="text/css" media="print"/>
+    <!--[if IE]>
+    <link rel="stylesheet" href="blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <link rel="stylesheet" href="blueprint/plugins/tabs/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/plugins/buttons/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="css/ui.base.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/common.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/commonprint.css" type="text/css" media="print"/>
+    <link rel="stylesheet" href="css/tablesorter/style.css" type="text/css" media="screen"/>
+
+    <script type='text/javascript' src='js/jquery-1.3.1.min.js'></script>
+    <script type="text/javascript" src="js/jquery.hotkeys-0.7.8-packed.js"></script>
+    <script type="text/javascript" src="js/ui.core.js"></script>
+    <script type='text/javascript' src='js/ui.datepicker.js'></script>
+    <script type='text/javascript' src='js/ui.datepicker-ja.js'></script>
+</head>
+<body>
+<div id="hd" role="banner">
+    <h1>Aggregation Interface Edit(Node:<span wicket:id="nodeName"></span>)</h1>
+</div>
+<form wicket:id="backForm" name="backForm">
+    <button wicket:id="back" type="submit" tabindex="0" id="back-button" class="negative span-5">
+        <img src="blueprint/plugins/buttons/icons/cross.png" alt="Discard and Back"/>Discard and Back
+    </button>
+</form>
+<hr/>
+Fields marked with * are mandatory
+<div wicket:id="feedback">Error detail here</div>
+<br/>
+<form wicket:id="editInterface" name="editInterface">
+    <table>
+        <tr>
+            <th>Attribute</th>
+            <th>Type</th>
+            <th>Value</th>
+            <th>Overview</th>
+        </tr>
+        <tr>
+            <th>Interface Name *</th>
+            <th>String</th>
+            <td class="nowrap"><input wicket:id="ifName" type="text"/><br/>
+                (Auto-Generated Name: <span wicket:id="defaultIfName">1/2</span>)
+            </td>
+            <td>Interface name of this port. If it is blank, use auto-generated name (Auto-Generated Name).</td>
+        </tr>
+        <tr>
+            <th>Interface Type *</th>
+            <th>String</th>
+            <td><select wicket:id="ifType">
+                <option value="eth-port">LAG</option>
+                <option value="atm-port">ATM APS</option>
+                <option value="pos-port">POS APS</option>
+            </select></td>
+            <td>Port type of this port. Not Changeable after creation.</td>
+        </tr>
+        <tr>
+            <th>Operational Status</th>
+            <th></th>
+            <td><select wicket:id="operStatus">
+                <option type="radio">UP</option>
+            </select></td>
+            <td>Operational Status（UP/DOWN）</td>
+        </tr>
+        <tr>
+            <th>Facility Status</th>
+            <th></th>
+            <td><select wicket:id="facilityStatus">
+                <option value="radio"></option>
+            </select></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>Port Mode</th>
+            <th></th>
+            <td><select wicket:id="portMode">
+                <option value="radio">VLAN</option>
+            </select></td>
+            <td>For Ethernet LAG / ESP, you can specify the port mode.</td>
+        </tr>
+        <tr>
+            <th>Switch Port Mode</th>
+            <th></th>
+            <td><select wicket:id="switchPortMode">
+                <option value="radio">Trunk</option>
+            </select></td>
+            <td>For Ethernet LAG / ESP, you can specify the switch port mode.</td>
+        </tr>
+        <tr>
+            <th>IPAddress</th>
+            <th>IPAddress</th>
+            <td>
+                VPN Prefix <input wicket:id="vpnPrefix" type="text" size="10"/><br/>
+                <input wicket:id="ipAddress" type="text" size="30"/>/<input wicket:id="maskLength" type="text"
+                                                                            size="3"/>
+            </td>
+            <td>The IP address and mask of this port. ex）10.0.0.1/8<br/>
+                If this IP belongs to the VPN space, enter the VPN space name in the VPN name and leave it blank for Global IP address.
+            </td>
+        </tr>
+        <tr>
+            <th>OSPF Area ID</th>
+            <th>String</th>
+            <td><input wicket:id="ospfAreaID" type="text"/></td>
+            <td>OSPF area ID of this port</td>
+        </tr>
+        <tr>
+            <th>IGP COST</th>
+            <th></th>
+            <td><input wicket:id="igpCost" type="text"/></td>
+            <td>IGP COST.</td>
+        </tr>
+        <tr>
+            <th>Purpose</th>
+            <th>String</th>
+            <td><input wicket:id="purpose" type="text"/></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>Note</th>
+            <th>String</th>
+            <td><input wicket:id="note" type="text"/></td>
+            <td></td>
+        </tr>
+    </table>
+    <button wicket:id="proceed" type="submit" tabindex="0" id="apply-button" class="positive span-5">
+        <img src="blueprint/plugins/buttons/icons/tick.png" alt="Apply"/>OK
+    </button>
+</form>
+</body>
+</html>

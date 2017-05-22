@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/">
+<head>
+    <title>VPLS Search</title>
+    <link rel="stylesheet" href="blueprint/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/print.css" type="text/css" media="print"/>
+    <!-- [if IE]>
+    <link rel="stylesheet" href="blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <link rel="stylesheet" href="blueprint/plugins/tabs/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/plugins/buttons/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="css/ui.base.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/ui.theme.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/common.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/commonprint.css" type="text/css" media="print"/>
+    <link rel="stylesheet" type="text/css" href="css/tablesorter/style.css" media="screen"/>
+
+    <script type='text/javascript' src='js/jquery-1.3.1.min.js'></script>
+    <script type="text/javascript" src="js/ui.core.js"></script>
+    <script type="text/javascript" src="js/inventory-web.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("dt.toggle").click(function () {
+                $("+dd", this).slideToggle("slow");
+            });
+            $("table.each").each(function () {
+                jQuery(this).find("tr:even").addClass("even");
+            });
+            $("dt.toggle").hover(
+                function () {
+                    $(this).addClass("ui-state-hover");
+                },
+                function () {
+                    $(this).removeClass("ui-state-hover");
+                }
+            )
+            $('dt.default-hide').each(function () {
+                $("+dd", this).toggle();
+            });
+        });
+    </script>
+</head>
+
+<body>
+<div id="bd">
+    <form wicket:id="form" name="form">
+        <table>
+            <tr>
+                <th>VPLS ID</th>
+                <td><input wicket:id="vplsId" type="text"/></td>
+            </tr>
+            <tr>
+                <th>Node</th>
+                <td><input wicket:id="node" type="text"/></td>
+            </tr>
+        </table>
+        <button wicket:id="proceed" type="submit" id="apply-button" class="positive span-5">
+            <img src="blueprint/plugins/buttons/icons/tick.png" alt="Apply"/>OK
+        </button>
+    </form>
+</div>
+</body>
+</html>

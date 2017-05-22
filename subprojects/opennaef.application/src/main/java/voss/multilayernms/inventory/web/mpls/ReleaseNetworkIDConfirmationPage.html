@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/">
+<head>
+    <title>Confirmation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="css/common.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/commonprint.css" type="text/css" media="print"/>
+</head>
+<body>
+<h1>Are you sure to delete this network: [<span wicket:id="name"></span>] ?</h1>
+You can not delete a resource in case it is in use by another resource.
+<form wicket:id="removeConfirmationForm" name="deleteConfirmationForm">
+    <input wicket:id="proceed" type="submit" value="Delete"/>
+    <input wicket:id="back" type="submit" value="Back"/>
+</form>
+</body>
+</html>

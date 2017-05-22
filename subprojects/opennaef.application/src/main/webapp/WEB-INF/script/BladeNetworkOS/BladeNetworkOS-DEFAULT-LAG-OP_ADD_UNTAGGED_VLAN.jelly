@@ -1,0 +1,16 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+ <layer_block name="LAG に Untagged VLAN 設定" snmptrap="disable">
+   <j:if test="${empty(op.vlanId.value)}">
+     ERROR: op.vlanId is empty.
+   </j:if>
+   <j:set var="lagId" value="${op.ifName.value.replaceFirst('^[a-zA-Z\s]*', '')}"/>
+   <j:if test="${!lagId.matches('[0-9]+')}">
+     ERROR: lagId is not numeric. maybe lag.ifName is an unexpected format.
+   </j:if>
+   configure terminal
+   vlan ${op.vlanId}
+   member portchannel ${op.lagId}
+   exit
+   end
+ </layer_block>
+</j:jelly>

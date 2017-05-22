@@ -1,0 +1,172 @@
+of-patch-id-pools:
+  get:
+    summary: すべてのOF-Patch id-poolを取得する
+    description: すべてのOF-Patch id-poolを取得する
+    parameters:
+      - name: deref
+        in: query
+        description: |
+          true を指定した場合は、MvoLinkではなく、Dtoを返す
+        required: false
+        type: boolean
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: version
+        in: query
+        description: |
+          ターゲットとなるバージョン。
+          指定しない場合は最新のバージョンが指定される。
+        required: false
+        type: string
+    tags:
+      - of-patch-id-pool
+    responses:
+      200:
+        description: OF-Patch id-poolのリスト
+        schema:
+          type: array
+          items:
+            $ref: '#/defs/MvoLink'
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+  post:
+    summary: OF-Patch id-poolを新規作成する
+    description: OF-Patch id-poolを新規作成する
+    parameters:
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: OF-Patch id-pool
+        in: body
+        description: OF-Patch id-pool
+        required: true
+        schema:
+          $ref: '#/defs/OfPatchIdPool'
+    tags:
+      - of-patch-id-pool
+    responses:
+      201:
+        description: Make a new OF-Patch id-pool
+        headers:
+          Location:
+            description: 新規作成されたOF-Patch id-poolのuri
+            type: string
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+of-patch-id-pools_mvo-id:
+  get:
+    summary: OF-Patch id-poolを取得する
+    description: OF-Patch id-poolを取得する
+    parameters:
+      - name: mvo-id
+        in: path
+        description: ID of the mvo
+        required: true
+        type: string
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: version
+        in: query
+        description: |
+          ターゲットとなるバージョン。
+          指定しない場合は最新のバージョンが指定される。
+        required: false
+        type: string
+    tags:
+      - of-patch-id-pool
+    responses:
+      200:
+        description: of-patch-id-pool
+        schema:
+          $ref: '#/defs/OfPatchIdPool'
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+  put:
+    summary: OF-Patch id-poolを更新する
+    description: OF-Patch id-poolを更新する
+    parameters:
+      - name: mvo-id
+        in: path
+        description: ID of the mvo
+        required: true
+        type: string
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: of-patch-id-pool
+        in: body
+        description: OF-Patch id-pool
+        required: true
+        schema:
+          $ref: '#/defs/OfPatchIdPool'
+    tags:
+      - of-patch-id-pool
+    responses:
+      204:
+        description: Updates the OF-Patch id-pool
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+  delete:
+    summary: OF-Patch id-poolを削除する
+    description: OF-Patch id-poolを削除する
+    parameters:
+      - name: mvo-id
+        in: path
+        description: ID of the mvo
+        required: true
+        type: string
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+    tags:
+      - of-patch-id-pool
+    responses:
+      204:
+        description: Deletes the OF-Patch id-pool
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+defs:
+  OfPatchIdPool:
+    type: object
+    properties:
+      name:
+        description: OF-Patch id-pool名
+        type: string
+        example: of-patch

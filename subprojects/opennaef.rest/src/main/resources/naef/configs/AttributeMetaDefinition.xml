@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+
+<!DOCTYPE attribute-meta [
+        <!ELEMENT attribute-meta (class*)>
+
+        <!ELEMENT class (include*,attribute*)>
+        <!ATTLIST class
+                name CDATA #REQUIRED>
+
+        <!ELEMENT include EMPTY>
+        <!ATTLIST include
+                class CDATA #REQUIRED>
+
+        <!ELEMENT attribute EMPTY>
+        <!ATTLIST attribute
+                name CDATA #REQUIRED
+                type CDATA #REQUIRED>
+        ]>
+
+<attribute-meta>
+
+  <class name="naef.mvo.Location">
+    <attribute name="種別" type="string"/>
+    <attribute name="表示名" type="string"/>
+    <attribute name="備考" type="string"/>
+    <attribute name="ビルコード" type="string"/>
+    <attribute name="POP名" type="string"/>
+    <attribute name="ソート順" type="string"/>
+    <attribute name="表示フラグ" type="boolean"/>
+    <attribute name="情報ソース" type="string"/>
+    <attribute name="_LastEditor" type="string"/>
+    <attribute name="_LastEditTime" type="datetime"/>
+  </class>
+
+  <class name="naef.mvo.CustomerInfo">
+    <attribute name="ID" type="string"/>
+    <attribute name="ID-TYPE" type="string"/>
+    <attribute name="企業ID" type="string"/>
+    <attribute name="active" type="boolean"/>
+    <attribute name="FMPortalUser" type="string"/>
+    <attribute name="FMPortalPass" type="string"/>
+    <attribute name="_LastEditTime" type="datetime"/>
+    <attribute name="_LastEditor" type="string"/>
+
+    <attribute name="SSL上限数" type="long"/>
+    <attribute name="宛先サーバ上限数" type="long"/>
+    <attribute name="fw-policy-zone-matrix" type="list(string)"/>
+  </class>
+
+  <class name="naef.mvo.AbstractNodeElement">
+    <attribute name="ConfigName" type="string"/>
+    <attribute name="管理状態" type="string"/>
+    <attribute name="動作状態" type="string"/>
+    <attribute name="設備ステータス" type="string"/>
+    <attribute name="備考" type="string"/>
+    <attribute name="用途" type="string"/>
+    <attribute name="情報ソース" type="string"/>
+    <attribute name="登録日時" type="string"/>
+    <attribute name="_LastEditor" type="string"/>
+    <attribute name="_LastEditTime" type="datetime"/>
+    <!-- 座標 (model.constrant) -->
+    <attribute name="position" type="string"/>
+  </class>
+
+  <class name="naef.mvo.Node">
+    <attribute name="Management IP Address" type="string"/> <!-- 必須 -->
+    <attribute name="ベンダー名" type="string"/>
+    <attribute name="機種" type="string"/>
+    <attribute name="OS種別" type="string"/>
+    <attribute name="OSバージョン" type="string"/>
+    <attribute name="コンソールログインユーザ名" type="string"/>
+    <attribute name="コンソールログインパスワード" type="string"/>
+    <attribute name="特権ユーザ名" type="string"/>
+    <attribute name="特権パスワード" type="string"/>
+    <attribute name="コンソール種別" type="string"/>
+    <attribute name="SNMP取得方式" type="string"/>
+    <attribute name="snmp_community (read-only)" type="string"/>
+    <attribute name="DiffTarget" type="boolean"/>
+    <attribute name="Site-ID" type="string"/>
+    <attribute name="仮想ノード" type="boolean"/>
+    <attribute name="__ZoneList" type="string"/>
+    <attribute name="diff.debug-archive" type="boolean"/>
+    <attribute name="oper-status.debug-archive" type="boolean"/>
+
+    <!-- ここから下はOOL用 -->
+    <attribute name="電源" type="string"/>
+    <attribute name="CPUs" type="string"/>
+    <attribute name="CPUProduct" type="string"/>
+    <attribute name="Memory" type="string"/>
+    <attribute name="Storage" type="string"/>
+    <attribute name="NICProduct" type="string"/>
+    <attribute name="SFP+Product" type="string"/>
+    <attribute name="mac_address" type="string"/>
+    <attribute name="traffic_type" type="string"/>
+    <attribute name="owner" type="string"/>
+  </class>
+
+  <class name="naef.mvo.Chassis">
+    <attribute name="シャーシ種別" type="string"/>
+  </class>
+
+  <class name="naef.mvo.Slot">
+    <attribute name="スロット種別" type="string"/>
+  </class>
+
+  <class name="naef.mvo.Module">
+    <attribute name="モジュール種別" type="string"/>
+  </class>
+
+  <class name="naef.mvo.Port">
+    <attribute name="ip-address" type="string"/>
+    <attribute name="mask-length" type="string"/>
+    <!--
+    <attribute name="ifName" type="string"/>
+     -->
+    <attribute name="Prefix" type="string"/>
+    <attribute name="description" type="string"/>
+    <attribute name="implicit" type="boolean"/>
+    <attribute name="ポート種別" type="string"/>
+    <attribute name="IGPコスト" type="integer"/>
+    <attribute name="帯域" type="long"/>
+    <attribute name="AutoNegotiation" type="string"/>
+    <attribute name="AdministrativeSpeed" type="string"/>
+    <attribute name="OperationalSpeed" type="integer"/>
+    <attribute name="AdministrativeDuplex" type="string"/>
+    <attribute name="OperationalDuplex" type="string"/>
+    <attribute name="storm-control broadcast level" type="string"/>
+    <attribute name="storm-control action" type="set(string)"/>
+    <attribute name="__Zone" type="string"/>
+
+    <attribute name="利用者" type="string"/>
+    <attribute name="特記事項" type="string"/>
+
+    <!-- ここから下はOOL用 -->
+    <attribute name="openflow_flg" type="boolean"/>
+    <attribute name="traffic_type" type="string"/>
+    <attribute name="mac_address" type="string"/>
+  </class>
+
+  <class name="naef.mvo.eth.EthPort">
+  </class>
+
+  <class name="naef.mvo.ip.IpIf">
+    <attribute name="vpn-prefix" type="string"/>
+    <!-- ここから下はOOL用 -->
+    <attribute name="gateway" type="string"/>
+    <attribute name="dns" type="string"/>
+  </class>
+
+  <class name="naef.mvo.serial.SerialPort">
+    <attribute name="ChannelEnable" type="boolean"/>
+  </class>
+
+  <class name="naef.mvo.vlan.VlanSegmentGatewayIf">
+    <attribute name="OuterVlanID" type="string"/>
+  </class>
+
+  <class name="naef.mvo.vlan.VlanIf">
+    <attribute name="suffix" type="string"/>
+    <attribute name="svi_port" type="boolean"/>
+  </class>
+
+  <class name="naef.mvo.vlan.Vlan">
+    <attribute name="customer" type="string"/>
+    <attribute name="特記事項" type="string"/>
+    <attribute name="利用者" type="string"/>
+    <attribute name="エリアコード" type="string"/>
+    <attribute name="ユーザコード" type="string"/>
+    <attribute name="拠点名" type="string"/>
+    <attribute name="ルートドメイン" type="string"/>
+  </class>
+
+  <class name="naef.mvo.vlan.VlanIdPool">
+    <attribute name="用途" type="string"/>
+    <attribute name="備考" type="string"/>
+    <attribute name="test" type="string"/>
+    <attribute name="_LastEditor" type="string"/>
+    <attribute name="_LastEditTime" type="datetime"/>
+  </class>
+
+  <class name="naef.mvo.AbstractNetwork">
+    <attribute name="設備ステータス" type="string"/>
+    <attribute name="動作状態" type="string"/>
+    <attribute name="備考" type="string"/>
+    <attribute name="用途" type="string"/>
+    <attribute name="情報ソース" type="string"/>
+    <attribute name="登録日時" type="datetime"/>
+    <attribute name="_LastEditor" type="string"/>
+    <attribute name="_LastEditTime" type="datetime"/>
+
+    <attribute name="リンク名" type="string"/>
+    <attribute name="リンク種別" type="string"/>
+    <attribute name="ネットワーク存在" type="boolean"/>
+
+  </class>
+
+  <class name="naef.mvo.ip.IpSubnetNamespace">
+    <attribute name="vpn-prefix" type="string"/>
+    <attribute name="ネットワーク存在" type="boolean"/>
+    <attribute name="情報ソース" type="string"/>
+    <attribute name="_LastEditTime" type="datetime"/>
+    <attribute name="_LastEditor" type="string"/>
+  </class>
+
+  <class name="naef.mvo.ip.IpSubnet">
+    <attribute name="vpn-prefix" type="string"/>
+    <!-- 以下の 2 属性は備考的属性 - 本来のアドレスはペアとなる ip-subnet-address が保持する. -->
+    <attribute name="ネットワークアドレス" type="string"/>
+    <attribute name="mask-length" type="string"/>
+
+    <attribute name="ケーブル名" type="string"/>
+    <attribute name="特記事項" type="string"/>
+    <attribute name="利用者" type="string"/>
+  </class>
+
+  <class name="naef.mvo.SystemUser">
+    <attribute name="caption" type="string"/>
+    <attribute name="passwordScheme" type="string"/><!-- ハッシュ化/暗号化アルゴリズム -->
+    <attribute name="passwordHash" type="string"/><!-- ハッシュ化/暗号化されたパスワード文字列 -->
+    <attribute name="passwordExpire" type="datetime"/>
+    <attribute name="active" type="boolean"/>
+    <attribute name="削除フラグ" type="string"/>
+    <attribute name="備考" type="string"/>
+    <attribute name="externalAuthenticator" type="string"/><!-- 認証システムが外部にあるときに問い合わせ先を記述 -->
+    <attribute name="_LastEditTime" type="datetime"/>
+    <attribute name="_LastEditor" type="string"/>
+  </class>
+
+  <class name="naef.mvo.ip.IpSubnetAddress">
+    <attribute name="vpn-prefix" type="string"/>
+    <attribute name="ネットワーク存在" type="boolean"/>
+    <attribute name="情報ソース" type="string"/>
+    <attribute name="_LastEditTime" type="datetime"/>
+    <attribute name="_LastEditor" type="string"/>
+  </class>
+</attribute-meta>

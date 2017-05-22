@@ -1,0 +1,18 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+  ### DEBUG start ###
+  File: BladeNetworkOS-DEFAULT-VLAN-OP_CREATE.jelly
+  ### DEBUG end ###
+ <layer_block name="VLAN作成" snmptrap="disable">
+   <j:if test="${empty(op.vlanId.value)}">
+     XXX: ERROR: op.vlanId is empty.
+   </j:if>
+   configure terminal
+   vlan ${op.vlanId}
+   <!--j:if test="${!empty(op.vlanName.value)}">
+     name ${op.vlanName}
+   </j:if-->
+   enable
+   exit
+   end
+ </layer_block>
+</j:jelly>

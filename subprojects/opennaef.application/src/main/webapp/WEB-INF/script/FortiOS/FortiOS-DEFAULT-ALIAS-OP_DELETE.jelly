@@ -1,0 +1,27 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+ ### DEBUG start ###
+ File: FortiOS-DEFAULT-ALIAS-OP_DELETE
+ op.ifName.pre: ${op.ifName.pre}
+ empty(op.ifName.pre): ${empty(op.ifName.pre)}
+ ### DEBUG end ###
+ <layer_block name="ポート上の VLAN サブインターフェイスを vdom から切り離し" snmptrap="disable">
+   <j:if test="${empty(op.ifName.pre)}">
+     ERROR: op.ifname is empty.
+   </j:if>
+   config global
+   config system interface
+   edit "${op.ifName.pre}"
+   set vdom "root"
+   next
+   end
+   end
+ </layer_block>
+ <!-- FIXME: vdom を消す場合のフラグとなるパラメータが必要 -->
+ <!-- j:if test="${!empty(op.vdom.value)}">
+   <layer_block name="VDOM 削除" snmptrap="disable">
+     config vdom
+     delete "${op.vdom}"
+     end
+   </layer_block>
+ </j:if-->
+</j:jelly>

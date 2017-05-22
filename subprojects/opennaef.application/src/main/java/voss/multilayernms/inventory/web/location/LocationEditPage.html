@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/">
+<head>
+    <title>Edit Location</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="css/common.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/commonprint.css" type="text/css" media="print"/>
+    <link rel="stylesheet" href="blueprint/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/print.css" type="text/css" media="print"/>
+    <!--[if IE]>
+    <link rel="stylesheet" href="blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.tablesorter.defaults.widgets = ['zebra'];
+            $('table.tablesorter').tablesorter();
+        });
+    </script>
+</head>
+<body>
+<div id="hd" role="banner">
+    <h1>Edit Location (<span wicket:id="locationName"></span>)</h1>
+</div>
+<div id="bd">
+    <div wicket:id="feedback">Error detail here</div>
+    <form wicket:id="editLocationForm" name="editLocation">
+        <table>
+            <tr>
+                <td>New Location Name</td>
+                <td><input wicket:id="newLocationName" type="text"/></td>
+            </tr>
+            <tr>
+                <td>Parent Location:</td>
+                <td><select wicket:id="newParentLocation" name="parent">
+                    <option name="">root</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>Note</td>
+                <td><input wicket:id="note" type="text" size="40"/></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input wicket:id="proceed" type="submit" value="OK"/>
+                    <input wicket:id="back" type="submit" value="Back"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

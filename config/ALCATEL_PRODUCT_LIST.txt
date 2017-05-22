@@ -1,0 +1,8 @@
+.1.3.6.1.4.1.6527.1.3.1	tmnxModelSR1Reg
+.1.3.6.1.4.1.6527.1.3.2	tmnxModelSR4Reg
+.1.3.6.1.4.1.6527.1.3.3	tmnxModelSR12Reg
+.1.3.6.1.4.1.6527.1.3.4	tmnxModelSR7Reg
+.1.3.6.1.4.1.6527.1.3.5	tmnxModelSR6Reg
+
+.1.3.6.1.4.1.6527.1.9.1	tmnxModel7710SRc12Reg
+.1.3.6.1.4.1.6527.1.9.2	tmnxModel7710SRc4Reg

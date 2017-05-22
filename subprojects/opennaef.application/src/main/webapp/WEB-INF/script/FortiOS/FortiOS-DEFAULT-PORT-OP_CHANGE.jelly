@@ -1,0 +1,115 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+
+  ### DEBUG START ###
+  op.ipAddress: ${op.ipAddress}
+  op.maskLength: ${op.maskLength}
+  op.subnetMask: ${op.subnetMask}
+  op.vdom: ${op.vdom}
+  op.description: ${op.description}
+  op.duplex: ${op.duplex}
+  op.portSpeed: ${op.portSpeed}
+  op.linkNegotiation: ${op.linkNegotiation}
+  op.isChanged('ipAddress'): ${op.isChanged('ipAddress')}
+  op.isChanged('primary-ipif'): ${op.isChanged('primary-ipif')}
+  empty(op.ipAddress.value): ${empty(op.ipAddress.value)}
+  op.portSpeed.value: ${op.portSpeed.value}
+  op.duplex.value: ${op.duplex.value}
+  op.adminStatus: ${op.adminStatus}
+  op.adminStatus.pre: ${op.adminStatus.pre}
+  op.isChanged('adminStatus'):${op.isChanged('adminStatus')}
+  op.AdministrativeDuplex: ${op.AdministrativeDuplex}
+  op.AdministrativeDuplex.pre: ${op.AdministrativeDuplex.pre}
+  op.isChanged('AdministrativeDuplex'):${op.isChanged('AdministrativeDuplex')}
+  op.AdministrativeSpeed: ${op.AdministrativeSpeed}
+  op.AdministrativeSpeed.pre: ${op.AdministrativeSpeed.pre}
+  op.isChanged('AdministrativeSpeed'):${op.isChanged('AdministrativeSpeed')}
+  ### DEBUG END ###
+
+  <!-- TODO: vdom 作る作らないのフラグが必要 -->
+  <!-- j:if test="${!empty(op.vdom.value)}">
+    <layer_block name="VDOM 作成" snmptrap="disable">
+      config vdom
+      edit "${op.vdom}"
+      next
+      end
+    </layer_block>
+  </j:if-->
+
+  <layer_block name="ポート設定変更" snmptrap="disable">
+    <j:if test="${empty(op.ifname.value)}">
+      ERROR: op.ifname is empty.
+    </j:if>
+    config global
+    config system interface
+    edit "${op.ifname}"
+    <j:if test="${!empty(op.vdom.value) and op.vdom.isChanged()}">
+      set vdom "${op.vdom}"
+    </j:if>
+    <j:if test="${op.isChanged('primary-ipif') or op.isChanged('ipAddress') or op.subnetMask.isChanged()}">
+      <j:choose>
+        <j:when test="${empty(op.ipAddress.value)}"> <!-- ipAddress が empty なら subnetMask に関わりなく消す -->
+          unset ip
+        </j:when>
+        <j:when test="${!empty(op.ipAddress.value) and empty(op.subnetMask.value)}"> <!-- ipAddress があるのに subnetMask が empty は設定不可 -->
+          ERROR: op.subnetMask is empty.
+        </j:when>
+        <j:otherwise>
+          set ip ${op.ipAddress} ${op.subnetMask}
+        </j:otherwise>
+      </j:choose>
+    </j:if>
+    <!-- secondary IP address の設定方法不明 -->
+    <!--j:if test="${!empty(op.ipAddress2.value) and !empty(op.subnetMask2.value)}">
+      set ip ${op.ipAddress2} ${op.subnetMask2}
+    </j:if-->
+    <j:if test="${op.description.isChanged()}">
+      <j:choose>
+        <j:when test="${!empty(op.description.value)}">
+          set description "${op.description}"
+        </j:when>
+        <j:otherwise>
+          unset description
+        </j:otherwise>
+      </j:choose>
+    </j:if>
+    <j:if test="${op.AdministrativeDuplex.isChanged() or op.AdministrativeSpeed.isChanged() or op.linkNegotiation.isChanged()}">
+      <j:choose>
+        <j:when test="${(op.linkNegotiation == 'on' or op.linkNegotiation == 'default') and
+                        (op.AdministrativeSpeed == 'auto' or op.AdministrativeSpeed == 'default' or empty(op.AdministrativeSpeed.value)) and
+                        (op.AdministrativeDuplex == 'auto' or op.AdministrativeDuplex == 'default' or empty(op.AdministrativeDuplex.value))}">
+          set speed auto
+        </j:when>
+        <j:when test="${op.AdministrativeSpeed == '10000000' and
+                        (op.AdministrativeDuplex == 'half' or op.AdministrativeDuplex == 'full') }">
+          set speed 10${op.AdministrativeDuplex}
+        </j:when>
+        <j:when test="${op.AdministrativeSpeed == '100000000' and
+                        (op.AdministrativeDuplex == 'half' or op.AdministrativeDuplex == 'full') }">
+          set speed 100${op.AdministrativeDuplex}
+        </j:when>
+        <j:when test="${op.AdministrativeSpeed == '1000000000' and
+                        (op.AdministrativeDuplex == 'half' or op.AdministrativeDuplex == 'full') }">
+          set speed 1000${op.AdministrativeDuplex}
+        </j:when>
+        <j:when test="${empty(op.AdministrativeSpeed.value) and empty(op.AdministrativeDuplex.value)}">
+          unset speed
+        </j:when>
+        <j:otherwise>
+          ERROR: unsupported linkNegotiation/AdministrativeSpeed/AdministrativeDuplex combination [linkNegotiation = ${op.linkNegotiation}, AdministrativeSpeed = ${op.AdministrativeSpeed}, AdministrativeDuplex = ${op.AdministrativeDuplex}].
+        </j:otherwise>
+      </j:choose>
+    </j:if>
+    next
+    end
+    end
+  </layer_block>
+
+  <!-- FIXME: vdom を消す場合のフラグとなるパラメータが必要 -->
+  <!-- j:if test="${!empty(op.vdom.value)}">
+    <layer_block name="VDOM 削除" snmptrap="disable">
+      config vdom
+      delete "${op.vdom}"
+      end
+    </layer_block>
+  </j:if-->
+</j:jelly>

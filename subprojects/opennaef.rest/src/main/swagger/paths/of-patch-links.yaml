@@ -1,0 +1,201 @@
+of-patch-links:
+  get:
+    summary: すべてのOF-Patch Linkを取得する
+    description: すべてのOF-Patch Linkを取得する
+    parameters:
+      - name: deref
+        in: query
+        description: |
+          true を指定した場合は、MvoLinkではなく、Dtoを返す
+        required: false
+        type: boolean
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: version
+        in: query
+        description: |
+          ターゲットとなるバージョン。
+          指定しない場合は最新のバージョンが指定される。
+        required: false
+        type: string
+    tags:
+      - of-patch-link
+    responses:
+      200:
+        description: OF-Patch Linkのリスト
+        schema:
+          type: array
+          items:
+            $ref: '#/defs/MvoLink'
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+  post:
+    summary: OF-Patch Linkを新規作成する
+    description: OF-Patch Linkを新規作成する
+    parameters:
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: of-patch link
+        in: body
+        description: OF-Patch Link
+        required: true
+        schema:
+          $ref: '#/defs/OfPatch_req'
+    tags:
+      - of-patch-link
+    responses:
+      201:
+        description: Make a new OF-Patch Link
+        headers:
+          Location:
+            description: 新規作成されたOF-Patch Linkのuri
+            type: string
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+
+of-patch-links_mvo-id:
+  get:
+    summary: OF-Patch Linkを取得する
+    description: OF-Patch Linkを取得する
+    parameters:
+      - name: mvo-id
+        in: path
+        description: ID of the mvo
+        required: true
+        type: string
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: version
+        in: query
+        description: |
+          ターゲットとなるバージョン。
+          指定しない場合は最新のバージョンが指定される。
+        required: false
+        type: string
+    tags:
+      - of-patch-link
+    responses:
+      200:
+        description: OF-Patch Link
+        schema:
+          $ref: '#/defs/OfPatch'
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+  put:
+    summary: OF-Patch Linkを更新する
+    description: OF-Patch Linkを更新する
+    parameters:
+      - name: mvo-id
+        in: path
+        description: ID of the mvo
+        required: true
+        type: string
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: of-patch-link
+        in: body
+        description: ノード
+        required: true
+        schema:
+          $ref: '#/defs/OfPatch_req'
+    tags:
+      - of-patch-link
+    responses:
+      204:
+        description: OF-Patch Linkの更新に成功した
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+  delete:
+    summary: OF-Patch Linkを削除する
+    description: OF-Patch Linkを削除する
+    parameters:
+      - name: mvo-id
+        in: path
+        description: ID of the mvo
+        required: true
+        type: string
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+    tags:
+      - of-patch-link
+    responses:
+      204:
+        description: OF-Patch Linkの削除に成功した
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+
+defs:
+  OfPatch:
+    type: object
+    properties:
+      patch_id_pool:
+        description: OF-Patch ID Pool
+        type: string
+        example: mvo-id
+      patch_id:
+        description: OF-Patch ID
+        type: string
+        example: of-patch-id
+      patch_port1:
+        description: OF-Patch の端点ポートの ID
+        type: string
+        example: mvo-id
+      patch_port2:
+        description: OF-Patch の端点ポートの ID
+        type: string
+        example: mvo-id
+  OfPatch_req:
+    type: object
+    properties:
+      patch_id_pool:
+        description: OF-Patch ID Pool
+        type: string
+        example: mvo-id
+      patch_port1:
+        description: OF-Patch の端点ポートの ID
+        type: string
+        example: mvo-id
+      patch_port2:
+        description: OF-Patch の端点ポートの ID
+        type: string
+        example: mvo-id

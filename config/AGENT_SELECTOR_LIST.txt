@@ -1,0 +1,140 @@
+# sysObjectId           Type
+.1.3.6.1.4.1.9.1.108	CiscoIosRouter	# Cisco 7206 (non-VXR) (2009/01/26)
+.1.3.6.1.4.1.9.1.125	CiscoIosRouter	# Cisco 7204 (non-VXR)
+.1.3.6.1.4.1.9.1.222	CiscoIosRouter	# Cisco 7206 VXR
+.1.3.6.1.4.1.9.1.223	CiscoIosRouter	# Cisco 7204 VXR
+.1.3.6.1.4.1.9.1.821	CiscoIosRouter	# Cisco 7201 type (2009/01/26)
+
+.1.3.6.1.4.1.9.1.476	CiscoIosRouter	# Cisco 7300 type (2009/01/26)
+
+.1.3.6.1.4.1.9.1.45		CiscoIosRouter	# Cisco 7507
+.1.3.6.1.4.1.9.1.46		CiscoIosRouter	# Cisco 7513 type (2009/01/26)
+.1.3.6.1.4.1.9.1.288	CiscoIosRouter	# Cisco 7507z type (2009/01/26)
+
+.1.3.6.1.4.1.9.1.173	Cisco12000GsrRouter	# Cisco 12012 GSR
+.1.3.6.1.4.1.9.1.181	Cisco12000GsrRouter	# Cisco 12004 GSR
+.1.3.6.1.4.1.9.1.182	Cisco12000GsrRouter	# Cisco 12008 GSR
+.1.3.6.1.4.1.9.1.348	Cisco12000GsrRouter	# Cisco 12010 GSR
+.1.3.6.1.4.1.9.1.388	Cisco12000GsrRouter	# Cisco 12406 GSR
+.1.3.6.1.4.1.9.1.394	Cisco12000GsrRouter	# Cisco 12410 GSR
+.1.3.6.1.4.1.9.1.423	Cisco12000GsrRouter	# Cisco 12404 GSR
+.1.3.6.1.4.1.9.1.590	Cisco12000GsrRouter	# Cisco 12006 GSR
+
+.1.3.6.1.4.1.9.5.34	    CiscoCatalystDiscovery	# Cisco Catalyst 5505 (Switch)
+.1.3.6.1.4.1.9.1.168	CiscoIosRouter	# Cisco Catalyst 5505 (RSM)
+
+.1.3.6.1.4.1.9.5.45	 	CiscoCatalystDiscovery	# Cisco Catalyst 6506 ?
+.1.3.6.1.4.1.9.5.47		CiscoCatalystDiscovery	# Cisco Catalyst 6509-NEB ?
+
+.1.3.6.1.4.1.0.0.53		CiscoCatalystDiscovery	# Cisco Catalyst 6503 (7603)
+.1.3.6.1.4.1.9.1.282	CiscoCatalystDiscovery	# Cisco Catalyst 6506
+.1.3.6.1.4.1.9.1.283	CiscoCatalystDiscovery	# Cisco Catalyst 6509
+.1.3.6.1.4.1.9.1.402	CiscoCatalystDiscovery	# Cisco Catalyst 6500 type (2009/01/26)
+
+.1.3.6.1.4.1.9.1.222	CiscoIosRouter			# Cisco Catalyst 65??
+.1.3.6.1.4.1.9.1.657	CiscoCatalystDiscovery	# Cisco Catalyst 6504E + IOS
+.1.3.6.1.4.1.9.1.658	CiscoCatalystDiscovery	# CISCO7604 (Catalyst 6504)
+
+.1.3.6.1.4.1.9.1.217	CiscoCatalyst2900XLDiscovery	# Cisco Catalyst 29xxXL (2009/01/26)
+.1.3.6.1.4.1.9.1.246	CiscoCatalyst2900XLDiscovery	# Cisco Catalyst 35xxXL (2009/01/26)
+.1.3.6.1.4.1.9.1.247	CiscoCatalyst2900XLDiscovery	# Cisco Catalyst 3512XL
+.1.3.6.1.4.1.9.1.248	CiscoCatalyst2900XLDiscovery	# Cisco Catalyst 3524XL
+.1.3.6.1.4.1.9.1.323	CiscoCatalyst2900XLDiscovery	# Cisco Catalyst 2950 type (2009/01/26)
+.1.3.6.1.4.1.9.1.324	CiscoCatalyst2900XLDiscovery	# Cisco Catalyst 2950 type
+.1.3.6.1.4.1.9.1.359	CiscoCatalyst2900XLDiscovery	# Cisco Catalyst 2950
+.1.3.6.1.4.1.9.1.540	CiscoCatalyst2900XLDiscovery	# Cisco Catalyst 2940-8
+
+.1.3.6.1.4.1.9.1.366	CiscoCatalystDiscovery	# Cisco Catalyst 3550-24
+.1.3.6.1.4.1.9.1.367	CiscoCatalystDiscovery	# Cisco Catalyst 3550-48
+.1.3.6.1.4.1.9.1.368	CiscoCatalystDiscovery	# Cisco Catalyst 3550-12T
+.1.3.6.1.4.1.9.1.431	CiscoCatalystDiscovery	# Cisco Catalyst 3550-12G
+
+.1.3.6.1.4.1.9.1.564	CiscoCatalystDiscovery	# Cisco Catalyst 3560 type (2011/02/11)
+.1.3.6.1.4.1.9.1.615	CiscoCatalystDiscovery	# Cisco Catalyst 3560 type (2009/01/26)
+.1.3.6.1.4.1.9.1.617	CiscoCatalystDiscovery	# Cisco Catalyst 3560 type (2009/01/26)
+
+.1.3.6.1.4.1.9.1.794	CiscoCatalyst3750Discovery	# Cisco Catalyst 3560E type (2012/02/28)
+
+.1.3.6.1.4.1.9.1.1227	CiscoCatalyst3750Discovery	# Cisco Catalyst 3560X type (2011/12/14)
+
+.1.3.6.1.4.1.9.1.501	CiscoCatalyst4500Discovery	# Cisco Catalyst 4507 Chassis
+.1.3.6.1.4.1.9.1.516	CiscoCatalyst3750Discovery	# Cisco Catalyst 3750 Stack
+
+.1.3.6.1.4.1.9.1.696	CiscoCatalystDiscovery	# 10.50.0.205@NGN
+.1.3.6.1.4.1.9.1.697	CiscoCatalyst3750Discovery	# 10.50.0.198@NGN
+.1.3.6.1.4.1.9.1.717	CiscoCatalyst3750Discovery	# 10.50.0.251@NGN
+
+.1.3.6.1.4.1.9.12.3.1.3.1038	CiscoNexusDiscovery	# Cisco Nexus Switch 5596
+.1.3.6.1.4.1.9.12.3.1.3.1084	CiscoNexusDiscovery	# Cisco Nexus Switch 5548
+
+.1.3.6.1.4.1.2636.1.1.1.2.19	JuniperJunosRouter	# Juniper J4350 (JUNOS)
+.1.3.6.1.4.1.2636.1.1.1.2.5		JuniperJunosRouter	# Juniper M5 (JUNOS)
+.1.3.6.1.4.1.2636.1.1.1.2.6		JuniperJunosRouter	# Juniper T640
+.1.3.6.1.4.1.2636.1.1.1.2.9		JuniperJunosRouter	# Juniper M320
+
+.1.3.6.1.4.1.2636.1.1.1.2.10	JuniperJunosRouter	# Juniper M7i
+.1.3.6.1.4.1.2636.1.1.1.2.4	JuniperJunosRouter	# Juniper M10
+.1.3.6.1.4.1.2636.1.1.1.2.25	JuniperJunosRouter	# Juniper MX480
+.1.3.6.1.4.1.3224.1.52		NetscreenSSGBoxRouter	SSG140	# Juniper(Netscreen) SSG140
+
+.1.3.6.1.4.1.21839.1.2.6	Alaxala2430SDiscovery	# AlaxalA AX2430S-24T
+.1.3.6.1.4.1.21839.1.2.7	Alaxala3630SDiscovery	# AlaxalA AX3630S-24T
+.1.3.6.1.4.1.21839.1.2.8	Alaxala6300SDiscovery	# Alaxala AX6300S
+.1.3.6.1.4.1.21839.1.2.9	Alaxala6700SDiscovery	# AlaxalA AX6700S
+
+.1.3.6.1.4.1.278.1.27.13	ApresiaApwareDiscovery	# Apresia 8007
+.1.3.6.1.4.1.278.1.27.20	ApresiaApwareDiscovery	# Apresia 8004
+.1.3.6.1.4.1.278.1.27.15	ApresiaApwareDiscovery	# Apresia 6048G-PSR
+.1.3.6.1.4.1.278.1.27.19	ApresiaApwareDiscovery	# Apresia 6048GT-PSR
+.1.3.6.1.4.1.278.1.27.50	ApresiaApwareDiscovery	# Apresia 6148GT-PSR
+
+.1.3.6.1.4.1.278.1.27.31	ApresiaAmiosDiscovery	# Apresia 18020 (AMIOS)
+.1.3.6.1.4.1.278.1.27.48	ApresiaAmiosDiscovery	# Apresia 18005 (AMIOS)
+
+.1.3.6.1.4.1.278.1.27.79	ApresiaAmiosDiscovery	# Apresia 16012XL (AMIOS Ver.3)
+.1.3.6.1.4.1.278.1.27.63	ApresiaAmiosDiscovery	# Apresia 16012 (AMIOS Ver.3)
+
+.1.3.6.1.4.1.278.1.27.87	ApresiaAmiosDiscovery	# Apresia 26012 (AMIOS Ver.6)
+
+.1.3.6.1.4.1.1991.1.3.32.2	FoundryMG8Discovery	# Foundry BigIron MG8 (broken mib version)
+.1.3.6.1.4.1.1991.*			FoundryGenericDiscovery	# Foundry BigIron, FastIron etc.
+
+.1.3.6.1.4.1.1916.*			ExtremeGenericDiscovery	# Extreme Switches
+#.1.3.6.1.4.1.1916.2.56		ExtremeBD10800Discovery	# Extreme BlackDiamond 10800 (bug mib version)
+
+.1.3.6.1.4.1.211.1.24.7.1.1.1.1	FlashWave5540Discovery	# Fujitsu FlashWave 5540 Discovery (not completed)
+.1.3.6.1.4.1.211.1.24.7.10.1.1.1	FlashWave5740Discovery	# Fujitsu FlashWave 5740 Discovery (not completed)
+
+.1.3.6.1.4.1.26543.1.1.2	BladeNetworkSwitchDiscovery	# NEC Sigma Blade-Server Switch (OEM)
+
+.1.3.6.1.4.1.119.1.84.7.1	NecIx3000Discovery	# NEC IX3010 Router
+.1.3.6.1.4.1.119.1.84.10.1	NecIx3000Discovery	# NEC IX3110 Router
+
+.1.3.6.1.4.1.119.1.51.2	NecSuperHub	# NEC SuperHub SH/380
+.1.3.6.1.4.1.263.2.1.1002.6100	SiiExatrax	# SII EXAtrax NS-6100 series
+
+.1.3.6.1.4.1.116.4.1.11.2	NOT_SUPPORTED	# AlaxalA GR2000
+
+.1.3.6.1.4.1.2544.1.11.1.1	AdvaWDMDiscovery	# ADVA WDM Device
+
+.1.3.6.1.4.1.6527.1.9.1		Alcatel7710SRDiscovery	# Alcatel 7710SR
+.1.3.6.1.4.1.6527.1.9.2		Alcatel7710SRDiscovery	# Alcatel 7710SR
+.1.3.6.1.4.1.6527.1.3.4		Alcatel7710SRDiscovery	# Alcatel 7750SR
+.1.3.6.1.4.1.6527.1.3.6		Alcatel7710SRDiscovery	# Alcatel 7750SR
+
+.1.3.6.1.4.1.12356.101.1.12400	FortigateDiscovery	# Fortigate 1240B
+.1.3.6.1.4.1.12356.101.1.10004	FortigateDiscovery	# Fortigate 1000C
+.1.3.6.1.4.1.12356.101.1.3002	FortigateDiscovery	# Fortigate 310B
+.1.3.6.1.4.1.12356.101.1.3005	FortigateDiscovery	# Fortigate 300C
+
+.1.3.6.1.4.1.3375.2.1.3.4.20	F5BigIpDiscovery		# F5 BIG-IP
+
+# extra discovery sample
+
+.1.3.6.1.4.1.8251.1		TestAdhocDiscovery
+.1.3.6.1.4.1.8072.3.2.10	TestSshDiscovery
+.1.3.6.1.4.1.6876.4.1		VMwareEsxDiscovery # VMware ESX
+
+# MIB-2 Generic (no console)
+
+.1.3.6.1.*					Mib2Generic

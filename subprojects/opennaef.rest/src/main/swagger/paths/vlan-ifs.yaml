@@ -1,0 +1,193 @@
+vlan-ifs:
+  get:
+    summary: すべてのvlan-ifを取得する
+    description: すべてのvlan-ifを取得する
+    parameters:
+      - name: deref
+        in: query
+        description: |
+          true を指定した場合は、MvoLinkではなく、Dtoを返す
+        required: false
+        type: boolean
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: version
+        in: query
+        description: |
+          ターゲットとなるバージョン。
+          指定しない場合は最新のバージョンが指定される。
+        required: false
+        type: string
+    tags:
+      - vlan-if
+    responses:
+      200:
+        description: vlan-ifのリスト
+        schema:
+          type: array
+          items:
+            $ref: '#/defs/MvoLink'
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+  post:
+    summary: vlan-ifを新規作成する
+    description: vlan-ifを新規作成する
+    parameters:
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: vlan-if
+        in: body
+        description: vlan-if
+        required: true
+        schema:
+          $ref: '#/defs/VlanIf'
+    tags:
+      - vlan-if
+    responses:
+      201:
+        description: Make a new vlan-if
+        headers:
+          Location:
+            description: 新規作成されたvlan-ifのuri
+            type: string
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+vlan-ifs_mvo-id:
+  get:
+    summary: vlan-ifを取得する
+    description: vlan-ifを取得する
+    parameters:
+      - name: mvo-id
+        in: path
+        description: ID of the mvo
+        required: true
+        type: string
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: version
+        in: query
+        description: |
+          ターゲットとなるバージョン。
+          指定しない場合は最新のバージョンが指定される。
+        required: false
+        type: string
+    tags:
+      - vlan-if
+    responses:
+      200:
+        description: vlan-if
+        schema:
+          $ref: '#/defs/VlanIf'
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+  put:
+    summary: vlan-ifを更新する
+    description: vlan-ifを更新する
+    parameters:
+      - name: mvo-id
+        in: path
+        description: ID of the mvo
+        required: true
+        type: string
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: vlan-if
+        in: body
+        description: vlan-if
+        required: true
+        schema:
+          $ref: '#/defs/VlanIf'
+    tags:
+      - vlan-if
+    responses:
+      204:
+        description: Updates the vlan-if
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+  delete:
+    summary: vlan-ifを削除する
+    description: vlan-ifを削除する
+    parameters:
+      - name: mvo-id
+        in: path
+        description: ID of the mvo
+        required: true
+        type: string
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+    tags:
+      - vlan-if
+    responses:
+      204:
+        description: Deletes the vlan-if
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+
+defs:
+  VlanIf:
+    type: object
+    properties:
+      if_name:
+        description: インターフェイス名
+        type: string
+        example: vlan1
+      owner:
+        description: owner. vlan-ifを所有する装置orポート
+        type: string
+        example: node-mvo-id
+      vlan:
+        description: vlan
+        type: string
+        example: vlan-mvo-id
+      tagged_ports:
+        summary: tagged portのリスト
+        type: array
+        items:
+          type: string
+        example: ["tagged-port-A", "tagged-port-B"]
+      untagged_ports:
+        summary: untagged portのリスト
+        type: array
+        items:
+          type: string
+        example: ["untagged-port-A", "untagged-port-B"]

@@ -1,0 +1,14 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+    ### DEBUG start ###
+    File: NX-OS-DEFAULT-VLAN_IF-OP_DELETE.jelly
+    op.ifname.pre: ${op.ifname.pre}
+    ### DEBUG end ###
+    <layer_block name="SVI陷台ｼ∝求" snmptrap="disable">
+      <j:if test="${empty(op.ifname.pre)}">
+        ERROR: op.ifname.pre is empty.
+      </j:if>
+      configure terminal
+      no interface vlan${op.ifname.pre}
+      exit
+    </layer_block>
+</j:jelly>

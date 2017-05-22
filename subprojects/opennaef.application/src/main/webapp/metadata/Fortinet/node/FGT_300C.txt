@@ -1,0 +1,7 @@
+#Fortigateは、ノード情報のみ追加する。仮想装置(vdom)は2回Discoveryを行うと検出される点に注意.
+new-node "_NODENAME_"
+  attribute set ベンダー名 Fortinet
+  attribute set 機種 "FGT_300C"
+  attribute set diff.debug-archive true
+  attribute set "naef.node.virtualized-hosting-enabled" "true"
+context ..

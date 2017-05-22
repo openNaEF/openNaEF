@@ -1,0 +1,33 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+ ### vSwitchOS-trailer DEBUG start ###
+ File: vSwitchOS-trailer.jelly
+ op.deviceName: ${op.deviceName}
+ device.osTypeName: ${device.osTypeName}
+ op.virtualDeviceName: ${op.virtualDeviceName}
+ op.vlanId: ${op.vlanId}
+ op.vlanId.pre : ${op.vlanId.pre}
+ op.ConfigName: ${op.ConfigName}
+ empty(op.ConfigName.pre): ${empty(op.ConfigName.pre)}
+ op.ConfigName.pre: ${op.ConfigName.pre}
+ op.operationType: ${op.operationType}
+ vif:targetType: ${vif.getTargetType()}
+ vif.operationType: ${vif.getOperationType()}
+ vif.addedTaggedPorts.size(): ${vif.addedTaggedPorts.size()}
+ vif.addedUntaggedPorts.size(): ${vif.addedUntaggedPorts.size()}
+ vif.removedTaggedPorts.size(): ${vif.removedTaggedPorts.size()}
+ vif.removedUntaggedPorts.size(): ${vif.removedUntaggedPorts.size()}
+  ### DEBUG end ###
+    <layer_block name="ログアウト処理" snmptrap="disable">
+      exit
+      exit
+    </layer_block>
+    <!-- SSC連携用Servletを叩く -->
+    <!-- ポートグループ追加時-->
+    <j:if test="${op.operationType == 'OP_CREATE'}">
+      <http url="http://127.0.0.1:8080/voss.multilayernms.inventory/VswitchConfiguredHistoryExportServlet?cmd=ADD&amp;vlanId=${op.vlanId}&amp;configName=${op.ConfigName}&amp;Server=${op.deviceName}" on_http_error="retriable" on_transport_error="retriable" method="GET"></http>
+    </j:if>
+    <!-- ポートグループ削除時-->
+    <j:if test="${op.operationType == 'OP_DELETE'}">
+      <http url="http://127.0.0.1:8080/voss.multilayernms.inventory/VswitchConfiguredHistoryExportServlet?cmd=DELETE&amp;vlanId=${op.vlanId.pre}&amp;configName=${op.ConfigName.pre}&amp;Server=${op.deviceName}" on_http_error="retriable" on_transport_error="retriable" method="GET"></http>
+    </j:if>
+</j:jelly>

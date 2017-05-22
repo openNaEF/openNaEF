@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- Authentication is enable : true, disable : false -->
+    <aaaEnable>false</aaaEnable>
+    <!-- Authentication Server URL -->
+    <serverURL>http://127.0.0.1:12345/isLoggedIn?ClientIp=</serverURL>
+    <!--
+    <serverURL>http://172.20.0.46:12345/isLoggedIn?ClientIp=</serverURL>
+    -->
+
+    <!-- None Authentication User and IP address -->
+    <hostUserList>
+        <user address="127.0.0.1" name="Administrator" displayName="Administrator" ou="Administrators"/>
+        <user address="0:0:0:0:0:0:0:1" name="Administrator" displayName="Administrator" ou="Administrators"/>
+    </hostUserList>
+
+    <!-- Role setting -->
+    <groups>
+        <group name="Administrators">
+            <user name="admin.taro"/>
+            <user name=".*"/>
+            <ou name="Administrators"/>
+            <operation type="allow" name="rmi:get-diagram-resource"/>
+            <operation type="allow" name="rmi:get-contents"/>
+            <operation type="allow" name="http:search-logic"/>
+            <operation type="allow" name=".*"/>
+        </group>
+
+        <group name="Designers">
+            <operation type="deny" name="http:reload-config"/>
+            <operation type="allow" name=".*"/>
+        </group>
+
+        <group name="Engineers">
+            <operation type="deny" name="http:reload-config"/>
+            <operation type="allow" name=".*"/>
+        </group>
+
+        <group name="Viewers">
+            <operation type="allow" name="rmi:view-diagram"/>
+            <operation type="allow" name="http:order-properties-view"/>
+            <operation type="allow" name="http:http:search-logic"/>
+            <operation type="deny" name=".*"/>
+        </group>
+
+    </groups>
+
+    <operations>
+        <operation type="allow" name="VrfPoolList"/>
+        <operation type="allow" name="VrfPoolEdit"/>
+        <operation type="allow" name="VrfPoolDetail"/>
+        <operation type="allow" name="VrfEdit"/>
+        <operation type="allow" name="VrfCreation"/>
+        <operation type="allow" name="NodeVrfPortSelection"/>
+
+        <operation type="allow" name="VplsPoolList"/>
+        <operation type="allow" name="VplsPoolEdit"/>
+        <operation type="allow" name="VplsPoolDetail"/>
+        <operation type="allow" name="VplsEdit"/>
+        <operation type="allow" name="VplsCreation"/>
+        <operation type="allow" name="NodeVplsPortSelection"/>
+
+        <operation type="allow" name="VlanPoolListPage"/>
+        <operation type="allow" name="VlanPoolEdit"/>
+        <operation type="allow" name="VlanPoolDetail"/>
+        <operation type="allow" name="VlanEdit"/>
+        <operation type="allow" name="VlanCreation"/>
+        <operation type="allow" name="NodeVlanPortSelection"/>
+        <operation type="allow" name="NodeVlanList"/>
+        <operation type="allow" name="NodeVlanEdit"/>
+        <operation type="allow" name="NodeVlanCreation"/>
+        <operation type="allow" name="EditMemberVlanIf"/>
+        <operation type="allow" name="DirectVlanPortSelection"/>
+
+        <operation type="allow" name="PseudoWirePoolList"/>
+        <operation type="allow" name="PseudoWirePoolEdit"/>
+        <operation type="allow" name="PseudoWirePoolDetail"/>
+        <operation type="allow" name="PseudoWireEdit"/>
+        <operation type="allow" name="PseudoWireCreation"/>
+
+        <operation type="allow" name="AtmPvcListPage"/>
+        <operation type="allow" name="AtmPvcEdit"/>
+
+        <operation type="allow" name="SlotEdit"/>
+        <operation type="allow" name="NeighborSelection"/>
+        <operation type="allow" name="NodeList"/>
+        <operation type="allow" name="NodeEdit"/>
+        <operation type="allow" name="NodeDetail"/>
+        <operation type="allow" name="LinkEdit"/>
+        <operation type="allow" name="InterfaceEdit"/>
+
+        <operation type="allow" name="LocationView"/>
+        <operation type="allow" name="LocationEdit"/>
+        <operation type="allow" name="LocationEditMenu"/>
+        <operation type="allow" name="LocationDelete"/>
+
+        <operation type="allow" name="MultipleContractList"/>
+        <operation type="allow" name="ContractList"/>
+        <operation type="allow" name="ContractListEdit"/>
+        <operation type="allow" name="AttachmentListViewPage"/>
+
+    </operations>
+
+</configuration>

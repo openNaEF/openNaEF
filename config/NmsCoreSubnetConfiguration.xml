@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- These settings is only for Phalanx Client UI. -->
+
+    <!-- Attribute name to store the value for inventory ID -->
+    <id-field-name>ifName</id-field-name>
+
+    <!-- List display target item
+         value: [OBJECT_TYPE] Distinguished name in RenderingUtil -->
+    <fields>
+        <value>Network Address</value>
+        <value>Mask Length</value>
+        <value>Subnet</value>
+        <value>VpnPrefix</value>
+    </fields>
+
+    <!-- Property display target item
+         value: [OBJECT_TYPE] Distinguished name in RenderingUtil -->
+    <property-fields>
+        <value>Network Address</value>
+        <value>Mask Length</value>
+        <value>Subnet</value>
+        <value>VpnPrefix</value>
+    </property-fields>
+
+    <!-- Filter view search item
+         value: [OBJECT_TYPE] Distinguished name in RenderingUtil -->
+    <filtering-fields>
+        <value>Network Address</value>
+        <value>Mask Length</value>
+        <value>Subnet</value>
+        <value>VpnPrefix</value>
+    </filtering-fields>
+
+    <!-- Filter view Search type of search item
+         key: [OBJECT_TYPE] Distinguished name in RenderingUtil
+         value: Search type [contain/select/equal/numeric] -->
+    <condition-of-filtering>
+        <prop key="Network Address">contain</prop>
+        <prop key="Mask Length">contain</prop>
+        <prop key="Subnet">contain</prop>
+        <prop key="VpnPrefix">contain</prop>
+    </condition-of-filtering>
+
+    <!-- Display string on UI
+         key: [OBJECT_TYPE] Distinguished name in RenderingUtil
+         value: Display Name -->
+    <display-name>
+        <prop key="Network Address">Network Address</prop>
+        <prop key="Mask Length">Mask Length</prop>
+        <prop key="Subnet">Subnet</prop>
+        <prop key="VpnPrefix">VpnPrefix</prop>
+    </display-name>
+</configuration>

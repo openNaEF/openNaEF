@@ -1,0 +1,533 @@
+#********** 初期設定 1970/1/1
+context
+time 0
+new-hierarchical-model vlan.id-pool.dot1q "vlans"
+  configure-id-pool allocate-range 1-4095
+context
+
+#********** 初期状態 2015/06/01
+# SpineSwitch を 3つ 新設
+# LeafSwitch を 3つ 新設
+# SpineSwitch - LeafSwitch間の eth-link を 9つ 新設
+context
+time 1433084400000
+
+## spine-switch 1
+new-node "SpineSwitch1"
+  attribute set ベンダー名 "SpineSwitch"
+  new-port eth-port "eth0"
+    context ..
+  new-port eth-port "eth1"
+    context ..
+  new-port eth-port "eth2"
+    context ..
+  new-port eth-port "eth3"
+    context ..
+context
+
+## spine-switch 2
+new-node "SpineSwitch2"
+  attribute set ベンダー名 "SpineSwitch"
+  new-port eth-port "eth0"
+    context ..
+  new-port eth-port "eth1"
+    context ..
+  new-port eth-port "eth2"
+    context ..
+  new-port eth-port "eth3"
+      context ..
+context
+
+## spine-switch 3
+new-node "SpineSwitch3"
+  attribute set ベンダー名 "SpineSwitch"
+  new-port eth-port "eth0"
+    context ..
+  new-port eth-port "eth1"
+    context ..
+  new-port eth-port "eth2"
+    context ..
+  new-port eth-port "eth3"
+      context ..
+context
+
+## leaf-switch 1
+new-node "LeafSwitch1"
+  attribute set ベンダー名 "LeafSwitch"
+  new-port eth-port "eth0"
+    context ..
+  new-port eth-port "eth1"
+    context ..
+  new-port eth-port "eth2"
+    context ..
+  new-port eth-port "eth3"
+    context ..
+  new-port eth-port "eth10"
+    context ..
+  new-port eth-port "eth20"
+    context ..
+context
+
+## leaf-switch 2
+new-node "LeafSwitch2"
+  attribute set ベンダー名 "LeafSwitch"
+  new-port eth-port "eth0"
+    context ..
+  new-port eth-port "eth1"
+    context ..
+  new-port eth-port "eth2"
+    context ..
+  new-port eth-port "eth3"
+    context ..
+  new-port eth-port "eth10"
+    context ..
+  new-port eth-port "eth11"
+    context ..
+  new-port eth-port "eth20"
+    context ..
+  new-port eth-port "eth21"
+    context ..
+context
+
+## leaf-switch 3
+new-node "LeafSwitch3"
+  attribute set ベンダー名 "LeafSwitch"
+  new-port eth-port "eth0"
+    context ..
+  new-port eth-port "eth1"
+    context ..
+  new-port eth-port "eth2"
+    context ..
+  new-port eth-port "eth3"
+    context ..
+  new-port eth-port "eth20"
+    context ..
+context
+
+## eth-link SpineSwitch1
+configure-link connect eth-link node;SpineSwitch1,eth-port;eth0 node;LeafSwitch1,eth-port;eth0
+  assign "ETHLINK_ss1_0_ls1_0"
+configure-link connect eth-link node;SpineSwitch1,eth-port;eth1 node;LeafSwitch2,eth-port;eth0
+  assign "ETHLINK_ss1_1_ls2_0"
+configure-link connect eth-link node;SpineSwitch1,eth-port;eth2 node;LeafSwitch3,eth-port;eth0
+  assign "ETHLINK_ss1_2_ls3_0"
+
+## eth-link SpineSwitch2
+configure-link connect eth-link node;SpineSwitch2,eth-port;eth0 node;LeafSwitch1,eth-port;eth1
+  assign "ETHLINK_ss2_0_ls1_1"
+configure-link connect eth-link node;SpineSwitch2,eth-port;eth1 node;LeafSwitch2,eth-port;eth1
+  assign "ETHLINK_ss2_1_ls2_1"
+configure-link connect eth-link node;SpineSwitch2,eth-port;eth2 node;LeafSwitch3,eth-port;eth1
+  assign "ETHLINK_ss2_2_ls3_1"
+
+## eth-link SpineSwitch3
+configure-link connect eth-link node;SpineSwitch3,eth-port;eth0 node;LeafSwitch1,eth-port;eth2
+  assign "ETHLINK_ss3_0_ls1_2"
+configure-link connect eth-link node;SpineSwitch3,eth-port;eth1 node;LeafSwitch2,eth-port;eth2
+  assign "ETHLINK_ss3_1_ls2_2"
+configure-link connect eth-link node;SpineSwitch3,eth-port;eth2 node;LeafSwitch3,eth-port;eth2
+  assign "ETHLINK_ss3_2_ls3_2"
+
+#********** Customer#1 2015/07/01
+# Customer#1 新設
+# LeafSwitch1 の下に node 新設
+# LeafSwitch2 の下に node 新設
+# node<->LeafSwitch1<->SpineSwitch3<->LeafSwitch2<->node の vlan 新設
+# これらを Customer#1 へ紐づける
+context
+time 1435676400000
+
+## Customer#1
+new-named-model customer-info "Customer#1"
+context
+
+## node;C#1-01
+new-node "C#1-01"
+  attribute set ベンダー名 "CustomerNode"
+  new-port eth-port "eth0"
+    context ..
+context
+
+## node;C#1-02
+new-node "C#1-02"
+  attribute set ベンダー名 "CustomerNode"
+  new-port eth-port "eth0"
+    context ..
+context
+
+## etg-link;C#1-XX - LeafSwitchX
+configure-link connect eth-link node;C#1-01,eth-port;eth0 node;LeafSwitch1,eth-port;eth10
+  assign "ETHLINK_c101_0_ls1_10"
+configure-link connect eth-link node;C#1-02,eth-port;eth0 node;LeafSwitch2,eth-port;eth10
+  assign "ETHLINK_c102_0_ls2_10"
+
+## vlan10
+context "vlan.id-pool.dot1q;vlans"
+  new-network "vlan"
+    attribute set "naef.vlan.id-pool" "vlan.id-pool.dot1q;vlans"
+    attribute set "naef.vlan.id" "10"
+context
+
+## vlan10 vlan-if
+context "node;C#1-01"
+  attribute set "naef.enabled-networking-function.vlan" "dot1q"
+  new-port "vlan-if" "vlan10"
+    attribute set "naef.vlan.vlan-if.vlan-id" "10"
+    attribute set "naef.port.ifname" "vlan10"
+    assign "VLANIF_nodec101_10"
+    configure-port-ix stack "node;C#1-01,eth-port;eth0" "$;VLANIF_nodec101_10"
+
+context "node;LeafSwitch1"
+  attribute set "naef.enabled-networking-function.vlan" "dot1q"
+  new-port "vlan-if" "vlan10"
+    attribute set "naef.vlan.vlan-if.vlan-id" "10"
+    attribute set "naef.port.ifname" "vlan10"
+    assign "VLANIF_nodels1_10"
+    configure-port-ix stack "node;LeafSwitch1,eth-port;eth2" "$;VLANIF_nodels1_10"
+    configure-port-ix stack "node;LeafSwitch1,eth-port;eth10" "$;VLANIF_nodels1_10"
+
+context "node;SpineSwitch3"
+  attribute set "naef.enabled-networking-function.vlan" "dot1q"
+  new-port "vlan-if" "vlan10"
+    attribute set "naef.vlan.vlan-if.vlan-id" "10"
+    attribute set "naef.port.ifname" "vlan10"
+    assign "VLANIF_nodess3_10"
+    configure-port-ix stack "node;SpineSwitch3,eth-port;eth0" "$;VLANIF_nodess3_10"
+    configure-port-ix stack "node;SpineSwitch3,eth-port;eth1" "$;VLANIF_nodess3_10"
+
+context "node;LeafSwitch2"
+  attribute set "naef.enabled-networking-function.vlan" "dot1q"
+  new-port "vlan-if" "vlan10"
+    attribute set "naef.vlan.vlan-if.vlan-id" "10"
+    attribute set "naef.port.ifname" "vlan10"
+    assign "VLANIF_nodels2_10"
+    configure-port-ix stack "node;LeafSwitch2,eth-port;eth2" "$;VLANIF_nodels2_10"
+    configure-port-ix stack "node;LeafSwitch2,eth-port;eth10" "$;VLANIF_nodels2_10"
+
+context "node;C#1-02"
+  attribute set "naef.enabled-networking-function.vlan" "dot1q"
+  new-port "vlan-if" "vlan10"
+    attribute set "naef.vlan.vlan-if.vlan-id" "10"
+    attribute set "naef.port.ifname" "vlan10"
+    assign "VLANIF_nodec102_10"
+    configure-port-ix stack "node;C#1-02,eth-port;eth0" "$;VLANIF_nodec102_10"
+
+context "vlan.id-pool.dot1q;vlans,id;10"
+  configure-network-port add-member "$;VLANIF_nodec101_10"
+  configure-network-port add-member "$;VLANIF_nodels1_10"
+  configure-network-port add-member "$;VLANIF_nodess3_10"
+  configure-network-port add-member "$;VLANIF_nodels2_10"
+  configure-network-port add-member "$;VLANIF_nodec102_10"
+context
+
+## vlan10 vlan-link
+configure-link connect "vlan-link" "$;VLANIF_nodec101_10" "$;VLANIF_nodels1_10"
+  assign "VLANLINK_10_c101_ls1"
+  configure-network-ix stack "$;ETHLINK_c101_0_ls1_10"
+
+configure-link connect "vlan-link" "$;VLANIF_nodels1_10" "$;VLANIF_nodess3_10"
+  assign "VLANLINK_10_ls1_ss3"
+  configure-network-ix stack "$;ETHLINK_ss3_0_ls1_2"
+
+configure-link connect "vlan-link" "$;VLANIF_nodess3_10" "$;VLANIF_nodels2_10"
+  assign "VLANLINK_10_ss3_ls2"
+  configure-network-ix stack "$;ETHLINK_ss3_1_ls2_2"
+
+configure-link connect "vlan-link" "$;VLANIF_nodels2_10" "$;VLANIF_nodec102_10"
+  assign "VLANLINK_10_ls2_c102"
+  configure-network-ix stack "$;ETHLINK_c102_0_ls2_10"
+
+context "vlan.id-pool.dot1q;vlans,id;10"
+configure-network-ix include "$;VLANLINK_10_c101_ls1"
+configure-network-ix include "$;VLANLINK_10_ls1_ss3"
+configure-network-ix include "$;VLANLINK_10_ss3_ls2"
+configure-network-ix include "$;VLANLINK_10_ls2_c102"
+
+## Customer#1 への紐づけ
+customerinfo-2d add "node;C#1-01" "customer-info;Customer#1"
+customerinfo-2d add "node;C#1-02" "customer-info;Customer#1"
+customerinfo-2d add "vlan.id-pool.dot1q;vlans,id;10" "customer-info;Customer#1"
+
+
+#********** node, link増設 2015/08/01
+# node;SpineSwitch4 新設
+# node;LeafSwitch4 新設
+# SpineSwitch4-LeafSwitchX 間の eth-link を 4つ 新設
+# SpineSwitchX-LeafSwitch4 間の eth-link を 3つ 新設
+context
+time 1438354800000
+
+## spine-switch 4
+new-node "SpineSwitch4"
+  attribute set ベンダー名 "SpineSwitch"
+  new-port eth-port "eth0"
+    context ..
+  new-port eth-port "eth1"
+    context ..
+  new-port eth-port "eth2"
+    context ..
+  new-port eth-port "eth3"
+      context ..
+context
+
+## leaf-switch 4
+new-node "LeafSwitch4"
+  attribute set ベンダー名 "LeafSwitch"
+  new-port eth-port "eth0"
+    context ..
+  new-port eth-port "eth1"
+    context ..
+  new-port eth-port "eth2"
+    context ..
+  new-port eth-port "eth3"
+    context ..
+context
+
+## eth-link
+configure-link connect eth-link node;SpineSwitch4,eth-port;eth0 node;LeafSwitch1,eth-port;eth3
+configure-link connect eth-link node;SpineSwitch4,eth-port;eth1 node;LeafSwitch2,eth-port;eth3
+configure-link connect eth-link node;SpineSwitch4,eth-port;eth2 node;LeafSwitch3,eth-port;eth3
+configure-link connect eth-link node;SpineSwitch4,eth-port;eth3 node;LeafSwitch4,eth-port;eth3
+
+configure-link connect eth-link node;SpineSwitch1,eth-port;eth3 node;LeafSwitch4,eth-port;eth0
+configure-link connect eth-link node;SpineSwitch2,eth-port;eth3 node;LeafSwitch4,eth-port;eth1
+configure-link connect eth-link node;SpineSwitch3,eth-port;eth3 node;LeafSwitch4,eth-port;eth2
+
+
+#********** Customer#2 2015/09/01
+# Customer#2 新設
+# LeafSwitch1 の下に node 新設
+# LeafSwitch2 の下に node 新設
+# node<->LeafSwitch1<->SpineSwitch1<->LeafSwitch2<->node の vlan 新設
+# これらを Customer#2 へ紐づける
+context
+time 1441033200000
+
+## Customer#2
+new-named-model customer-info "Customer#2"
+context
+
+## node;C#2-01
+new-node "C#2-01"
+  attribute set ベンダー名 "CustomerNode"
+  new-port eth-port "eth0"
+    context ..
+context
+
+## node;C#2-02
+new-node "C#2-02"
+  attribute set ベンダー名 "CustomerNode"
+  new-port eth-port "eth0"
+    context ..
+context
+
+## etg-link;C#2-XX - LeafSwitchX
+configure-link connect eth-link node;C#2-01,eth-port;eth0 node;LeafSwitch1,eth-port;eth20
+  assign "ETHLINK_c201_0_ls1_20"
+configure-link connect eth-link node;C#2-02,eth-port;eth0 node;LeafSwitch2,eth-port;eth20
+  assign "ETHLINK_c202_0_ls2_20"
+
+## vlan20
+context "vlan.id-pool.dot1q;vlans"
+  new-network "vlan"
+    attribute set "naef.vlan.id-pool" "vlan.id-pool.dot1q;vlans"
+    attribute set "naef.vlan.id" "20"
+context
+
+## vlan20 vlan-if
+context "node;C#2-01"
+  attribute set "naef.enabled-networking-function.vlan" "dot1q"
+  new-port "vlan-if" "vlan20"
+    attribute set "naef.vlan.vlan-if.vlan-id" "20"
+    attribute set "naef.port.ifname" "vlan20"
+    assign "VLANIF_nodec201_20"
+    configure-port-ix stack "node;C#2-01,eth-port;eth0" "$;VLANIF_nodec201_20"
+
+context "node;LeafSwitch1"
+  attribute set "naef.enabled-networking-function.vlan" "dot1q"
+  new-port "vlan-if" "vlan20"
+    attribute set "naef.vlan.vlan-if.vlan-id" "20"
+    attribute set "naef.port.ifname" "vlan20"
+    assign "VLANIF_nodels1_20"
+    configure-port-ix stack "node;LeafSwitch1,eth-port;eth0" "$;VLANIF_nodels1_20"
+    configure-port-ix stack "node;LeafSwitch1,eth-port;eth20" "$;VLANIF_nodels1_20"
+
+context "node;SpineSwitch1"
+  attribute set "naef.enabled-networking-function.vlan" "dot1q"
+  new-port "vlan-if" "vlan20"
+    attribute set "naef.vlan.vlan-if.vlan-id" "20"
+    attribute set "naef.port.ifname" "vlan20"
+    assign "VLANIF_nodess1_20"
+    configure-port-ix stack "node;SpineSwitch1,eth-port;eth0" "$;VLANIF_nodess1_20"
+    configure-port-ix stack "node;SpineSwitch1,eth-port;eth1" "$;VLANIF_nodess1_20"
+
+context "node;LeafSwitch2"
+  attribute set "naef.enabled-networking-function.vlan" "dot1q"
+  new-port "vlan-if" "vlan20"
+    attribute set "naef.vlan.vlan-if.vlan-id" "20"
+    attribute set "naef.port.ifname" "vlan20"
+    assign "VLANIF_nodels2_20"
+    configure-port-ix stack "node;LeafSwitch2,eth-port;eth0" "$;VLANIF_nodels2_20"
+    configure-port-ix stack "node;LeafSwitch2,eth-port;eth20" "$;VLANIF_nodels2_20"
+
+context "node;C#2-02"
+  attribute set "naef.enabled-networking-function.vlan" "dot1q"
+  new-port "vlan-if" "vlan20"
+    attribute set "naef.vlan.vlan-if.vlan-id" "20"
+    attribute set "naef.port.ifname" "vlan20"
+    assign "VLANIF_nodec202_20"
+    configure-port-ix stack "node;C#2-02,eth-port;eth0" "$;VLANIF_nodec202_20"
+
+context "vlan.id-pool.dot1q;vlans,id;20"
+  configure-network-port add-member "$;VLANIF_nodec201_20"
+  configure-network-port add-member "$;VLANIF_nodels1_20"
+  configure-network-port add-member "$;VLANIF_nodess1_20"
+  configure-network-port add-member "$;VLANIF_nodels2_20"
+  configure-network-port add-member "$;VLANIF_nodec202_20"
+context
+
+## vlan20 vlan-link
+configure-link connect "vlan-link" "$;VLANIF_nodec201_20" "$;VLANIF_nodels1_20"
+  assign "VLANLINK_20_c201_ls1"
+  configure-network-ix stack "$;ETHLINK_c201_0_ls1_20"
+
+configure-link connect "vlan-link" "$;VLANIF_nodels1_20" "$;VLANIF_nodess1_20"
+  assign "VLANLINK_20_ls1_ss1"
+  configure-network-ix stack "$;ETHLINK_ss1_0_ls1_0"
+
+configure-link connect "vlan-link" "$;VLANIF_nodess1_20" "$;VLANIF_nodels2_20"
+  assign "VLANLINK_20_ss1_ls2"
+  configure-network-ix stack "$;ETHLINK_ss1_1_ls2_0"
+
+configure-link connect "vlan-link" "$;VLANIF_nodels2_20" "$;VLANIF_nodec202_20"
+  assign "VLANLINK_20_ls2_c202"
+  configure-network-ix stack "$;ETHLINK_c202_0_ls2_20"
+
+context "vlan.id-pool.dot1q;vlans,id;20"
+  configure-network-ix include "$;VLANLINK_20_c201_ls1"
+  configure-network-ix include "$;VLANLINK_20_ls1_ss1"
+  configure-network-ix include "$;VLANLINK_20_ss1_ls2"
+  configure-network-ix include "$;VLANLINK_20_ls2_c202"
+
+## Customer#2 への紐づけ
+customerinfo-2d add "node;C#2-01" "customer-info;Customer#2"
+customerinfo-2d add "node;C#2-02" "customer-info;Customer#2"
+customerinfo-2d add "vlan.id-pool.dot1q;vlans,id;20" "customer-info;Customer#2"
+
+#********** Customer#1 2015/10/01
+# LeafSwitch2 の下に node 新設
+# これらを Customer#1 へ紐づける
+# Customer#1の vlan へ node を追加
+context
+time 1443625200000
+
+## node;C#1-03
+new-node "C#1-03"
+  attribute set ベンダー名 "CustomerNode"
+  new-port eth-port "eth0"
+    context ..
+context
+
+## etg-link;C#1-XX - LeafSwitchX
+configure-link connect eth-link node;C#1-03,eth-port;eth0 node;LeafSwitch2,eth-port;eth11
+  assign "ETHLINK_c103_0_ls2_11"
+
+## vlan10 vlan-if
+context "node;C#1-03"
+  attribute set "naef.enabled-networking-function.vlan" "dot1q"
+  new-port "vlan-if" "vlan10"
+    attribute set "naef.vlan.vlan-if.vlan-id" "10"
+    attribute set "naef.port.ifname" "vlan10"
+    assign "VLANIF_nodec103_10"
+    configure-port-ix stack "node;C#1-03,eth-port;eth0" "$;VLANIF_nodec103_10"
+
+context "$;VLANIF_nodels2_10"
+    configure-port-ix stack "node;LeafSwitch2,eth-port;eth11" "$;VLANIF_nodels2_10"
+
+## vlan10 vlan-link
+configure-link connect "vlan-link" "$;VLANIF_nodec103_10" "$;VLANIF_nodels2_10"
+  assign "VLANLINK_10_c103_ls2"
+  configure-network-ix stack "$;ETHLINK_c103_0_ls2_11"
+
+context "vlan.id-pool.dot1q;vlans,id;10"
+  configure-network-ix include "$;VLANLINK_10_c103_ls2"
+
+## Customer#1 への紐づけ
+customerinfo-2d add "node;C#1-03" "customer-info;Customer#1"
+
+#********** Customer#2 2015/11/01
+# LeafSwitch2 の下に node 新設
+# LeafSwitch3 の下に node 新設
+# これらを Customer#2 へ紐づける
+# Customer#2の vlan へ node を追加
+context
+time 1446303600000
+
+## node;C#2-03
+new-node "C#2-03"
+  attribute set ベンダー名 "CustomerNode"
+  new-port eth-port "eth0"
+    context ..
+context
+
+## node;C#2-04
+new-node "C#2-04"
+  attribute set ベンダー名 "CustomerNode"
+  new-port eth-port "eth0"
+    context ..
+context
+
+## etg-link;C#2-XX - LeafSwitchX
+configure-link connect eth-link node;C#2-03,eth-port;eth0 node;LeafSwitch2,eth-port;eth21
+  assign "ETHLINK_c203_0_ls2_21"
+configure-link connect eth-link node;C#2-04,eth-port;eth0 node;LeafSwitch3,eth-port;eth20
+  assign "ETHLINK_c204_0_ls3_20"
+
+## vlan20 vlan-if
+context "node;C#2-03"
+  attribute set "naef.enabled-networking-function.vlan" "dot1q"
+  new-port "vlan-if" "vlan20"
+    attribute set "naef.vlan.vlan-if.vlan-id" "20"
+    attribute set "naef.port.ifname" "vlan20"
+    assign "VLANIF_nodec203_20"
+    configure-port-ix stack "node;C#2-03,eth-port;eth0" "$;VLANIF_nodec203_20"
+
+context "node;C#2-04"
+  attribute set "naef.enabled-networking-function.vlan" "dot1q"
+  new-port "vlan-if" "vlan20"
+    attribute set "naef.vlan.vlan-if.vlan-id" "20"
+    attribute set "naef.port.ifname" "vlan20"
+    assign "VLANIF_nodec204_20"
+    configure-port-ix stack "node;C#2-04,eth-port;eth0" "$;VLANIF_nodec204_20"
+
+context "$;VLANIF_nodels2_20"
+    configure-port-ix stack "node;LeafSwitch2,eth-port;eth21" "$;VLANIF_nodels2_20"
+
+context "node;LeafSwitch3"
+  attribute set "naef.enabled-networking-function.vlan" "dot1q"
+  new-port "vlan-if" "vlan20"
+    attribute set "naef.vlan.vlan-if.vlan-id" "20"
+    attribute set "naef.port.ifname" "vlan20"
+    assign "VLANIF_nodels3_20"
+    configure-port-ix stack "node;LeafSwitch3,eth-port;eth0" "$;VLANIF_nodels3_20"
+    configure-port-ix stack "node;LeafSwitch3,eth-port;eth20" "$;VLANIF_nodels3_20"
+
+context "$;VLANIF_nodess1_20"
+    configure-port-ix stack "node;SpineSwitch1,eth-port;eth2" "$;VLANIF_nodess1_20"
+
+## vlan10 vlan-link
+configure-link connect "vlan-link" "$;VLANIF_nodec203_20" "$;VLANIF_nodels2_20"
+  assign "VLANLINK_20_c203_ls2"
+  configure-network-ix stack "$;ETHLINK_c203_0_ls2_21"
+
+configure-link connect "vlan-link" "$;VLANIF_nodec204_20" "$;VLANIF_nodels3_20"
+  assign "VLANLINK_20_c204_ls3"
+  configure-network-ix stack "$;ETHLINK_c204_0_ls3_20"
+
+context "vlan.id-pool.dot1q;vlans,id;20"
+  configure-network-ix include "$;VLANLINK_20_c203_ls2"
+  configure-network-ix include "$;VLANLINK_20_c204_ls3"
+
+## Customer#2 への紐づけ
+customerinfo-2d add "node;C#2-03" "customer-info;Customer#2"
+customerinfo-2d add "node;C#2-04" "customer-info;Customer#2"

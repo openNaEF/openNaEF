@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/">
+<head>
+    <title>Node Configuration</title>
+    <link rel="stylesheet" href="blueprint/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/print.css" type="text/css" media="print"/>
+    <!-- [if IE]>
+    <link rel="stylesheet" href="blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <link rel="stylesheet" href="blueprint/plugins/tabs/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/plugins/buttons/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="css/ui.base.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/ui.theme.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/common.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/commonprint.css" type="text/css" media="print"/>
+    <link rel="stylesheet" type="text/css" href="css/tablesorter/style.css" media="screen"/>
+
+    <script type='text/javascript' src='js/jquery-1.3.1.min.js'></script>
+    <script type="text/javascript" src="js/ui.core.js"></script>
+    <script type="text/javascript" src="js/inventory-web.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("dt.toggle").click(function () {
+                $("+dd", this).slideToggle("slow");
+            });
+            $("table.each").each(function () {
+                jQuery(this).find("tr:even").addClass("even");
+            });
+            $("dt.toggle").hover(
+                    function () {
+                        $(this).addClass("ui-state-hover");
+                    },
+                    function () {
+                        $(this).removeClass("ui-state-hover");
+                    }
+            )
+            $('dt.default-hide').each(function () {
+                $("+dd", this).toggle();
+            });
+        });
+    </script>
+</head>
+
+<body>
+<div class="container">
+    <div id="bd" role="main">
+        <h2>Node: <span wicket:id="nodeName"></span>
+        </h2>
+        <a wicket:id="top" href="#">[Menu]</a> |
+        <a wicket:id="search" href="#">[Node Search]</a> |
+        <a wicket:id="reload" href="#">[Refresh]</a>
+        <dl>
+            <dt class="toggle ui-state-default ui-corner-all"><span
+                    class="ui-icon ui-icon-circle-plus" style="float: left"></span>Node Information
+            </dt>
+            <dd>
+                <table id="nodebaseinfo" class="tablesorter">
+                    <thead>
+                    <tr>
+                        <th class="nowrap"><span style="white-space: nowrap">Vendor</span></th>
+                        <th class="nowrap"><span style="white-space: nowrap">Node Type</span></th>
+                        <th class="nowrap"><span style="white-space: nowrap">Appliance Type</span></th>
+                        <th class="nowrap"><span style="white-space: nowrap">Resource Permission</span></th>
+                        <th class="nowrap"><span style="white-space: nowrap">Purpose</span></th>
+                        <th class="nowrap"><span style="white-space: nowrap">Management IPAddress</span></th>
+                        <th class="nowrap"><span style="white-space: nowrap">OS Type</span></th>
+                        <th class="nowrap"><span style="white-space: nowrap">OS Version</span></th>
+                        <th class="nowrap"><span style="white-space: nowrap">Feature</span></th>
+                        <th class="nowrap"><span style="white-space: nowrap">Power</span></th>
+                        <th class="nowrap"><span style="white-space: nowrap">CPUs</span></th>
+                        <th class="nowrap"><span style="white-space: nowrap">CPU Product</span></th>
+                        <th class="nowrap"><span style="white-space: nowrap">Memory</span></th>
+                        <th class="nowrap"><span style="white-space: nowrap">Storage</span></th>
+                        <th class="nowrap"><span style="white-space: nowrap">Port Summary</span></th>
+                        <th>Operation</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td wicket:id="vendor" class="nowrap"></td>
+                        <td wicket:id="nodeType" class="nowrap"></td>
+                        <td wicket:id="applianceType" class="nowrap"></td>
+                        <td wicket:id="resourcePermission" class="nowrap"></td>
+                        <td wicket:id="purpose" class="nowrap"></td>
+                        <td wicket:id="managementIpAddress" class="nowrap"></td>
+                        <td wicket:id="osType" class="nowrap"></td>
+                        <td wicket:id="osVersion" class="nowrap">T</td>
+                        <td wicket:id="feature" class="nowrap"></td>
+                        <td wicket:id="power" class="nowrap"></td>
+                        <td wicket:id="cpus" class="nowrap"></td>
+                        <td wicket:id="cpuProduct" class="nowrap"></td>
+                        <td wicket:id="memory" class="nowrap"></td>
+                        <td wicket:id="storage" class="nowrap"></td>
+                        <td wicket:id="portSummary" class="nowrap"></td>
+                        <td class="nowrap">
+                            <a wicket:id="editNodeInfo" href="#">Edit</a><br/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="nowrap"><span style="white-space: nowrap">Location</span></th>
+                        <th class="nowrap"><span style="white-space: nowrap">Parent Node</span></th>
+                        <th colspan="3">Note</th>
+                        <th colspan="5">NIC Product</th>
+                        <th colspan="4">SFP+ Product</th>
+                        <th colspan="2"><span style="white-space: nowrap">Last Edit Time</span></th>
+                    </tr>
+                    <tr>
+                        <td class="nowrap"><a wicket:id="locationLink" href="#"><span wicket:id="caption"></span></a>
+                        </td>
+                        <td class="nowrap"><a wicket:id="parentLink" href="#"><span
+                                wicket:id="caption"></span></a></td>
+                        <td colspan="3" wicket:id="note"></td>
+                        <td colspan="5" wicket:id="nicProduct"></td>
+                        <td colspan="4" wicket:id="sfpPlusProduct"></td>
+                        <td wicket:id="lastEditor"></td>
+                        <td>
+                            <span wicket:id="lastEditTime" align="right"></span>
+                            <span wicket:id="version"></span>
+                            <a wicket:id="history" href="#">History</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </dd>
+
+            <dt class="toggle ui-state-default ui-corner-all default-hide"><span
+                    class="ui-icon ui-icon-circle-plus" style="float: left"></span>Slot/Module Setting
+            </dt>
+            <dd>
+                <table class="tablesorter">
+                    <tr>
+                        <th class="nowrap"><span style="white-space: nowrap">Slot ID</span></th>
+                        <th class="nowrap"><span style="white-space: nowrap">Slot Type</span></th>
+                        <th class="nowrap"><span style="white-space: nowrap">Module Name</span></th>
+                        <th class="nowrap"><span style="white-space: nowrap">Module Operational Status</span></th>
+                        <th class="nowrap"><span style="white-space: nowrap">Note</span></th>
+                        <th colspan="2"><span style="white-space: nowrap">Last Edit Time</span></th>
+                        <th><span style="white-space: nowrap">Operation</span></th>
+                    </tr>
+                    <tr wicket:id="slotTable">
+                        <td class="nowrap"><span style="white-space: nowrap"><a wicket:id="editSlot" href="#">
+                            <span wicket:id="slotId" align="right">0</span></a>
+			            </span></td>
+                        <td class="nowrap" wicket:id="slotType"><span style="white-space: nowrap"></span></td>
+                        <td class="nowrap" wicket:id="moduleName"><span style="white-space: nowrap"></span></td>
+                        <td class="nowrap" wicket:id="operStatus"><span style="white-space: nowrap"></span></td>
+                        <td class="nowrap" wicket:id="note"><span style="white-space: nowrap"></span></td>
+                        <td class="nowrap" wicket:id="lastEditor"><span style="white-space: nowrap"></span></td>
+                        <td class="nowrap"><span style="white-space: nowrap">
+                            <span wicket:id="lastEditTime" align="right"></span>
+                            <span wicket:id="version"></span>
+                            </span>
+                        </td>
+                        <td class="nowrap"><span style="white-space: nowrap">
+                            <form wicket:id="removeModule">
+                            <input wicket:id="apply" type="submit" value="Delete Module"/>
+                            </form>
+                            <a wicket:id="history" href="#">History</a>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </dd>
+
+            <dt class="toggle ui-state-default ui-corner-all"><span
+                    class="ui-icon ui-icon-circle-plus" style="float: left"></span>Port Setting
+            </dt>
+            <dd>
+                <div class="fakeContainer">
+                    <a wicket:id="addLoopback" href="#">[Add Loopback]</a>
+                    <a wicket:id="addVirtualPort" href="#">[Add Virtual Port]</a>
+                    <a wicket:id="addAlias" href="#">[Add Alias Port]</a>
+                    <div wicket:id="interfacesPanel">
+                        <table class="tablesorter" id="gridtable">
+                        </table>
+                    </div>
+                </div>
+            </dd>
+
+        </dl>
+    </div>
+    <div class="footer" role="contentinfo">
+        <small><a href="https://www.opennaef.io/">OpenNaEF</a></small>
+    </div>
+</div>
+</body>
+</html>

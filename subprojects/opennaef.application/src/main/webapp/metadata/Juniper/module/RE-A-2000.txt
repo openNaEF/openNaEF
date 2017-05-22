@@ -1,0 +1,6 @@
+new-hardware module ""
+  attribute set モジュール種別 RE-A-2000
+
+
+
+context ..

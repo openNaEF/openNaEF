@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/">
+<head>
+    <title>Channel port Edit</title>
+    <link rel="stylesheet" href="blueprint/screen.css" type="text/css" media="screen, projection">
+    <link rel="stylesheet" href="blueprint/print.css" type="text/css" media="print">
+    <!--[if IE]>
+    <link rel="stylesheet" href="blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <link rel="stylesheet" href="blueprint/plugins/tabs/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/plugins/buttons/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="css/ui.base.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/common.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/commonprint.css" type="text/css" media="print"/>
+    <script type='text/javascript' src='js/jquery-1.3.1.min.js'></script>
+    <script type="text/javascript" src="js/jquery.hotkeys-0.7.8-packed.js"></script>
+    <script type="text/javascript" src="js/ui.core.js"></script>
+    <script type='text/javascript' src='js/ui.datepicker.js'></script>
+    <script type='text/javascript' src='js/ui.datepicker-ja.js'></script>
+</head>
+<body>
+<div id="hd" role="banner">
+    <h1>Channel port Edit (Node:<span wicket:id="nodeName"></span>)</h1>
+</div>
+<form wicket:id="back" name="back">
+    <button wicket:id="back" type="submit" tabindex="0" id="back-button" class="negative span-6">
+        <img src="blueprint/plugins/buttons/icons/cross.png" alt="Discard And Back"/>Discard And Back
+    </button>
+</form>
+<form wicket:id="deleteChannelPort" name="deleteChannelPort">
+    <button wicket:id="proceed" type="submit" tabindex="0" id="delete-button" class="negative span-6">
+        <img src="blueprint/plugins/buttons/icons/cross.png" alt="Delete Channel Port"/>Delete Channel Port
+    </button>
+</form>
+<hr/>
+Fields marked with * are mandatory
+<br/>
+<form wicket:id="editChannelPort" name="editChannelPort">
+    <span wicket:id="feedback"></span>
+    <table>
+        <tr>
+            <th>Items</th>
+            <th>Value</th>
+            <th>Overview</th>
+        </tr>
+        <tr>
+            <th>ifName *</th>
+            <td><input wicket:id="ifName" type="text" name="ifName" value="0"/></td>
+            <td>ifName of Port</td>
+        </tr>
+        <tr>
+            <th>Parent Port *</th>
+            <td>
+                <select wicket:id="parentPort">
+                    <option></option>
+                </select>
+            </td>
+            <td>Select Parent Port</td>
+        </tr>
+        <tr>
+            <th>Operational Status</th>
+            <td><span wicket:id="operStatus">
+			<input type="radio">In-Service
+		    </span></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>TimeSlot</th>
+            <td><input wicket:id="timeslot" type="text"></td>
+            <td>ex. 1-24.Leave it blank if the channel port is set in unstructured mode.</td>
+        </tr>
+        <tr>
+            <th>Channel group</th>
+            <td><input wicket:id="channelGroup" type="text"></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>Bandwidth</th>
+            <td><input wicket:id="bandwidth" type="text"></td>
+            <td>Bandwidth(Kbps)</td>
+        </tr>
+        <tr>
+            <th>Purpose</th>
+            <td><input wicket:id="purpose" type="text"/></td>
+            <td>Purpose</td>
+        </tr>
+        <tr>
+            <th>Note</th>
+            <td><textarea wicket:id="note"></textarea></td>
+            <td>Note.</td>
+        </tr>
+    </table>
+    <button wicket:id="proceed" type="submit" tabindex="0" id="apply-button" class="positive span-3">
+        <img src="blueprint/plugins/buttons/icons/tick.png" alt="Apply"/>OK
+    </button>
+</form>
+</body>
+</html>

@@ -1,0 +1,7 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+    <layer_block name="ログアウト処理" snmptrap="disable">
+      write memory
+      disable
+      quit
+    </layer_block>
+</j:jelly>

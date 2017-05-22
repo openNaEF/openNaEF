@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<j:jelly
+  trim="true" escapeText="false"
+  xmlns:j="jelly:core" xmlns:define="jelly:define" xmlns:voss="voss" xmlns:debug="debugTagLib">
+
+  <voss:dump variables="params"/>
+  <j:set var="dir" value="${params.dir}"/>
+  <j:set var="configOperations" value="${context.configOperationSet}"/>
+
+    <j:forEach items="${configOperations.devices}" var="device">
+      <node_block node_name="${device.deviceName}" config_order="無関係" port_type="none" dummy_check="disable" node_confirm="disable">
+        <voss:templateImporter filename="${device.osTypeName}-header.jelly" directory="${dir}" subdirectory="/${device.osTypeName}"/>
+        <voss:getConfigOperationsByDevice configOperations="${configOperations}" device="${device}" varName="deviceOpList" />
+        
+        <!-- ALIAS OP_DELETE -->
+        <voss:filterOperation source="${deviceOpList}" operationReference="op" 
+        rule="${op.targetType == 'ALIAS' and op.operationType == 'OP_DELETE'}" result="portDeleteOperations"/>
+        <j:forEach items="${portDeleteOperations}" var="op">
+          <voss:templateSelectAndImporter directory="${dir}" subdirectory="/${device.osTypeName}" configOperation="${op}"/>
+        </j:forEach>
+
+        <!-- VLAN OP_CREATE/VLAN OP_CHANGE -->
+        <voss:filterOperation source="${deviceOpList}" operationReference="op" rule="${op.targetType == 'VLAN' and op.operationType != 'OP_DELETE'}" result="vlanOperations"/>
+        <j:forEach items="${vlanOperations}" var="vif">
+          ### DEBUG start ###
+          op.operationType: ${op.operationType}
+          vif:targetType: ${vif.getTargetType()}
+          vif.operationType: ${vif.getOperationType()}
+          vif.addedTaggedPorts.size(): ${vif.addedTaggedPorts.size()}
+          vif.addedUntaggedPorts.size(): ${vif.addedUntaggedPorts.size()}
+          vif.removedTaggedPorts.size(): ${vif.removedTaggedPorts.size()}
+          vif.removedUntaggedPorts.size(): ${vif.removedUntaggedPorts.size()}
+          op.description.isChanged: ${op.description.isChanged()}
+          ### DEBUG end ###
+          <voss:templateSelectAndImporter directory="${dir}" subdirectory="/${device.osTypeName}" configOperation="${vif}"/>
+          <!-- OP_REMOVE_UNTAGGED_VLAN -->
+          <j:forEach items="${vif.removedUntaggedPorts}" var="op">
+            <voss:templateSelectAndImporter directory="${dir}" subdirectory="/${device.osTypeName}" configOperation="${op}"/>
+          </j:forEach>
+          <!-- OP_REMOVE_TAGGED_VLAN -->
+          <j:forEach items="${vif.removedTaggedPorts}" var="op">
+            <voss:templateSelectAndImporter directory="${dir}" subdirectory="/${device.osTypeName}" configOperation="${op}"/>
+          </j:forEach>
+          <!-- OP_ADD_TAGGED_VLAN -->
+          <j:forEach items="${vif.addedTaggedPorts}" var="op">
+            <voss:templateSelectAndImporter directory="${dir}" subdirectory="/${device.osTypeName}" configOperation="${op}"/>
+          </j:forEach>
+          <!-- OP_ADD_UNTAGGED_VLAN -->
+          <j:forEach items="${vif.addedUntaggedPorts}" var="op">
+            <voss:templateSelectAndImporter directory="${dir}" subdirectory="/${device.osTypeName}" configOperation="${op}"/>
+          </j:forEach>
+        </j:forEach>
+
+        <!-- LAG/PORT/VLAN_SUBIF/VLAN_IF OP_CREATE -->
+        <voss:filterOperation source="${deviceOpList}" operationReference="op" rule="${(op.targetType == 'LAG' or op.targetType == 'PORT' or op.targetType == 'VLAN_SUBIF' or op.targetType == 'VLAN_IF') and op.operationType == 'OP_CREATE'}" result="portCreateOperations"/>
+        <j:forEach items="${portCreateOperations}" var="op">
+          <voss:templateSelectAndImporter directory="${dir}" subdirectory="/${device.osTypeName}" configOperation="${op}"/>
+        </j:forEach>
+
+        <!-- LAG/PORT/VLAN_SUBIF OP_CHANGE -->
+        <voss:filterOperation source="${deviceOpList}" operationReference="op" rule="${(op.targetType == 'LAG' or op.targetType == 'PORT' or op.targetType == 'VLAN_SUBIF') and op.operationType == 'OP_CHANGE'}" result="portChangeOperations"/>
+        <j:forEach items="${portChangeOperations}" var="op">
+          <voss:templateSelectAndImporter directory="${dir}" subdirectory="/${device.osTypeName}" configOperation="${op}"/>
+        </j:forEach>
+
+        <!-- LAG/PORT/VLAN_SUBIF/VLAN_IF OP_DELETE -->
+        <voss:filterOperation source="${deviceOpList}" operationReference="op" rule="${(op.targetType == 'LAG' or op.targetType == 'PORT' or op.targetType == 'VLAN_SUBIF' or op.targetType == 'VLAN_IF') and op.operationType == 'OP_DELETE'}" result="portDeleteOperations"/>
+        <j:forEach items="${portDeleteOperations}" var="op">
+          <voss:templateSelectAndImporter directory="${dir}" subdirectory="/${device.osTypeName}" configOperation="${op}"/>
+        </j:forEach>
+
+        <!-- VLAN OP_DELETE -->
+        <voss:filterOperation source="${deviceOpList}" operationReference="op" rule="${op.targetType == 'VLAN' and op.operationType == 'OP_DELETE'}" result="vlanOperations"/>
+        <j:forEach items="${vlanOperations}" var="vif">
+          <!-- OP_REMOVE_UNTAGGED_VLAN -->
+          <j:forEach items="${vif.removedUntaggedPorts}" var="op">
+            <voss:templateSelectAndImporter directory="${dir}" subdirectory="/${device.osTypeName}" configOperation="${op}"/>
+          </j:forEach>
+          <!-- OP_REMOVE_TAGGED_VLAN -->
+          <j:forEach items="${vif.removedTaggedPorts}" var="op">
+            <voss:templateSelectAndImporter directory="${dir}" subdirectory="/${device.osTypeName}" configOperation="${op}"/>
+          </j:forEach>
+          <!-- OP_ADD_TAGGED_VLAN -->
+          <j:forEach items="${vif.addedTaggedPorts}" var="op">
+            <voss:templateSelectAndImporter directory="${dir}" subdirectory="/${device.osTypeName}" configOperation="${op}"/>
+          </j:forEach>
+          <!-- OP_ADD_UNTAGGED_VLAN -->
+          <j:forEach items="${vif.addedUntaggedPorts}" var="op">
+            <voss:templateSelectAndImporter directory="${dir}" subdirectory="/${device.osTypeName}" configOperation="${op}"/>
+          </j:forEach>
+          <j:set var="op" value="${vif}"/>
+          <voss:templateSelectAndImporter directory="${dir}" subdirectory="/${device.osTypeName}" configOperation="${op}"/>
+        </j:forEach>
+
+        <!-- ALIAS OP_CREATE -->
+        <voss:filterOperation source="${deviceOpList}" operationReference="op" 
+        rule="${op.targetType == 'ALIAS' and op.operationType == 'OP_CREATE'}" result="portCreateOperations"/>
+        <j:forEach items="${portCreateOperations}" var="op">
+          <voss:templateSelectAndImporter directory="${dir}" subdirectory="/${device.osTypeName}" configOperation="${op}"/>
+        </j:forEach>
+
+        <!-- ALIAS OP_CHANGE -->
+        <voss:filterOperation source="${deviceOpList}" operationReference="op" 
+        rule="${op.targetType == 'ALIAS' and op.operationType == 'OP_CHANGE'}" result="portChangeOperations"/>
+        <j:forEach items="${portChangeOperations}" var="op">
+          <voss:templateSelectAndImporter directory="${dir}" subdirectory="/${device.osTypeName}" configOperation="${op}"/>
+        </j:forEach>
+
+        <voss:templateImporter filename="${device.osTypeName}-trailer.jelly" directory="${dir}" subdirectory="/${device.osTypeName}"/>
+      </node_block>
+    </j:forEach>
+
+    <!--http method="GET" url="${param.url}" on_http_error="retriable" on_transport_error="retriable"/-->
+
+</j:jelly>

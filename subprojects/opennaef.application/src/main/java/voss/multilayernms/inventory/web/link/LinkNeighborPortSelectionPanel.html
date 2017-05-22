@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/">
+<head>
+    <title>Port Selection</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <wicket:head>
+        <link rel="stylesheet" href="css/common.css" type="text/css" media="screen"/>
+        <script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $.tablesorter.defaults.widgets = ['zebra'];
+                $('table.tablesorter').tablesorter();
+            });
+        </script>
+    </wicket:head>
+</head>
+<body>
+<wicket:panel>
+    <table class="tablesorter">
+        <thead>
+        <tr>
+            <th class="nowrap"><span style="white-space: nowrap">Select</span></th>
+            <th><span style="white-space: nowrap">ifName</span></th>
+            <th><span style="white-space: nowrap">Resource Permission</span></th>
+            <th><span style="white-space: nowrap">Interface Type</span></th>
+            <th><span style="white-space: nowrap">Bandwidth</span></th>
+            <th><span style="white-space: nowrap">Neighbor Port</span></th>
+            <th><span style="white-space: nowrap">Temporary Neighbor Port</span></th>
+            <th colspan="2"><span style="white-space: nowrap">Last Edit time</span></th>
+        </tr>
+        </thead>
+        <tbody wicket:id="radios">
+        <tr wicket:id="interfaces">
+            <td><input wicket:id="selector" type="radio" name="selector"/></td>
+            <td><span wicket:id="ifName"></span></td>
+            <td wicket:id="interfaceType"></td>
+            <td wicket:id="bandwidth" align="right"></td>
+            <td wicket:id="connected"></td>
+            <td wicket:id="interimConnected"></td>
+            <td wicket:id="lastEditor"></td>
+            <td><span wicket:id="lastEditTime" align="right"></span>
+                <span wicket:id="version"></span></td>
+            <td wicket:id="ifName2"></td>
+        </tr>
+        </tbody>
+    </table>
+</wicket:panel>
+</body>
+</html>

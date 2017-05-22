@@ -1,0 +1,10 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+    <layer_block name="SVI陷台ｼ∝求" snmptrap="disable">
+      <j:if test="${empty(op.ifname.pre)}">
+        ERROR: op.ifname.pre is empty.
+      </j:if>
+      configure terminal
+      no interface ${op.ifname.pre}
+      exit
+    </layer_block>
+</j:jelly>

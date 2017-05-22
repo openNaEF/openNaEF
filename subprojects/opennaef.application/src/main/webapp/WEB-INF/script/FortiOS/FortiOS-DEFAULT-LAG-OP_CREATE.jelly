@@ -1,0 +1,53 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+  <!-- TODO: vdom 作る作らないのフラグが必要 -->
+  <!-- j:if test="${!empty(op.vdom.value)}">
+    <layer_block name="VDOM 作成" snmptrap="disable">
+      config vdom
+      edit "${op.vdom}"
+      next
+      end
+    </layer_block>
+  </j:if-->
+  <layer_block name="LAG作成" snmptrap="disable">
+    <j:if test="${empty(op.ifname.value)}">
+      ERROR: op.ifname is empty.
+    </j:if>
+    config global
+    config system interface
+    edit "${op.ifname}"
+    set type aggregate
+    <j:if test="${!empty(op.vdom.value)}">
+      set vdom "${op.vdom}"
+    </j:if>
+    <j:if test="${op.ipAddress.isChanged() or op.subnetMask.isChanged()}">
+      <j:choose>
+        <j:when test="${empty(op.ipAddress.value)}"> <!-- ipAddress が null なら subnetMask に関わりなく消す -->
+          unset ip
+        </j:when>
+        <j:when test="${!empty(op.ipAddress.value) and empty(op.subnetMask.value)}"> <!-- ipAddress があるのに subnetMask が null は設定不可 -->
+          ERROR: op.subnetMask is empty.
+        </j:when>
+        <j:otherwise>
+          set ip ${op.ipAddress} ${op.subnetMask}
+        </j:otherwise>
+      </j:choose>
+    </j:if>
+    <!-- secondary IP address の設定方法不明 -->
+    <!--j:if test="${!empty(op.ipAddress2.value) and !empty(op.subnetMask2.value)}">
+      set ip ${op.ipAddress2} ${op.subnetMask2}
+    </j:if-->
+    <j:if test="${!empty(op.description.value)}">
+      set description "${op.description}"
+    </j:if>
+    <j:new className="java.lang.String" var="memberPortList"/>
+    <j:forEach items="${op.lagMemberPorts}" var="memberPort">
+      <j:invoke var="memberPortList" on="${memberPortList}" method="concat">
+        <j:arg value="&quot;${memberPort.ifName}&quot; "/>
+      </j:invoke>
+    </j:forEach>
+    set member ${memberPortList}
+    next
+    end
+    end
+  </layer_block>
+</j:jelly>

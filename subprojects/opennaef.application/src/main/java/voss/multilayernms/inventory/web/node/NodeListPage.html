@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/">
+<head>
+    <title>Node List</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="blueprint/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/print.css" type="text/css" media="print"/>
+    <!--[if IE]>
+    <link rel="stylesheet" href="blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <link rel="stylesheet" href="blueprint/plugins/tabs/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/plugins/buttons/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="css/ui.base.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/tablesorter/style.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/common.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/commonprint.css" type="text/css" media="print"/>
+
+    <script type='text/javascript' src='js/jquery-1.3.1.min.js'></script>
+    <script type="text/javascript" src="js/ui.core.js"></script>
+    <script type="text/javascript" src="js/jquery.suggest.js"></script>
+    <script type='text/javascript' src='js/jquery.tablesorter.min.js'></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.tablesorter.defaults.widgets = ['zebra'];
+            $('table.tablesorter').tablesorter();
+        });
+    </script>
+</head>
+<body>
+<div id="hd" role="banner">
+    <h1>Node List</h1>
+</div>
+<a wicket:id="addNode" href="#">[Create Node]</a> |
+<a wicket:id="top" href="#">[Menu]</a> |
+<a wicket:id="search" href="#">[Search Node]</a> |
+<a wicket:id="refresh" href="#">[Refresh]</a>
+
+<table class="tablesorter">
+    <thead>
+    <tr>
+        <th>Node Name</th>
+        <th>Appliance Type</th>
+        <th>Resource Permission</th>
+        <th>Port Summary</th>
+        <th>Purpose</th>
+        <th>Vendor Name</th>
+        <th>Node Type</th>
+        <th>OS Type</th>
+        <th>OS Version</th>
+        <th>Management IPAddress</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr wicket:id="nodes">
+        <td><a wicket:id="nodeNameLink" href="#"><span wicket:id="nodeName">Node Name</span></a></td>
+        <td wicket:id="applianceType"></td>
+        <td wicket:id="resourcePermission"></td>
+        <td wicket:id="portSummary"></td>
+        <td wicket:id="purpose"></td>
+        <td wicket:id="vendorName"></td>
+        <td wicket:id="nodeType"></td>
+        <td wicket:id="osType"></td>
+        <td wicket:id="osVersion"></td>
+        <td wicket:id="managementIpAddress"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

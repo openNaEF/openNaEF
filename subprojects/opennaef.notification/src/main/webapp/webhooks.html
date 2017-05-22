@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>open NaEF Notification</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="css/material-components-web.css">
+    <link rel="stylesheet" href="css/notification.css">
+    <script src="js/material-components-web.js" charset="utf-8"></script>
+    <script src="js/webhooks.js" charset="utf-8"></script>
+</head>
+<body class="notification-body mdc-typography">
+<nav class="mdc-permanent-drawer">
+    <div class="mdc-permanent-drawer__toolbar-spacer"></div>
+    <div class="mdc-list-group">
+        <nav class="mdc-list">
+            <a class="mdc-list-item" href="index.html">
+                <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">message</i>Notification
+            </a>
+            <a class="mdc-list-item mdc-permanent-drawer--selected" href="./webhooks.html">
+                <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">add_alert</i>Webhooks
+            </a>
+        </nav>
+        <hr class="mdc-list-divider">
+    </div>
+</nav>
+<div class="notification-content">
+    <div class="notification-toolbar mdc-theme--primary-bg mdc-theme--text-primary-on-primary mdc-typography--title mdc-elevation--z4">
+        Webhooks
+    </div>
+
+    <main class="notification-main">
+        <div dir="ltr">
+            <a id="refresh" class="material-icons gray material-icons__medium" aria-label="Refresh"
+               alt="Refresh">refresh</a>
+            <a id="addHook" class="material-icons green material-icons__medium" aria-label="Add"
+               alt="Add">add_box</a>
+        </div>
+
+        <ul id="hook-list" class="mdc-list">
+        </ul>
+    </main>
+</div>
+
+<dialog class="mdl-dialog" id="editHook">
+    <h4 class="mdl-dialog__title">Edit Hook</h4>
+    <div class="mdl-dialog__content">
+        <form name="fHook">
+            <input type="hidden" id="h-id" name="id">
+            <div id="tf-callback_url-wrapper">
+                <div class="mdc-textfield">
+                    <input type="text" class="mdc-textfield__input" id="tf-callback_url"
+                           name="callback_url" aria-controls="tf-callback_url-help"
+                           data-demo-no-auto-js>
+                    <label for="tf-callback_url" class="mdc-textfield__label">Callback URL</label>
+                </div>
+                <p id="tf-name-help" class="mdc-textfield-helptext" aria-hidden="true" style="display:block;">
+                    ここで指定したURLに対してPOSTします
+                </p>
+            </div>
+            <div class="mdc-form-field">
+                <div id="cb-active-wrapper" class="mdc-checkbox">
+                    <input type="checkbox" id="cb-active" class="mdc-checkbox__native-control" checked="checked"/>
+                    <div class="mdc-checkbox__background">
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve"
+                        class="mdc-checkbox__checkmark"
+                        viewBox="0 0 24 24">
+                            <path class="mdc-checkbox__checkmark__path"
+                                  fill="none"
+                                  stroke="white"
+                                  d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+                        </svg>
+                        <div class="mdc-checkbox__mixedmark"></div>
+                    </div>
+                </div>
+                <label for="cb-active" id="cb-active-label">isActive</label>
+            </div>
+        </form>
+    </div>
+
+    <div class="mdl-dialog__actions">
+        <button type="button" id="updateHook" class="mdc-button mdc-button--raised">Submit</button>
+        <button type="button" class="mdc-button mdc-button--raised close">Cancel</button>
+    </div>
+</dialog>
+
+<script>mdc.autoInit()</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <inventory-rmi-service-port>4649</inventory-rmi-service-port>
+    <diffset-store-directory>./diff</diffset-store-directory>
+    <debug-store-directory>./temp</debug-store-directory>
+
+    <!-- Define Discovery behavior -->
+    <discovery>
+        <display-name>Network</display-name>
+        <max-thread-size>5</max-thread-size>
+        <snmp-timeout-sec>30</snmp-timeout-sec>
+        <snmp-retry-times>3</snmp-retry-times>
+        <telnet-timeout-sec>30</telnet-timeout-sec>
+        <scheduler-base-time>2010/01/01 00:00</scheduler-base-time>
+        <scheduler-interval-minutes>0</scheduler-interval-minutes>
+        <regular-execution>
+            <start-time>2010/04/14 00:00:00</start-time>
+            <interval>0</interval>
+        </regular-execution>
+    </discovery>
+
+    <debug-flag>false</debug-flag>
+
+    <!-- Interface type name etc., value conversion map to unify notation fluctuation -->
+    <value-mapping>
+        <mapping from="A" to="a"/>
+        <mapping from="B" to="b"/>
+    </value-mapping>
+
+    <default-snmp-community-string>public</default-snmp-community-string>
+    <default-snmp-method>SNMPv2</default-snmp-method>
+
+</configuration>

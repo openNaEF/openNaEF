@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date %-5level [%logger{0}] %thread - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="Console" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <file>logs/rootCategory.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+
+            <fileNamePattern>logs/rootCategory.%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+            <maxHistory>5</maxHistory>
+            <maxFileSize>100MB</maxFileSize>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%date %-5level [%logger{0}] %thread - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="VOSS" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <file>logs/voss.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/voss.%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+            <maxHistory>5</maxHistory>
+            <maxFileSize>100MB</maxFileSize>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%date %-5level [%logger{0}] %thread - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="forwarder" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <file>logs/forwarder.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/forwarder.%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+            <maxHistory>5</maxHistory>
+            <maxFileSize>100MB</maxFileSize>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%date %-5level [%logger{0}] %thread - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="AAA" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <file>logs/aaa.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/aaa.%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+            <maxHistory>2</maxHistory>
+            <maxFileSize>100MB</maxFileSize>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%date %-5level [%logger{0}] %thread - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <logger name="script-service">
+        <level value="debug"/>
+        <appender-ref ref="stdout"/>
+    </logger>
+
+    <logger name="trigger-service">
+        <level value="debug"/>
+        <appender-ref ref="stdout"/>
+    </logger>
+
+    <logger name="diff-service">
+        <level value="debug"/>
+        <appender-ref ref="stdout"/>
+    </logger>
+
+    <logger name="command">
+        <level value="debug"/>
+        <appender-ref ref="stdout"/>
+    </logger>
+
+    <logger name="PerfLog">
+        <level value="warn"/>
+        <appender-ref ref="stdout"/>
+    </logger>
+
+    <logger name="voss">
+        <level value="debug"/>
+        <appender-ref ref="stdout"/>
+    </logger>
+
+    <logger name="Session">
+        <level value="debug"/>
+        <appender-ref ref="stdout"/>
+    </logger>
+
+    <logger name="AAALog">
+        <level value="info"/>
+        <appender-ref ref="stdout"/>
+    </logger>
+
+    <logger name="access">
+        <level value="info"/>
+        <appender-ref ref="stdout"/>
+    </logger>
+
+    <!--
+     -->
+    <logger name="voss.nms.inventory.diff.network.analyzer.DeviceAnalyzer">
+        <level value="trace"/>
+    </logger>
+
+    <logger name="debug">
+        <level value="debug"/>
+    </logger>
+
+    <logger name="maint_access">
+        <level value="debug"/>
+    </logger>
+
+    <logger name="maint_update">
+        <level value="debug"/>
+    </logger>
+
+    <logger name="org.apache">
+        <level value="debug"/>
+        <!--<appender-ref ref="stdout" />-->
+    </logger>
+
+    <root level="debug">
+        <!--
+        <appender-ref ref="Console" />
+        -->
+    </root>
+
+</configuration>

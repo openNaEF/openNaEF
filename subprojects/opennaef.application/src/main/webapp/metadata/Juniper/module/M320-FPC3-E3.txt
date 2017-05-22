@@ -1,0 +1,7 @@
+new-hardware module ""
+  attribute set モジュール種別 "FPC: M320 E3-FPC Type 3"
+  new-hardware slot 0
+  context ..
+  new-hardware slot 1
+  context ..
+context ..

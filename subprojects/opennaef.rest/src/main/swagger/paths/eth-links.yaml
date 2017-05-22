@@ -1,0 +1,180 @@
+eth-links:
+  get:
+    summary: すべてのeth-linkを取得する
+    description: すべてのeth-linkを取得する
+    parameters:
+      - name: deref
+        in: query
+        description: |
+          true を指定した場合は、MvoLinkではなく、Dtoを返す
+        required: false
+        type: boolean
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: version
+        in: query
+        description: |
+          ターゲットとなるバージョン。
+          指定しない場合は最新のバージョンが指定される。
+        required: false
+        type: string
+    tags:
+      - eth-link
+    responses:
+      200:
+        description: eth-linkのリスト
+        schema:
+          type: array
+          items:
+            $ref: '#/defs/MvoLink'
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+  post:
+    summary: eth-linkを新規作成する
+    description: eth-linkを新規作成する
+    parameters:
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: eth-link
+        in: body
+        description: eth-link
+        required: true
+        schema:
+          $ref: '#/defs/Link'
+    tags:
+      - eth-link
+    responses:
+      201:
+        description: Make a new eth-link
+        headers:
+          Location:
+            description: 新規作成されたeth-linkのuri
+            type: string
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+
+eth-links_mvo-id:
+  get:
+    summary: eth-linkを取得する
+    description: eth-linkを取得する
+    parameters:
+      - name: mvo-id
+        in: path
+        description: ID of the mvo
+        required: true
+        type: string
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: version
+        in: query
+        description: |
+          ターゲットとなるバージョン。
+          指定しない場合は最新のバージョンが指定される。
+        required: false
+        type: string
+    tags:
+      - eth-link
+    responses:
+      200:
+        description: eth-link
+        schema:
+          $ref: '#/defs/Link'
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+  put:
+    summary: eth-linkを更新する
+    description: eth-linkを更新する
+    parameters:
+      - name: mvo-id
+        in: path
+        description: ID of the mvo
+        required: true
+        type: string
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: eth-link
+        in: body
+        description: eth-link
+        required: true
+        schema:
+          $ref: '#/defs/Link'
+    tags:
+      - eth-link
+    responses:
+      204:
+        description: Updates the link
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+  delete:
+    summary: eth-linkを削除する
+    description: eth-linkを削除する
+    parameters:
+      - name: mvo-id
+        in: path
+        description: ID of the mvo
+        required: true
+        type: string
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+    tags:
+      - eth-link
+    responses:
+      204:
+        description: Deletes the eth-link
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+
+defs:
+  Link:
+    type: object
+    properties:
+      name:
+        description: リンク名
+        type: string
+        example: link[A-B]
+      member_ports:
+        description: 両端のポートのmvo-idのリスト
+        type: array
+        items:
+          type: string
+        example: ["port-A", "port-B"]

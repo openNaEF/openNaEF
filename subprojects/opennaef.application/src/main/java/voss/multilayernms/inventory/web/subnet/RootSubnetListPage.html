@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/">
+<head>
+    <title>Root IP Subnet</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="blueprint/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/print.css" type="text/css" media="print"/>
+    <!--[if IE]>
+    <link rel="stylesheet" href="blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <link rel="stylesheet" href="blueprint/plugins/tabs/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/plugins/buttons/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="css/ui.base.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/tablesorter/style.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/common.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/commonprint.css" type="text/css" media="print"/>
+
+    <script type='text/javascript' src='js/jquery-1.3.1.min.js'></script>
+    <script type="text/javascript" src="js/ui.core.js"></script>
+    <script type="text/javascript" src="js/jquery.suggest.js"></script>
+    <script type='text/javascript' src='js/jquery.tablesorter.min.js'></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.tablesorter.defaults.widgets = ['zebra'];
+            $('table.tablesorter').tablesorter();
+        });
+    </script>
+</head>
+<body>
+<div id="hd" role="banner">
+    <h1>Root IP Subnet</h1>
+</div>
+<div id="bd" role="menu">
+    <a wicket:id="top" href="#">[Menu]</a> |
+    <a wicket:id="refresh" href="#">[Refresh]</a>
+</div>
+<div id="bd" role="main">
+    <button wicket:id="back">Back</button>
+    <h2>Root IP Subnets</h2>
+    <button wicket:id="addRoot">Add Root IP Subnet</button>
+    <table class="tablesorter">
+        <thead>
+        <tr>
+            <th>VPN Prefix</th>
+            <th>Root IP Subnet Namespace Name</th>
+            <th>IP Subnet Address Name</th>
+            <th>Network Address</th>
+            <th>Operation</th>
+            <th rowspan="2">LastEdit</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr wicket:id="children">
+            <td wicket:id="vpnPrefix"></td>
+            <td wicket:id="ipSubnetNamespaceName"></td>
+            <td wicket:id="ipSubnetAddressName"></td>
+            <td wicket:id="subnetAddress"></td>
+            <td>
+                <a href="#" wicket:id="detail">Detail</a>
+                <a href="#" wicket:id="edit">Edit</a>
+                <a href="#" wicket:id="remove">Delete</a>
+            </td>
+            <td wicket:id="lastEditor"></td>
+            <td wicket:id="lastEditTime"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

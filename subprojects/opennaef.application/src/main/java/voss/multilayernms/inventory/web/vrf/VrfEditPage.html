@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/">
+<head>
+    <title>VRF Edit</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="blueprint/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/print.css" type="text/css" media="print"/>
+    <!--[if IE]>
+    <link rel="stylesheet" href="blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <link rel="stylesheet" href="blueprint/plugins/tabs/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/plugins/buttons/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="css/ui.base.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/common.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/commonprint.css" type="text/css" media="print"/>
+</head>
+<body>
+<div id="hd">
+    <h1 wicket:id="headTitle">VRF Edit</h1>
+</div>
+<div id="bd">
+    <form wicket:id="backForm" name="backForm">
+        <button wicket:id="back" type="submit" tabindex="0" id="back-button" class="negative span-5">
+            <img src="blueprint/plugins/buttons/icons/cross.png" alt="Back"/>Back
+        </button>
+    </form>
+    <hr/>
+    <form wicket:id="form" name="form">
+        <table class=tablesorter">
+            <tr>
+                <th>Items</th>
+                <th>Value</th>
+                <th>Overview</th>
+            </tr>
+            <tr>
+                <th>VRF ID *</th>
+                <td>
+                </td>
+                <td>VRF ID is mandatory. Unable to Edit</td>
+            </tr>
+            <tr>
+                <th>Note</th>
+                <td class="nowrap"><textarea wicket:id="note" type="text"></textarea></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>
+                    Accommodation port
+                    <a href="#" wicket:id="addPorts">Add Ports</a>
+                </th>
+                <td class="nowrap">
+                    <div wicket:id="attachedPorts">
+                        <span wicket:id="fqn">Port FQN</span><br/>
+                    </div>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+        <br/>
+        <button wicket:id="proceed" type="submit" tabindex="0" id="apply-button" class="positive span-5">
+            <img src="blueprint/plugins/buttons/icons/tick.png" alt="Apply"/>OK
+        </button>
+    </form>
+</div>
+</body>
+</html>

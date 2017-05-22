@@ -1,0 +1,123 @@
+mvos:
+  get:
+    summary: すべてのMvoを取得する
+    description: |
+      すべてのMvoを取得する
+    parameters:
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: version
+        in: query
+        description: |
+          ターゲットとなるバージョン。
+          指定しない場合は最新のバージョンが指定される。
+        required: false
+        type: string
+    tags:
+      - mvo
+    responses:
+      200:
+        description: mvo のリスト
+        schema:
+          type: array
+          items:
+            $ref: '#/defs/MvoLink'
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+
+mvos_mvo-id:
+  get:
+    summary: Mvoを取得する
+    description: Mvoを取得する
+    parameters:
+      - name: mvo-id
+        in: path
+        description: ID of the mvo
+        required: true
+        type: string
+      - name: time
+        in: query
+        description: |
+          ターゲットとなる時間。
+          指定しない場合は現在の時間が指定される。
+        required: false
+        type: number
+        format: int64
+      - name: version
+        in: query
+        description: |
+          ターゲットとなるバージョン。
+          指定しない場合は最新のバージョンが指定される。
+        required: false
+        type: string
+    tags:
+      - mvo
+    responses:
+      200:
+        description: mvo
+        schema:
+          $ref: '#/defs/Mvo'
+      4xx, 5xx:
+        description: Unexpected error
+        schema:
+          $ref: '#/definitions/Error'
+defs:
+  Mvo:
+    type: object
+    properties:
+      $id:
+        type: string
+        description: mvo-id
+        example: mvo-id
+      $absolute-name:
+        type: string
+        description: absolute-name
+        example: mvo;mvo-name
+      $type:
+        type: string
+        description: naef object type
+        example: mvo
+      $time:
+        type: string
+        description: 読み込み時のターゲットとなった時間
+        example: 0
+      $version:
+        type: string
+        description: 読み込み時のターゲットとなったバージョン
+        example: w0
+
+  MvoLink:
+    type: object
+    properties:
+      id:
+        type: string
+        description: mvo-id
+        example: mvo-id
+      object_type_name:
+        type: string
+        description: naef object type
+        example: node
+      name:
+        type: string
+        description: name
+        example: node-name
+      if_name:
+        type: string
+        description: port if-name
+        example: if-name
+      href:
+        type: string
+        description: naef object URI
+        example: http://example.com/api/v1/nodes/mvo-id
+      rel:
+        type: string
+        description: naef object type
+        example: node

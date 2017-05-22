@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/">
+<head>
+    <title>Vport List</title>
+    <link rel="stylesheet" href="blueprint/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/print.css" type="text/css" media="print"/>
+    <!-- [if IE]>
+    <link rel="stylesheet" href="blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <link rel="stylesheet" href="blueprint/plugins/tabs/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/plugins/buttons/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="css/ui.base.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/ui.theme.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/common.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/commonprint.css" type="text/css" media="print"/>
+    <link rel="stylesheet" type="text/css" href="css/tablesorter/style.css" media="screen"/>
+
+    <script type='text/javascript' src='js/jquery-1.3.1.min.js'></script>
+    <script type="text/javascript" src="js/ui.core.js"></script>
+    <script type="text/javascript" src="js/inventory-web.js"></script>
+
+</head>
+
+<body>
+<div id="hd" role="banner">
+    <h1>Vport List：<span wicket:id="ifName"></span></h1>
+</div>
+<div id="bd" role="main">
+    <div id="menu" role="menu">
+        <a wicket:id="top" href="#">[Menu]</a> |
+        <a wicket:id="back" href="#">[Back]</a> |
+    </div>
+
+    <table class="tablesorter">
+        <tr>
+            <th class="nowrap"><span style="white-space: nowrap">Vport ID</span></th>
+            <th class="nowrap"><span style="white-space: nowrap">OuterVlan ID</span></th>
+            <th class="nowrap"><span style="white-space: nowrap">VLAN ID</span></th>
+            <th class="nowrap"><span style="white-space: nowrap">Customer ID</span></th>
+        </tr>
+        <tr wicket:id="vports">
+            <td class="nowrap" wicket:id="vportId"><span style="white-space: nowrap"></span></td>
+            <td class="nowrap" wicket:id="outerVlanId"><span style="white-space: nowrap"></span></td>
+            <td class="nowrap" wicket:id="vwanId"><span style="white-space: nowrap"></span></td>
+            <td class="nowrap" wicket:id="customerId"><span style="white-space: nowrap"></span></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

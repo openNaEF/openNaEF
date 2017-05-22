@@ -1,0 +1,21 @@
+<j:jelly xmlns:j="jelly:core" xmlns:define="jelly:define" trim="false">
+    ### DEBUG start ###
+    NX-OS-DEFAULT-LAG-OP_CHANGE.jelly
+    op.lagId: ${op.lagId}
+    op.lagMemberPorts: ${op.lagMemberPorts}
+    ### DEBUG end ###
+    <layer_block name="LAG 作成" snmptrap="disable">
+      <j:if test="${empty(op.lagId.value)}">
+        ERROR: op.lagId is empty.
+      </j:if>
+      configure terminal
+      interface Port-channel${op.lagId}
+      exit
+      <j:forEach items="${op.lagMemberPorts}" var="memberPort">
+        interface ${memberPort.fullIfName}
+          channel-group ${op.lagId} mode on
+        exit
+      </j:forEach>
+      exit
+    </layer_block>
+</j:jelly>

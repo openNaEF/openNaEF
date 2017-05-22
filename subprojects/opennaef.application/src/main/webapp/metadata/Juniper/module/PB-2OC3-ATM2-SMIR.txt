@@ -1,0 +1,16 @@
+new-hardware module ""
+  attribute set モジュール種別 "PIC: 2x OC-3 ATM-II IQ, SMIR"
+
+  new-hardware jack 0
+    new-port atm-port ""
+      attribute set Prefix "at-"
+      attribute set naef.enabled-networking-function.atm true
+    context ..
+  context ..
+  new-hardware jack 1
+    new-port atm-port ""
+      attribute set Prefix "at-"
+      attribute set naef.enabled-networking-function.atm true
+    context ..
+  context ..
+context ..

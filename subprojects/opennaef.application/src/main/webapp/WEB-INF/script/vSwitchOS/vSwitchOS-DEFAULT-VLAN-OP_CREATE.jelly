@@ -1,0 +1,17 @@
+<j:jelly xmlns:j="jelly:core" trim="false" >
+ ### DEBUG start ###
+ op.vlanId: ${op.vlanId}
+ op.ConfigName: ${op.ConfigName}
+ op.virtualDeviceName: ${op.virtualDeviceName}
+ ### DEBUG end ###
+ <layer_block name="VLAN作成" snmptrap="disable">
+   <j:if test="${empty(op.vlanId.value)}">
+     ERROR: op.vlanId is empty.
+   </j:if>
+   <j:if test="${empty(op.vlanName.value)}">
+     ERROR: op.vlanName is empty.
+   </j:if>
+   /usr/sbin/esxcfg-vswitch --add-pg="${op.ConfigName}" "${op.virtualDeviceName}"
+   /usr/sbin/esxcfg-vswitch --pg="${op.ConfigName}" --vlan=${op.vlanId} "${op.virtualDeviceName}"
+ </layer_block>
+</j:jelly>

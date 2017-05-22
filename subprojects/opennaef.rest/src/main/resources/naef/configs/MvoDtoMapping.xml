@@ -1,0 +1,72 @@
+<?xml version="1.0" ?>
+
+<!DOCTYPE mvo-dto-mapping [
+  <!ELEMENT mvo-dto-mapping (map*)>
+
+  <!ELEMENT map EMPTY>
+  <!ATTLIST map
+   mvo CDATA #REQUIRED
+   dto CDATA #REQUIRED>
+]>
+
+<mvo-dto-mapping>
+  <map mvo="naef.mvo.L2Link" dto="naef.dto.L2LinkDto"/>
+  <map mvo="naef.mvo.P2pLink" dto="naef.dto.LinkDto"/>
+  <map mvo="naef.mvo.AbstractNetwork" dto="naef.dto.NetworkDto"/>
+  <map mvo="naef.mvo.Chassis" dto="naef.dto.ChassisDto"/>
+  <map mvo="naef.mvo.CustomerInfo" dto="pasaran.naef.dto.CustomerInfo2dDto"/>
+  <!--<map mvo="naef.mvo.CustomerInfo" dto="naef.dto.CustomerInfoDto"/>-->
+  <map mvo="naef.mvo.InterconnectionIf" dto="naef.dto.InterconnectionIfDto"/>
+  <map mvo="naef.mvo.Jack" dto="naef.dto.JackDto"/>
+  <map mvo="naef.mvo.Location" dto="naef.dto.LocationDto"/>
+  <map mvo="naef.mvo.Module" dto="naef.dto.ModuleDto"/>
+  <map mvo="naef.mvo.Node" dto="naef.dto.NodeDto"/>
+  <map mvo="naef.mvo.NodeGroup" dto="naef.dto.NodeGroupDto"/>
+  <map mvo="naef.mvo.Slot" dto="naef.dto.SlotDto"/>
+  <map mvo="naef.mvo.SystemUser" dto="naef.dto.SystemUserDto"/>
+  <map mvo="naef.mvo.AbstractPort" dto="naef.dto.PortDto"/>
+  <map mvo="naef.mvo.atm.AtmApsIf" dto="naef.dto.atm.AtmApsIfDto"/>
+  <map mvo="naef.mvo.atm.AtmPort" dto="naef.dto.atm.AtmPortDto"/>
+  <map mvo="naef.mvo.atm.AtmPvpIf" dto="naef.dto.atm.AtmPvpIfDto"/>
+  <map mvo="naef.mvo.atm.AtmPvcIf" dto="naef.dto.atm.AtmPvcIfDto"/>
+  <map mvo="naef.mvo.bgp.BgpProcess" dto="naef.dto.bgp.BgpProcessDto"/>
+  <map mvo="naef.mvo.eth.EthLagIf" dto="naef.dto.eth.EthLagIfDto"/>
+  <map mvo="naef.mvo.eth.EthPort" dto="naef.dto.eth.EthPortDto"/>
+  <map mvo="naef.mvo.fr.FrPvcIf" dto="naef.dto.fr.FrPvcIfDto"/>
+  <map mvo="naef.mvo.ip.IpIf" dto="naef.dto.ip.IpIfDto"/>
+  <map mvo="naef.mvo.ip.IpSubnet" dto="naef.dto.ip.IpSubnetDto"/>
+  <map mvo="naef.mvo.ip.IpSubnetAddress" dto="naef.dto.ip.IpSubnetAddressDto"/>
+  <map mvo="naef.mvo.ip.IpSubnetNamespace" dto="naef.dto.ip.IpSubnetNamespaceDto"/>
+  <map mvo="naef.mvo.isdn.IsdnChannelIf" dto="naef.dto.isdn.IsdnChannelIfDto"/>
+  <map mvo="naef.mvo.isdn.IsdnPort" dto="naef.dto.isdn.IsdnPortDto"/>
+  <map mvo="naef.mvo.mpls.Pseudowire" dto="naef.dto.mpls.PseudowireDto"/>
+  <map mvo="naef.mvo.mpls.PseudowireIdPool" dto="naef.dto.mpls.PseudowireLongIdPoolDto"/>
+  <map mvo="naef.mvo.mpls.PseudowireStringIdPool" dto="naef.dto.mpls.PseudowireStringIdPoolDto"/>
+  <map mvo="naef.mvo.mpls.RsvpLsp" dto="naef.dto.mpls.RsvpLspDto"/>
+  <map mvo="naef.mvo.mpls.RsvpLspHop" dto="naef.dto.PathHopDto"/>
+  <map mvo="naef.mvo.mpls.RsvpLspHopSeries" dto="naef.dto.mpls.RsvpLspHopSeriesDto"/>
+  <map mvo="naef.mvo.mpls.RsvpLspHopSeriesIdPool" dto="naef.dto.mpls.RsvpLspHopSeriesIdPoolDto"/>
+  <map mvo="naef.mvo.mpls.RsvpLspIdPool" dto="naef.dto.mpls.RsvpLspIdPoolDto"/>
+  <map mvo="naef.mvo.ospf.OspfProcess" dto="naef.dto.ospf.OspfProcessDto"/>
+  <map mvo="naef.mvo.pos.PosPort" dto="naef.dto.pos.PosPortDto"/>
+  <map mvo="naef.mvo.pos.PosApsIf" dto="naef.dto.pos.PosApsIfDto"/>
+  <map mvo="naef.mvo.rip.RipProcess" dto="naef.dto.rip.RipProcessDto"/>
+  <map mvo="naef.mvo.serial.SerialPort" dto="naef.dto.serial.SerialPortDto"/>
+  <map mvo="naef.mvo.serial.TdmSerialIf" dto="naef.dto.serial.TdmSerialIfDto"/>
+  <map mvo="naef.mvo.vlan.MultipointVlanSegment" dto="naef.dto.vlan.MultipointVlanSegmentDto"/>
+  <map mvo="naef.mvo.vlan.Vlan" dto="naef.dto.vlan.VlanDto"/>
+  <map mvo="naef.mvo.vlan.VlanIdPool$Dot1q" dto="naef.dto.vlan.VlanIdPoolDto"/>
+  <map mvo="naef.mvo.vlan.VlanIf" dto="naef.dto.vlan.VlanIfDto"/>
+  <map mvo="naef.mvo.vlan.VlanLink" dto="naef.dto.vlan.VlanLinkDto"/>
+  <map mvo="naef.mvo.vlan.VlanSegmentGatewayIf" dto="naef.dto.vlan.VlanSegmentGatewayIfDto"/>
+  <map mvo="naef.mvo.vpls.Vpls" dto="naef.dto.vpls.VplsDto"/>
+  <map mvo="naef.mvo.vpls.VplsIdPool$IntegerType" dto="naef.dto.vpls.VplsIntegerIdPoolDto"/>
+  <map mvo="naef.mvo.vpls.VplsIdPool$StringType" dto="naef.dto.vpls.VplsStringIdPoolDto"/>
+  <map mvo="naef.mvo.vpls.VplsIf" dto="naef.dto.vpls.VplsIfDto"/>
+  <map mvo="naef.mvo.vrf.Vrf" dto="naef.dto.vrf.VrfDto"/>
+  <map mvo="naef.mvo.vrf.VrfIdPool$IntegerType" dto="naef.dto.vrf.VrfIntegerIdPoolDto"/>
+  <map mvo="naef.mvo.vrf.VrfIdPool$StringType" dto="naef.dto.vrf.VrfStringIdPoolDto"/>
+  <map mvo="naef.mvo.vrf.VrfIf" dto="naef.dto.vrf.VrfIfDto"/>
+  <map mvo="naef.mvo.of.OfPatchLink$PatchIdPool" dto="naef.dto.of.OfPatchLinkDto$PatchIdPoolDto"/>
+  <map mvo="naef.mvo.of.OfPatchLink" dto="naef.dto.of.OfPatchLinkDto"/>
+</mvo-dto-mapping>

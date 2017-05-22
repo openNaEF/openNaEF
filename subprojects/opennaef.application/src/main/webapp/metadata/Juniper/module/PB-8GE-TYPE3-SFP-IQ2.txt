@@ -1,0 +1,44 @@
+new-hardware module ""
+  attribute set モジュール種別 "PIC: 8x 1GE(TYPE3), IQ2E"
+
+  new-hardware jack 0
+    new-port eth-port ""
+      attribute set Prefix "ge-"
+    context ..
+  context ..
+  new-hardware jack 1
+    new-port eth-port ""
+      attribute set Prefix "ge-"
+    context ..
+  context ..
+  new-hardware jack 2
+    new-port eth-port ""
+      attribute set Prefix "ge-"
+    context ..
+  context ..
+  new-hardware jack 3
+    new-port eth-port ""
+      attribute set Prefix "ge-"
+    context ..
+  context ..
+  new-hardware jack 4
+    new-port eth-port ""
+      attribute set Prefix "ge-"
+    context ..
+  context ..
+  new-hardware jack 5
+    new-port eth-port ""
+      attribute set Prefix "ge-"
+    context ..
+  context ..
+  new-hardware jack 6
+    new-port eth-port ""
+      attribute set Prefix "ge-"
+    context ..
+  context ..
+  new-hardware jack 7
+    new-port eth-port ""
+      attribute set Prefix "ge-"
+    context ..
+  context ..
+context ..

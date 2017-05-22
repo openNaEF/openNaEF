@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/">
+<head>
+    <title>RSVP-LSP Resource Pool Detail</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="blueprint/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/print.css" type="text/css" media="print"/>
+    <!--[if IE]>
+    <link rel="stylesheet" href="blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <link rel="stylesheet" href="blueprint/plugins/tabs/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/plugins/buttons/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="css/ui.base.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/common.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/commonprint.css" type="text/css" media="print"/>
+    <link rel="stylesheet" href="css/tablesorter/style.css" type="text/css" media="screen"/>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //$.tablesorter.defaults.widgets = ['zebra'];
+            //$('table.tablesorter').tablesorter();
+        });
+    </script>
+</head>
+<body>
+<div class="container">
+    <div id="hd" role="banner">
+        <h1>RSVP-LSP Resource Pool Detail</h1>
+    </div>
+    <a wicket:id="top" href="#">[Menu]</a> |
+    <a wicket:id="parent" href="#">[RSVP-LSP Path Pool List]</a> |
+    <a wicket:id="refresh" href="#">[Refresh]</a> |
+    <div id="bd" role="main">
+        <table>
+            <thead>
+            <tr>
+                <th>Pool Name</th>
+                <th>ID Range</th>
+                <th>In-use ID</th>
+                <th>Purpose</th>
+                <th>Administration status</th>
+                <th>Note</th>
+                <th colspan="2">Last Edit Time</th>
+                <th>Operation</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td wicket:id="poolName"></td>
+                <td wicket:id="range"></td>
+                <td wicket:id="used" align="right"></td>
+                <td wicket:id="purpose"></td>
+                <td wicket:id="status"></td>
+                <td wicket:id="note"></td>
+                <td wicket:id="lastEditor"></td>
+                <td><span wicket:id="lastEditTime" align="right"></span>
+                    <span wicket:id="version"></span></td>
+                <td>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <dl>
+            <dt class="toggle ui-state-default ui-corner-all">RSVP-LSP Resource Pool Detail</dt>
+            <dd>
+            <button wicket:id="addNewRsvpLsp1" type="button" tabindex="0"
+                    id="createId-button1" class="positive span-3"><img
+                    src="blueprint/plugins/buttons/icons/tick.png" alt="Create RSVP-LSP ID"/>Create RSVP-LSP ID
+            </button>
+                <table class="tablesorter">
+                    <thead>
+                    <tr>
+                        <th>RSVP-LSP ID</th>
+                        <th>Task</th>
+                        <th>RSVP-LSP Name</th>
+                        <th>InventoryID</th>
+                        <th>Facility Status</th>
+                        <th>Operational Status</th>
+                        <th>SDP ID</th>
+                        <th>Primary Path</th>
+                        <th>Secondary Path</th>
+                        <th>Ingress</th>
+                        <th>Egress</th>
+                        <th>Pair LSP</th>
+                        <th colspan="2">Last Edit Time</th>
+                        <th>Note</th>
+                        <th>Operation</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr wicket:id="lsps">
+                        <td class="nowrap"><a wicket:id="editLsp" href="#"><span wicket:id="lspID"></span></a>
+                        </td>
+                        <td><span wicket:id="taskName">Create LSP</span> <a wicket:id="deleteTask" href="#">[X]</a></td>
+                        <td wicket:id="lspName"></td>
+                        <td wicket:id="inventoryID"></td>
+                        <td wicket:id="facilityStatus"></td>
+                        <td wicket:id="operStatus"></td>
+                        <td wicket:id="sdpId"></td>
+                        <td class="nowrap">
+                            <a wicket:id="primary" href="#"><span wicket:id="pathName"></span></a>
+                            (<span wicket:id="mainOperStatus"/>)
+                        </td>
+                        <td class="nowrap">
+                            <a wicket:id="secondary" href="#"><span wicket:id="pathName"></span></a>
+                            (<span wicket:id="backupOperStatus"/>)
+                        </td>
+                        <td class="nowrap"><a wicket:id="ingress" href="#"><span
+                                wicket:id="nodeName"></span></a></td>
+                        <td class="nowrap"><a wicket:id="egress" href="#"><span
+                                wicket:id="nodeName"></span></a></td>
+                        <td class="nowrap"><a wicket:id="pairLsp" href="#"><span wicket:id="lspName"></span></a>
+                        </td>
+                        <td wicket:id="lastEditor"></td>
+                        <td><span wicket:id="lastEditTime"></span> <span
+                                wicket:id="version"></span></td>
+                        <td wicket:id="note"></td>
+                        <td class="nowrap">
+                            <a wicket:id="deleteID" href="#">Delete</a>
+                            <a wicket:id="history" href="#">History</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                To edit the ID click on the ID link.
+                <p/>
+                <button wicket:id="addNewRsvpLsp2" type="button" tabindex="0"
+                        id="createId-button2" class="positive span-3"><img
+                        src="blueprint/plugins/buttons/icons/tick.png" alt="Create RSVP-LSP ID"/>Create RSVP-LSP ID
+                </button>
+            </dd>
+        </dl>
+    </div>
+    <div class="footer" role="contentinfo">
+        <small><a href="https://www.opennaef.io/">OpenNaEF</a></small>
+    </div>
+</div>
+</body>
+</html>

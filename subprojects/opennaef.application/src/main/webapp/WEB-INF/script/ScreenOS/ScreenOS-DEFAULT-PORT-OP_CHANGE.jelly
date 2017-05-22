@@ -1,0 +1,88 @@
+<j:jelly xmlns:j="jelly:core" trim="false">
+  ### DEBUG start ###
+  File: ScreenOS-DEFAULT-VLAN_SUBIF-OP_CHANGE.jelly
+  op.vlanid: ${op.vlanId}
+  op.ifname: ${op.ifname}
+  op.description: ${op.description}
+  empty(op.description.value): ${empty(op.description.value)}
+  op.ipAddress: ${op.ipAddress}
+  empty(op.ipAddress.value): ${empty(op.ipAddress.value)}
+  op.maskLength: ${op.maskLength}
+  empty(op.maskLength.value): ${empty(op.maskLength.value)}
+  ### DEBUG end ###
+  <layer_block name="ポート設定変更" snmptrap="disable">
+    <j:if test="${empty(op.ifname.value)}">
+      ERROR: op.ifname is empty.
+    </j:if>
+    <j:if test="${op.ipAddress.isChanged() or op.maskLength.isChanged()}">
+      <j:choose>
+        <j:when test="${empty(op.ipAddress.value)}"> <!-- ipAddress が null なら subnetMask に関わりなく消す -->
+          unset interface ${op.ifname} ip
+        </j:when>
+        <j:when test="${!empty(op.ipAddress.value) and empty(op.maskLength.value)}"> <!-- ipAddress があるのに maskLength が null は設定不可 -->
+          ERROR: op.maskLength is empty.
+        </j:when>
+        <j:otherwise>
+          set interface ${op.ifname} ip ${op.ipAddress}/${op.maskLength}
+        </j:otherwise>
+      </j:choose>
+    </j:if>
+    <j:if test="${op.ipAddress2.isChanged() or op.maskLength2.isChanged()}">
+      <j:choose>
+        <j:when test="${empty(op.ipAddress2.value)}"> <!-- ipAddress2 が null なら maskLength2 に関わりなく消す -->
+          unset interface ${op.ifname} ip ${op.ipAddress2}
+        </j:when>
+        <j:when test="${!empty(op.ipAddress2.value) and empty(op.maskLength2.value)}"> <!-- ipAddress2 があるのに maskLength2 が null は設定不可 -->
+          ERROR: op.maskLength2 is empty.
+        </j:when>
+        <j:otherwise>
+          set interface ${op.ifname} ip ${op.ipAddress2}/${op.maskLength2} secondary
+          <!-- TODO: 古いアドレスを消す操作が必要 -->
+        </j:otherwise>
+      </j:choose>
+    </j:if>
+    <j:if test="${op.description.isChanged()}">
+      <j:choose>
+        <j:when test="${!empty(op.description.value)}">
+          set interface ${op.ifname} description "${op.description}"
+        </j:when>
+        <j:otherwise>
+          unset interface ${op.ifname} description
+        </j:otherwise>
+      </j:choose>
+    </j:if>
+
+    <j:if test="${op.duplex.isChanged() or op.portSpeed.isChanged() or op.linkNegotiation.isChanged()}">
+      <!--
+      設定できるのは下記 2 種類のみ:
+      - 全部 auto
+      set interface ${op.ifname} phy auto
+      - speed, duplex 共に固定
+      set interface ${op.ifname} phy ${op.duplex} ${op.portSpeed}
+      これ以外のパターンはエラーとなるようにしているつもり↓
+      -->
+      <j:choose>
+        <!-- 全部 auto -->
+        <j:when test="${(op.linkNegotiation == 'on' or op.linkNegotiation == 'default') and
+                        (op.portSpeed == 'auto' or op.portSpeed == 'default' or empty(op.portSpeed.value)) and
+                        (op.duplex == 'auto' or op.duplex == 'default' or empty(op.portSpeed.value))}">
+          set interface ${op.ifname} phy auto
+          <j:set var="configuredFlag" value="true"/>
+        </j:when>
+        <!-- speed, duplex 共に固定 -->
+        <j:when test="${configuredFlag != 'true' and
+                        (empty(op.linkNegotiation.value) or op.linkNegotiation == 'off') and
+                        (op.duplex.isChanged() or op.portSpeed.isChanged()) and
+                        (op.duplex == 'full' or op.duplex == 'half') and
+                        op.portSpeed.matches('10+') }">
+          set interface ${op.ifname} phy ${op.duplex} ${op.portSpeed}
+          <j:set var="configuredFlag" value="true"/>
+        </j:when>
+        <j:otherwise>
+          ERROR: unsupported linkNegotiation/speed/duplex combination [linkNegotiation = ${op.linkNegotiation}, speed = ${op.portSpeed}, duplex = ${op.duplex}].
+        </j:otherwise>
+      </j:choose>
+    </j:if>
+
+ </layer_block>
+</j:jelly>

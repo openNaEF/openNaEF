@@ -1,0 +1,19 @@
+dependencies {
+    compile project(':pasaran.naef')
+
+    compile name: '38k/voss.subnet-address-allocator'
+
+    compile "org.eclipse.jetty:jetty-server:$jettyVersion"
+    compile "org.eclipse.jetty:jetty-servlet:$jettyVersion"
+    compile "org.eclipse.jetty.websocket:javax-websocket-server-impl:$jettyVersion"
+
+    compile "org.glassfish.jersey.core:jersey-server:$jerseyVersion"
+    compile "org.glassfish.jersey.containers:jersey-container-servlet-core:$jerseyVersion"
+    compile "org.glassfish.jersey.containers:jersey-container-jetty-http:$jerseyVersion"
+    compile "net.arnx:jsonic:$jsonicVersion"
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}

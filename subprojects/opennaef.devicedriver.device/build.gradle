@@ -1,0 +1,13 @@
+dependencies {
+    compile project(':opennaef.devicedriver.core')
+    compile name: 'vim'
+    compile name: 'vim25'
+
+    compile "commons-discovery:commons-discovery:$commonsDiscoveryVersion"
+    compile "axis:axis:$axisVersion"
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}

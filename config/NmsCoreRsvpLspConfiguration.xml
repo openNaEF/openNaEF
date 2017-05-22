@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- These settings is only for Phalanx Client UI. -->
+
+    <!-- Attribute name to store the value for inventory ID -->
+    <id-field-name>LSP Name</id-field-name>
+
+    <!-- Attribute name to prepare choice of operation state -->
+    <operation-status-field-names>
+        <value>Operational Status</value>
+    </operation-status-field-names>
+
+    <!-- Special attribute 1: Hop number Attribute name of passing IP address -->
+    <hop-and-ip-path-fields-name>
+        <value>Primary Hops IP Address</value>
+        <value>Secondary Hops IP Address</value>
+    </hop-and-ip-path-fields-name>
+
+    <!-- List display target item
+         value: [OBJECT_TYPE] Distinguished name in RenderingUtil -->
+    <fields>
+        <value>LSP Name</value>
+        <value>IngressNode</value>
+        <value>EgressNode</value>
+        <value>Operational Status</value>
+        <value>Facility Status</value>
+        <value>Primary Path Name</value>
+        <value>Secondary Path Name</value>
+        <value>Active Path Name</value>
+    </fields>
+
+    <!-- Property display target item
+         value: [OBJECT_TYPE] Distinguished name in RenderingUtil -->
+    <property-fields>
+        <value>LSP Name</value>
+        <value>IngressNode</value>
+        <value>EgressNode</value>
+        <value>Operational Status</value>
+        <value>Facility Status</value>
+        <value>Primary Path Name</value>
+        <value>Primary Hops IP Address</value>
+        <value>Secondary Path Name</value>
+        <value>Secondary Hops IP Address</value>
+        <value>Active Path Name</value>
+    </property-fields>
+
+    <!-- Filter view search item
+         value: [OBJECT_TYPE] Distinguished name in RenderingUtil -->
+    <filtering-fields>
+        <value>LSP Name</value>
+        <value>IngressNode</value>
+        <value>EgressNode</value>
+        <value>Operational Status</value>
+        <value>Facility Status</value>
+        <value>Primary Path Name</value>
+        <value>Secondary Path Name</value>
+        <value>Active Path Name</value>
+    </filtering-fields>
+
+    <!-- Filter view Search type of search item
+         key: [OBJECT_TYPE] Distinguished name in RenderingUtil
+         value: Search type [contain/select/equal/numeric] -->
+    <condition-of-filtering>
+        <prop key="LSP Name">contain</prop>
+        <prop key="IngressNode">contain</prop>
+        <prop key="EgressNode">contain</prop>
+        <prop key="Operational Status">select</prop>
+        <prop key="Facility Status">select</prop>
+        <prop key="Primary Path Name">contain</prop>
+        <prop key="Secondary Path Name">contain</prop>
+        <prop key="Active Path Name">contain</prop>
+    </condition-of-filtering>
+
+    <!-- Display string on UI
+         key: [OBJECT_TYPE] Distinguished name in RenderingUtil
+         value: Display Name -->
+    <display-name>
+        <prop key="LSP Name">LSP Name</prop>
+        <prop key="IngressNode">IngressNode</prop>
+        <prop key="EgressNode">EgressNode</prop>
+        <prop key="Operational Status">Operational Status</prop>
+        <prop key="Facility Status">Facility Status</prop>
+        <prop key="Primary Path Name">Primary Path Name</prop>
+        <prop key="Primary Hops IP Address">Primary Hops IP Address</prop>
+        <prop key="Secondary Path Name">Secondary Path Name</prop>
+        <prop key="Secondary Hops IP Address">Secondary Hops IP Address</prop>
+        <prop key="Active Path Name">Active Path Name</prop>
+    </display-name>
+</configuration>

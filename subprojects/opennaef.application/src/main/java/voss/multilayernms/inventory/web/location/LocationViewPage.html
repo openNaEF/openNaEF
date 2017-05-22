@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/">
+<head>
+    <title>Location View</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="blueprint/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/print.css" type="text/css" media="print"/>
+    <!--[if IE]>
+    <link rel="stylesheet" href="blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <link rel="stylesheet" href="blueprint/plugins/tabs/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/plugins/buttons/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="css/ui.base.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/tablesorter/style.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/common.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/commonprint.css" type="text/css" media="print"/>
+    <script type='text/javascript' src='js/jquery-1.3.1.min.js'></script>
+    <script type="text/javascript" src="js/ui.core.js"></script>
+    <script type="text/javascript" src="js/jquery.suggest.js"></script>
+    <script type='text/javascript' src='js/jquery.tablesorter.min.js'></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("dt.toggle").click(function () {
+                $("+dd", this).slideToggle("slow");
+            });
+            $("table.each").each(function () {
+                jQuery(this).find("tr:even").addClass("even");
+            });
+            $("dt.toggle").hover(
+                function () {
+                    $(this).addClass("ui-state-hover");
+                },
+                function () {
+                    $(this).removeClass("ui-state-hover");
+                }
+            )
+            $('dt.default-hide').each(function () {
+                $("+dd", this).toggle();
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="container">
+    <div id="hd" role="banner">
+        <h2><span wicket:id="breadcrumbList">
+            <a href="dummy" wicket:id="link"><span wicket:id="label"></span></a>
+            <span wicket:id="dash"></span></span></h2>
+    </div>
+    <div id="menu" role="menu">
+        <span wicket:id=category/> |
+        <a wicket:id="top" href="#">[Menu]</a> |
+        <a wicket:id="refresh" href="#">[Refresh]</a> |
+        <span wicket:id="buildingCode"/> |
+        <span wicket:id="popName"/>
+    </div>
+    <div id="bd" role="main">
+        <dl>
+            <wicket:enclosure child="locationBlock">
+                <dt wicket:id="locationBlock"
+                    class="toggle ui-state-default ui-corner-all"><span
+                        class="ui-icon ui-icon-circle-plus" style="float: left"></span>Location
+                </dt>
+                <dd>
+                    <ul class="boxlist">
+                        <li wicket:id="locationList"><a wicket:id="locationLink" href="#"><span
+                                wicket:id="locationName"></span></a></li>
+                    </ul>
+                </dd>
+            </wicket:enclosure>
+            <wicket:enclosure child="nodeBlock">
+                <dt wicket:id="nodeBlock"
+                    class="toggle ui-state-default ui-corner-all"><span
+                        class="ui-icon ui-icon-circle-plus" style="float: left"></span>
+                </dt>
+                <dd>
+                    <ul class="boxlist">
+                        <li wicket:id="nodeList"><a wicket:id="nodeLink" href="#"><span
+                                wicket:id="nodeName"></span></a></li>
+                    </ul>
+                </dd>
+            </wicket:enclosure>
+            <dt class="toggle ui-state-default ui-corner-all"><span
+                    class="ui-icon ui-icon-circle-plus" style="float: left"></span>Operation
+            </dt>
+            <dd>
+                <ul class="boxlist">
+                    <li><a wicket:id="addNode" href="#">Create Node</a></li>
+                    <li><a wicket:id="addLocation" href="#"><span wicket:id="label">add Child Location</span></a></li>
+                    <li><a wicket:id="editLocation" href="#">Edit this Location</a></li>
+                    <li><a wicket:id="deleteLocation" href="#">Delete  this Location</a></li>
+                </ul>
+            </dd>
+        </dl>
+    </div>
+    <div class="footer" role="contentinfo">
+        <small><a href="https://www.opennaef.io/">OpenNaEF</a></small>
+    </div>
+</div>
+</body>
+</html>

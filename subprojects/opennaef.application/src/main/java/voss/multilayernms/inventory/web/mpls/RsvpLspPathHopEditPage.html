@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/">
+<head>
+    <title>RSVP-LSP Path Edit</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="blueprint/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/print.css" type="text/css" media="print"/>
+    <!--[if IE]>
+    <link rel="stylesheet" href="blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <link rel="stylesheet" href="blueprint/plugins/tabs/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="blueprint/plugins/buttons/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="css/ui.base.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/common.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/commonprint.css" type="text/css" media="print"/>
+
+    <script type='text/javascript' src='js/jquery-1.3.1.min.js'></script>
+    <script type="text/javascript" src="js/ui.core.js"></script>
+    <script type='text/javascript' src='js/ui.datepicker.js'></script>
+    <script type='text/javascript' src='js/ui.datepicker-ja.js'></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#schedule_on_date").datepicker();
+            $("#on_date").datepicker();
+        });
+    </script>
+</head>
+
+<body>
+<div id="hd" role="banner">
+    <h1>RSVP-LSP Path Edit</h1>
+</div>
+<div id="bd" role="main">
+    <dl>
+        <dt class="ui-state-default ui-corner-all">RSVP-LSP Path Resource Pool</dt>
+        <dd>
+            <table>
+                <thead>
+                <tr>
+                    <th>Pool Name</th>
+                    <th>ID Range</th>
+                    <th>In-use ID</th>
+                    <th>Purpose</th>
+                    <th colspan="2">Last Edit Time</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td wicket:id="poolName"></td>
+                    <td wicket:id="range"></td>
+                    <td wicket:id="used" align="right"></td>
+                    <td wicket:id="purpose"></td>
+                    <td wicket:id="lastEditor"></td>
+                    <td><span wicket:id="lastEditTime" align="right"></span>
+                        <span wicket:id="version"></span></td>
+                </tr>
+                </tbody>
+            </table>
+        </dd>
+        <dt class="ui-state-default ui-corner-all">RSVP-LSP Path Edit</dt>
+        <dd>
+            <form wicket:id="backForm" name="backForm">
+                <button wicket:id="back" type="submit" tabindex="0" id="clear-button" class="negative span-6">
+                    <img src="blueprint/plugins/buttons/icons/cross.png" alt="Discard and back"/>Discard and back
+                </button>
+            </form>
+            <hr/>
+            <div wicket:id="feedback">Error detail here</div>
+            <form wicket:id="editForm" name="editForm">
+                <table>
+                    <tr>
+                        <th>Items</th>
+                        <th></th>
+                        <th>Overview</th>
+                    </tr>
+                    <tr>
+                        <td>RSVP-LSP Path Name</td>
+                        <td><input wicket:id="pathName" type="text" value="path_a_to_b"/></td>
+                        <td>RSVP-LSP Path Name (Unable to edit)</td>
+                    </tr>
+                    <tr>
+                        <td>Operational Status</td>
+                        <td>
+                            <div wicket:id="operStatus"><label><input
+                                    type="radio" name="stauts" value="reserve"/>Up</label></div>
+                        </td>
+                        <td>Operational Status of RSVP-LSP Path</td>
+                    </tr>
+                    <tr>
+                        <td>Bandwidth</td>
+                        <td><input wicket:id="bandwidth" type="text" value="1000000"/></td>
+                        <td>Bandwidth of RSVP-LSP Path</td>
+                    </tr>
+                    <tr>
+                        <td>RSVP-LSP Path Hops</td>
+                        <td>
+                            <table cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <th>(IP)</th>
+                                    <th>from</th>
+                                    <th>(IP)</th>
+                                    <th>to</th>
+                                    <th>Point to Point Link Name</th>
+                                </tr>
+                                <tr wicket:id="pathHops">
+                                    <td><span wicket:id="linkSourcePort"></span></td>
+                                    <td><span wicket:id="linkSourcePortIp"></span></td>
+                                    <td><span wicket:id="linkDestinationPort"></span></td>
+                                    <td><span wicket:id="linkDestinationPortIp"></span></td>
+                                    <td><span wicket:id="linkName"></span></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5">
+                                        <select wicket:id="ingressNodes"></select>
+                                        <input wicket:id="setIngress" type="submit" value="Set Ingress"/><br/>
+                                        <hr/>
+                                        <select wicket:id="links"></select>
+                                        <input wicket:id="addLast" type="submit" value="Add Last Hop"/><br/>
+                                        <hr/>
+                                        <input wicket:id="removeLast" type="submit" value="Delete Last Hop"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            Create P to P Link<br/>
+                            <button wicket:id="createPtoPLink" type="submit" tabindex="0" id="pushbutton2-button"
+                                    class="positive span-3">
+                                <img src="blueprint/plugins/buttons/icons/tick.png" alt="Apply"/>Create
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Note</td>
+                        <td><textarea wicket:id="noteArea" name="memo" rows="3" id="memo"></textarea></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <button wicket:id="proceed" type="submit" tabindex="0" id="pushbutton1-button"
+                                    class="positive span-3">
+                                <img src="blueprint/plugins/buttons/icons/tick.png" alt="Apply"/>OK
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </dd>
+    </dl>
+    <div class="footer" role="contentinfo">
+        <small><a href="https://www.opennaef.io/">OpenNaEF</a></small>
+    </div>
+</div>
+</body>
+</html>
